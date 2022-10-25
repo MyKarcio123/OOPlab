@@ -20,38 +20,35 @@ public class Animal {
     public MapDirection getOrientation(){ return orientation; }
     public Vector2d getPosition(){ return position; }
 
+    private boolean canMoveForward() {
+        return ((orientation == MapDirection.NORTH) && (position.getY() < 4)) ||
+                ((orientation == MapDirection.EAST) && (position.getX() < 4)) ||
+                ((orientation == MapDirection.SOUTH) && (position.getY() > 0)) ||
+                ((orientation == MapDirection.WEST) && (position.getX() > 0));
+    }
+
+    private boolean canMoveBackward() {
+        return ((orientation == MapDirection.NORTH) && (position.getY() > 0)) ||
+                ((orientation == MapDirection.EAST) && (position.getX() > 0)) ||
+                ((orientation == MapDirection.SOUTH) && (position.getY() < 4)) ||
+                ((orientation == MapDirection.WEST) && (position.getX() < 4));
+    }
+
     public void move(MoveDirection direction){
         switch (direction) {
-            case RIGHT:
-                orientation = orientation.next();
-                break;
-            case LEFT:
-                orientation = orientation.previous();
-                break;
-            case FORWARD:
-                if (orientation == MapDirection.NORTH && position.y < 4) {
-                    position = position.add(new Vector2d(0, 1));
-                } else if (orientation == MapDirection.EAST && position.x < 4) {
-                    position = position.add(new Vector2d(1, 0));
-                } else if (orientation == MapDirection.SOUTH && position.y > 0) {
-                    position = position.add(new Vector2d(0, -1));
-                } else if (orientation == MapDirection.WEST && position.x > 0) {
-                    position = position.add(new Vector2d(-1, 0));
+            case FORWARD -> {
+                if (canMoveForward()) {
+                    position = position.add(orientation.toUnitVector());
                 }
-                break;
-            case BACKWARD:
-                if (orientation == MapDirection.NORTH && position.y > 0) {
-                    position = position.add(new Vector2d(0, -1));
-                } else if (orientation == MapDirection.EAST && position.x > 0) {
-                    position = position.add(new Vector2d(-1, 0));
-                } else if (orientation == MapDirection.SOUTH && position.y < 4) {
-                    position = position.add(new Vector2d(0, 1));
-                } else if (orientation == MapDirection.WEST && position.x < 4) {
-                    position = position.add(new Vector2d(1, 0));
+            }
+            case BACKWARD -> {
+                if (canMoveBackward()) {
+                    position = position.subtract(orientation.toUnitVector());
                 }
-                break;
-            case NONE:
-                break;
+            }
+            case LEFT -> orientation = orientation.previous();
+            case RIGHT -> orientation = orientation.next();
+            case NONE -> {}
         }
     }
 }

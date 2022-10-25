@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.AnimalTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-10-21T11:05:51" hostname="DESKTOP-SRFM3J0" time="0.016">
+<testsuite name="agh.ics.oop.AnimalTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2022-10-25T20:49:44" hostname="DESKTOP-SRFM3J0" time="0.021">
   <properties/>
-  <testcase name="orientationTest()" classname="agh.ics.oop.AnimalTest" time="0.016"/>
+  <testcase name="orientationTest()" classname="agh.ics.oop.AnimalTest" time="0.017"/>
+  <testcase name="moveTest()" classname="agh.ics.oop.AnimalTest" time="0.003"/>
+  <testcase name="goingOutMap()" classname="agh.ics.oop.AnimalTest" time="0.001"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
