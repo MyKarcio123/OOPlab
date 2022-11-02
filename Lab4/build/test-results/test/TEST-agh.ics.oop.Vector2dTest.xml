@@ -1,47 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="agh.ics.oop.Vector2dTest" tests="41" skipped="0" failures="0" errors="0" timestamp="2022-10-26T16:27:48" hostname="LAPTOP-P67CLPRI" time="0.668">
+<testsuite name="agh.ics.oop.Vector2dTest" tests="41" skipped="0" failures="0" errors="0" timestamp="2022-11-02T20:31:22" hostname="DESKTOP-SRFM3J0" time="0.031">
   <properties/>
-  <testcase name="vectorLowerLeft_whenX1Y1X10Y_2_shouldReturnX1Y_2()" classname="agh.ics.oop.Vector2dTest" time="0.174"/>
+  <testcase name="vectorLowerLeft_whenX1Y1X10Y_2_shouldReturnX1Y_2()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
   <testcase name="vectorEqual_whenX1Y1X1Y1_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
-  <testcase name="vectorUpperRight_whenX1Y1X1Y1_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorLowerLeft_whenX1Y1X0Y2_shouldReturnX0Y1()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
-  <testcase name="vectorPrecedes_whenX1Y1X2Y2_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.004"/>
-  <testcase name="vectorSubtract_whenX1Y1X0Y_10_shouldReturnX1Y11()" classname="agh.ics.oop.Vector2dTest" time="0.003"/>
-  <testcase name="vectorAdd_whenX1Y1X0Y10_shouldReturnX1Y11()" classname="agh.ics.oop.Vector2dTest" time="0.06"/>
-  <testcase name="vectorPrecedes_whenX1Y1X0Y0_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.012"/>
-  <testcase name="vectorToString_whenX1Y1_shouldReturn1_1InBrackets()" classname="agh.ics.oop.Vector2dTest" time="0.08"/>
-  <testcase name="vectorPrecedes_whenX1Y1X1Y2_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.011"/>
-  <testcase name="vectorOpposite_whenNegative_shouldReturnPositive()" classname="agh.ics.oop.Vector2dTest" time="0.005"/>
-  <testcase name="vectorLowerLeft_whenX1Y1X1Y1_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.004"/>
-  <testcase name="vectorFollows_whenX1Y1X1Y1_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.003"/>
-  <testcase name="vectorSubtract_whenX1Y1X0Y0_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorLowerLeft_whenX1Y1X_10Y0_shouldReturnX_10Y0()" classname="agh.ics.oop.Vector2dTest" time="0.005"/>
-  <testcase name="vectorPrecedes_whenX1Y1X2Y1_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.006"/>
-  <testcase name="vectorOpposite_whenZero_shouldReturnZero()" classname="agh.ics.oop.Vector2dTest" time="0.003"/>
-  <testcase name="vectorAdd_whenX1Y1X0Y_10_shouldReturnX1Y_9()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorPrecedes_whenX1Y1X1Y1_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.003"/>
-  <testcase name="vectorSubtract_whenX1Y1X_5Y10_shouldReturnX6Y_9()" classname="agh.ics.oop.Vector2dTest" time="0.008"/>
-  <testcase name="vectorAdd_whenX1Y1X_5Y10_shouldReturnX_4Y11()" classname="agh.ics.oop.Vector2dTest" time="0.004"/>
-  <testcase name="vectorEqual_whenX1Y1X1Y0_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.004"/>
-  <testcase name="vectorFollows_whenX1Y1X0Y0_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.006"/>
-  <testcase name="vectorAdd_whenX1Y1X0y0_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.004"/>
-  <testcase name="vectorUpperRight_whenX1Y1X_1Y_1_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorFollows_whenX1Y1X0Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorFollows_whenX1Y1X1Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.005"/>
-  <testcase name="vectorEqual_whenX1Y1AndSecondIsArrayOfVectorObject_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.005"/>
-  <testcase name="vectorEqual_whenX1Y1AndSecondIsDifferentObject_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorEqual_whenX1Y1AndSecondIsNotAnObject_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.003"/>
-  <testcase name="vectorSubtract_whenX1Y1X10Y0_shouldReturnX_9Y1()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
-  <testcase name="vectorFollows_whenX1Y1X2Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorOpposite_whenPositive_shouldReturnNegative()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
-  <testcase name="vectorUpperRight_whenX1Y1X2Y2_shouldReturnX2Y2()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorPrecedes_whenX1Y1X0Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorLowerLeft_whenX1Y1X3y5_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorAdd_whenX1Y1X10Y0_shouldReturnX11Y1()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorFollows_whenX1Y1X2Y1_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
-  <testcase name="vectorUpperRight_whenX1Y1X0Y2_shouldReturnX1Y2()" classname="agh.ics.oop.Vector2dTest" time="0.011"/>
-  <testcase name="vectorSubtract_whenX1Y1X0Y10_shouldReturnX1Y_9()" classname="agh.ics.oop.Vector2dTest" time="0.002"/>
-  <testcase name="vectorUpperRight_whenX1Y1X2Y1_shouldReturnX2Y1()" classname="agh.ics.oop.Vector2dTest" time="0.003"/>
+  <testcase name="vectorUpperRight_whenX1Y1X1Y1_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorLowerLeft_whenX1Y1X0Y2_shouldReturnX0Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorPrecedes_whenX1Y1X2Y2_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorSubtract_whenX1Y1X0Y_10_shouldReturnX1Y11()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorAdd_whenX1Y1X0Y10_shouldReturnX1Y11()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorPrecedes_whenX1Y1X0Y0_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorToString_whenX1Y1_shouldReturn1_1InBrackets()" classname="agh.ics.oop.Vector2dTest" time="0.004"/>
+  <testcase name="vectorPrecedes_whenX1Y1X1Y2_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorOpposite_whenNegative_shouldReturnPositive()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorLowerLeft_whenX1Y1X1Y1_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorFollows_whenX1Y1X1Y1_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorSubtract_whenX1Y1X0Y0_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorLowerLeft_whenX1Y1X_10Y0_shouldReturnX_10Y0()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorPrecedes_whenX1Y1X2Y1_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorOpposite_whenZero_shouldReturnZero()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorAdd_whenX1Y1X0Y_10_shouldReturnX1Y_9()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorPrecedes_whenX1Y1X1Y1_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorSubtract_whenX1Y1X_5Y10_shouldReturnX6Y_9()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorAdd_whenX1Y1X_5Y10_shouldReturnX_4Y11()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorEqual_whenX1Y1X1Y0_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorFollows_whenX1Y1X0Y0_shouldReturnTrue()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorAdd_whenX1Y1X0y0_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorUpperRight_whenX1Y1X_1Y_1_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorFollows_whenX1Y1X0Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorFollows_whenX1Y1X1Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorEqual_whenX1Y1AndSecondIsArrayOfVectorObject_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorEqual_whenX1Y1AndSecondIsDifferentObject_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorEqual_whenX1Y1AndSecondIsNotAnObject_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorSubtract_whenX1Y1X10Y0_shouldReturnX_9Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorFollows_whenX1Y1X2Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorOpposite_whenPositive_shouldReturnNegative()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorUpperRight_whenX1Y1X2Y2_shouldReturnX2Y2()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorPrecedes_whenX1Y1X0Y2_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorLowerLeft_whenX1Y1X3y5_shouldReturnX1Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorAdd_whenX1Y1X10Y0_shouldReturnX11Y1()" classname="agh.ics.oop.Vector2dTest" time="0.001"/>
+  <testcase name="vectorFollows_whenX1Y1X2Y1_shouldReturnFalse()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorUpperRight_whenX1Y1X0Y2_shouldReturnX1Y2()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorSubtract_whenX1Y1X0Y10_shouldReturnX1Y_9()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
+  <testcase name="vectorUpperRight_whenX1Y1X2Y1_shouldReturnX2Y1()" classname="agh.ics.oop.Vector2dTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

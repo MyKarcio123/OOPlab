@@ -3,16 +3,12 @@ package agh.ics.oop;
 public class Animal {
     private MapDirection orientation;
     private Vector2d position;
-    static IWorldMap worldMap;
+    static IWorldMap map;
 
-    public Animal(IWorldMap map,Vector2d initialPosition) throws IllegalAccessException {
-        if(!map.isOccupied(initialPosition)) {
-            orientation = MapDirection.NORTH;
-            position = initialPosition;
-            worldMap = map;
-        }else{
-            throw new IllegalAccessException("In this position there is an animal"); // nie robić w konstruktorze tylko w obiekcie tworzącym animala
-        }
+    public Animal(IWorldMap worldMap,Vector2d initialPosition){
+        orientation = MapDirection.NORTH;
+        position = initialPosition;
+        map = worldMap;
     }
 
     @Override
@@ -30,18 +26,24 @@ public class Animal {
         switch (direction) {
             case FORWARD -> {
                 Vector2d newPosition = position.add(orientation.toUnitVector());
-                if (worldMap.canMoveTo(newPosition)){
+                if (map.canMoveTo(newPosition)){
                     position = newPosition;
+                    map.place(this);
                 }
             }
             case BACKWARD -> {
                 Vector2d newPosition = position.subtract(orientation.toUnitVector());
-                if (worldMap.canMoveTo(newPosition)) {
+                if (map.canMoveTo(newPosition)) {
                     position = newPosition;
+                    map.place(this);
                 }
             }
-            case LEFT -> orientation = orientation.previous();
-            case RIGHT -> orientation = orientation.next();
+            case LEFT -> {
+                orientation = orientation.previous();
+            }
+            case RIGHT -> {
+                orientation = orientation.next();
+            }
             case NONE -> {}
         }
     }

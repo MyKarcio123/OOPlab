@@ -13,7 +13,7 @@ class AnimalTest {
     Animal animal;
     @BeforeEach
     void setUp(){
-        animal = new Animal();
+        animal = new Animal(new RectangularMap(4, 4),new Vector2d(2,2));
     }
 
     @Test

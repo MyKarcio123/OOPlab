@@ -1,35 +1,20 @@
 package agh.ics.oop;
 
+import agh.ics.oop.renderEngine.Game;
+
 import java.util.List;
 
 import static agh.ics.oop.OptionsParser.parse;
 
 public class World {
     public static void main(String[] args){
-        Animal pig = new Animal();
-        List <MoveDirection> directions = parse(args);
-        for(MoveDirection direction : directions){
-            pig.move(direction);
-        }
-        System.out.println(pig);
-    }
-    public static void run(MoveDirection[] args){
-        for(MoveDirection argument : args){
-            switch (argument) {
-                case FORWARD -> System.out.println("Zwierzak idzie do przodu");
-                case BACKWARD -> System.out.println("Zwierzak idzie do tylu");
-                case LEFT -> System.out.println("Zwierzak skreca w lewo");
-                case RIGHT -> System.out.println("Zwierzak skreca w prawo");
-            }
-        }
-    }
-    public static MoveDirection conversion(String command){
-        return switch (command) {
-            case "f" -> MoveDirection.FORWARD;
-            case "b" -> MoveDirection.BACKWARD;
-            case "l" -> MoveDirection.LEFT;
-            case "r" -> MoveDirection.RIGHT;
-            default -> MoveDirection.NONE;
-        };
+        Game gameEngine = new Game(1280,720,"test");
+        gameEngine.run();
+
+        List<MoveDirection> directions = parse(args);
+        IWorldMap map = new RectangularMap(10, 5);
+        Vector2d[] positions = { new Vector2d(2,2), new Vector2d(3,4) };
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
     }
 }
