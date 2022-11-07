@@ -1,4 +1,6 @@
+/*
 package agh.ics.oop;
+
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,6 +51,7 @@ class AnimalTest {
         for(MoveDirection direction : directions){
             animal.move(direction);
         }
-        assertEquals(new Vector2d(2,4),animal.getPosition());
+        assertEquals(new Vector2d(2,4),animal.getPositionOnPlane());
     }
 }
+*/

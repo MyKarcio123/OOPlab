@@ -7,7 +7,7 @@ import org.lwjgl.system.MemoryUtil;
 
 public class  Window {
 
-    public long windowID;
+    public static long windowID;
 
     public void createWindow(int width, int height, String title){
         if(!GLFW.glfwInit()){

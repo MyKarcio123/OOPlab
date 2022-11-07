@@ -3,7 +3,7 @@ package agh.ics.oop.entities;
 import agh.ics.oop.models.TexturedModel;
 import org.joml.Vector3f;
 
-public class Entity {
+public abstract class Entity {
     private TexturedModel model;
     private Vector3f position;
     private float rotX,rotY,rotZ;
@@ -16,6 +16,14 @@ public class Entity {
         this.rotY = rotY;
         this.rotZ = rotZ;
         this.scale = scale;
+    }
+    public Entity(TexturedModel model){
+        this.model = model;
+        this.position = new Vector3f(0,1,0);
+        this.rotX = 0;
+        this.rotY = 45;
+        this.rotZ = 0;
+        this.scale = 1f;
     }
 
     public void increasePosition(float dx, float dy, float dz){

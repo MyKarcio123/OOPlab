@@ -1,60 +1,63 @@
 package agh.ics.oop.renderEngine;
 
-import agh.ics.oop.Vector2d;
+import agh.ics.oop.*;
+import agh.ics.oop.entities.Camera;
 import agh.ics.oop.entities.Entity;
-import agh.ics.oop.models.RawModel;
 import agh.ics.oop.models.Texture;
 import agh.ics.oop.models.TexturedModel;
 import agh.ics.oop.shaders.StaticShader;
 import org.joml.Vector3f;
+
+import java.util.List;
+
+import static agh.ics.oop.renderEngine.Terrain.makeTerrain;
 
 public class Game{
     private final Window window;
     private final Loader loader;
     private final Renderer renderer;
     private final StaticShader shader;
-    private Entity entity;
+    private final Camera camera;
 
-    public Game(int width, int height, String title){
+    private final List<Entity> entities;
+
+    private final List<Entity> entitiesToSimulate;
+    private final List<MoveDirection> directions;
+    static IWorldMap map;
+    private final Vector2d[] positionsOnPlane;
+
+    public Game(int width, int height, String title, List<MoveDirection> directions, IWorldMap map, Vector2d[] positionsOnPlane, String[] objectsPaths, String[] texturesPaths){
+        this.directions = directions;
+        this.map = map;
+        this.positionsOnPlane = positionsOnPlane;
         window = new Window();
         window.createWindow(width,height,title);
 
         loader = new Loader();
-        renderer = new Renderer();
         shader = new StaticShader();
+        renderer = new Renderer(shader);
 
+        camera = new Camera();
+        Texture[] textures = new Texture[texturesPaths.length];
+        for(int i=0;i<texturesPaths.length;++i){
+            textures[i]=new Texture(texturesPaths[i]);
+        }
+        entities = EntitiesLoader.loadEntities(ObjectLoader.loadObjModels(objectsPaths,textures,loader));
+        entitiesToSimulate=entities;
+        Entity terrain = makeTerrain((RectangularMap) map,new Texture("res/grassTexture.jpg"),loader);
+        entities.add(terrain);
     }
     private void start(){
-
-        float[] vertices = {
-                -0.5f,0.5f,0f,
-                -0.5f,-0.5f,0f,
-                0.5f,-0.5f,0f,
-                0.5f,0.5f,0f
-        };
-
-        int[] indices = {
-                0,1,3,
-                3,1,2
-        };
-
-        float[] uvs = {
-                0,0,
-                0,1,
-                1,1,
-                1,0
-        };
-        RawModel model = loader.loadToVAO(vertices,uvs,indices);
-        Texture texture = new Texture("res/dirt.png");
-        TexturedModel texturedModel = new TexturedModel(model,texture);
-        entity = new Entity(texturedModel,new Vector3f(-1,0,0),0,0,0,1);
+        IEngine engine = new SimulationEngine(directions,map,positionsOnPlane,entitiesToSimulate);
+        engine.run();
     }
     private void update(){
-        entity.increasePosition(0.002f,0,0);
-        entity.increaseRotation(0,1,0);
+        camera.calculateCameraMove();
+        camera.move();
         renderer.prepare();
         shader.start();
-        renderer.render(entity,shader);
+        shader.loadViewMatrix(camera);
+        renderEntitiesOnMap();
         shader.stop();
         window.updateWindow();
     }
@@ -70,5 +73,10 @@ public class Game{
             update();
         }
         end();
+    }
+    private void renderEntitiesOnMap(){
+        for(Entity entity:entities){
+            renderer.render(entity,shader);
+        }
     }
 }
