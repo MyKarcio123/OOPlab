@@ -12,13 +12,14 @@ public class SimulationEngine implements IEngine{
     private final List <MoveDirection> directions;
     private final IWorldMap map;
     private final Vector2d[] positions;
-
     private final List<Entity> entities;
+    private int directionIndex = 0;
     public SimulationEngine(List<MoveDirection> directions,IWorldMap map, Vector2d[] positions,List<Entity> entities){
         this.directions=directions;
         this.map=map;
         this.positions=positions;
         this.entities=entities;
+        addAnimalsToMap();
     }
     private void addAnimalsToMap(){
         int index=0;
@@ -29,38 +30,28 @@ public class SimulationEngine implements IEngine{
             currentEnttity.setRotY(0);
             currentEnttity.setRotZ(0);
             if(index==0) {
-                currentEnttity.setScale(0.2f);
-            }else{
                 currentEnttity.setScale(0.02f);
+            }else{
+                currentEnttity.setScale(0.2f);
             }
             currentEnttity.setPositionOnPlane(position);
             currentEnttity.resetOrientation();
             map.place(currentEnttity);
-            System.out.println(currentEnttity.getPositionOnPlane());
             index++;
         }
     }
-    private int updateAnimalIndex(int animalIndex){
-        if(animalIndex+1>=positions.length){
-            return 0;
-        }else{
-            return animalIndex+1;
-        }
-    }
     private void moveAnimals(){
-        int animalIndex=0;
-        for(MoveDirection direction : directions){
-            Animal currentAnimal = (Animal) map.objectAt(positions[animalIndex]);
-            if(currentAnimal != null){
-                currentAnimal.move(direction);
-                positions[animalIndex]=currentAnimal.getPositionOnPlane();
-                animalIndex = updateAnimalIndex(animalIndex);
-            }
-            System.out.println(map);
+        if(directionIndex>=directions.size()){return;}
+        MoveDirection direction = directions.get(directionIndex);
+        Animal currentAnimal = (Animal) map.objectAt(positions[directionIndex%entities.size()]);
+        if(currentAnimal != null){
+            currentAnimal.move(direction);
+            positions[directionIndex%entities.size()]=currentAnimal.getPositionOnPlane();
         }
+        directionIndex++;
+        System.out.println(map);
     }
     public void run(){
-        addAnimalsToMap();
         moveAnimals();
     }
 }

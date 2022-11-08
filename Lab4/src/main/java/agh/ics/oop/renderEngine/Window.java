@@ -40,4 +40,8 @@ public class  Window {
     public boolean shouldClose(){
         return GLFW.glfwWindowShouldClose(windowID);
     }
+
+    public static long getWindowID() {
+        return windowID;
+    }
 }

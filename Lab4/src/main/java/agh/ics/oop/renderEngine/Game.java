@@ -7,10 +7,14 @@ import agh.ics.oop.models.Texture;
 import agh.ics.oop.models.TexturedModel;
 import agh.ics.oop.shaders.StaticShader;
 import org.joml.Vector3f;
+import org.lwjgl.glfw.GLFW;
+import org.lwjgl.glfw.GLFWKeyCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static agh.ics.oop.renderEngine.Terrain.makeTerrain;
+import static org.lwjgl.glfw.GLFW.*;
 
 public class Game{
     private final Window window;
@@ -25,7 +29,9 @@ public class Game{
     private final List<MoveDirection> directions;
     static IWorldMap map;
     private final Vector2d[] positionsOnPlane;
+    private SimulationEngine engine;
 
+    private static int oldState = GLFW_RELEASE;
     public Game(int width, int height, String title, List<MoveDirection> directions, IWorldMap map, Vector2d[] positionsOnPlane, String[] objectsPaths, String[] texturesPaths){
         this.directions = directions;
         this.map = map;
@@ -43,23 +49,17 @@ public class Game{
             textures[i]=new Texture(texturesPaths[i]);
         }
         entities = EntitiesLoader.loadEntities(ObjectLoader.loadObjModels(objectsPaths,textures,loader));
-        entitiesToSimulate=entities;
+        entitiesToSimulate=new ArrayList<>(entities);
         Entity terrain = makeTerrain((RectangularMap) map,new Texture("res/grassTexture.jpg"),loader);
         entities.add(terrain);
+
     }
     private void start(){
-        IEngine engine = new SimulationEngine(directions,map,positionsOnPlane,entitiesToSimulate);
-        engine.run();
+        engine = new SimulationEngine(directions,map,positionsOnPlane,entitiesToSimulate);
     }
     private void update(){
-        camera.calculateCameraMove();
-        camera.move();
-        renderer.prepare();
-        shader.start();
-        shader.loadViewMatrix(camera);
-        renderEntitiesOnMap();
-        shader.stop();
-        window.updateWindow();
+        graphicEnigneOperations();
+        glfwSetKeyCallback();
     }
     private void end(){
         shader.cleanUp();
@@ -78,5 +78,22 @@ public class Game{
         for(Entity entity:entities){
             renderer.render(entity,shader);
         }
+    }
+    private void graphicEnigneOperations(){
+        camera.calculateCameraMove();
+        camera.move();
+        renderer.prepare();
+        shader.start();
+        shader.loadViewMatrix(camera);
+        renderEntitiesOnMap();
+        shader.stop();
+        window.updateWindow();
+    }
+    private void glfwSetKeyCallback(){
+        int state = GLFW.glfwGetMouseButton(Window.windowID,GLFW.GLFW_MOUSE_BUTTON_LEFT);
+        if(state==GLFW_RELEASE && oldState == GLFW_PRESS){
+            engine.run();
+        }
+        oldState=state;
     }
 }

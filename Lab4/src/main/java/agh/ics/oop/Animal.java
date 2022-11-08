@@ -64,6 +64,5 @@ public class Animal extends Entity {
             }
             case NONE -> {}
         }
-        System.out.println(this.getPosition().toString());
     }
 }
