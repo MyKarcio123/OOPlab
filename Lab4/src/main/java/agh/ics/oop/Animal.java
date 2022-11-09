@@ -18,6 +18,13 @@ public class Animal extends Entity {
     public Animal(IWorldMap worldMap, TexturedModel model){
         super(model);
         map=worldMap;
+        orientation = MapDirection.NORTH;
+    }
+    public Animal(IWorldMap worldMap, Vector2d positionOnPlane){
+        super(positionOnPlane);
+        this.positionOnPlane=positionOnPlane;
+        map=worldMap;
+        orientation = MapDirection.NORTH;
     }
     @Override
     public String toString() {

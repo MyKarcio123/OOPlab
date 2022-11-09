@@ -1,4 +1,3 @@
-/*
 package agh.ics.oop;
 
 
@@ -54,4 +53,3 @@ class AnimalTest {
         assertEquals(new Vector2d(2,4),animal.getPositionOnPlane());
     }
 }
-*/

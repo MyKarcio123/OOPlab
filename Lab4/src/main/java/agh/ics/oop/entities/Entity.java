@@ -1,5 +1,6 @@
 package agh.ics.oop.entities;
 
+import agh.ics.oop.Vector2d;
 import agh.ics.oop.models.TexturedModel;
 import org.joml.Vector3f;
 
@@ -20,6 +21,13 @@ public abstract class Entity {
     public Entity(TexturedModel model){
         this.model = model;
         this.position = new Vector3f(0,1,0);
+        this.rotX = 0;
+        this.rotY = 45;
+        this.rotZ = 0;
+        this.scale = 1f;
+    }
+    public Entity(Vector2d positionOnPlane){
+        this.position = new Vector3f(positionOnPlane.getX(),1,positionOnPlane.getY());
         this.rotX = 0;
         this.rotY = 45;
         this.rotZ = 0;
