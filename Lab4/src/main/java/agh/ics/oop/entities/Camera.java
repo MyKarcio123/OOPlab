@@ -21,9 +21,9 @@ public class Camera {
     private float beforeMouseX = 0;
     private float beforeMouseY = 0;
     public Camera(){
-        position = new Vector3f(0,0,0);
-        pitch = 0.0f;
-        yaw = 0.0f;
+        position = new Vector3f(4.62f,3f,11.88f);
+        pitch = 25.0f;
+        yaw = 51.0f;
         roll = 0.0f;
     }
 
