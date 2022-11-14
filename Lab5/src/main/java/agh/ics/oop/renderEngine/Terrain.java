@@ -1,9 +1,6 @@
 package agh.ics.oop.renderEngine;
 
-import agh.ics.oop.IEngine;
-import agh.ics.oop.IWorldMap;
-import agh.ics.oop.RectangularMap;
-import agh.ics.oop.Vector2d;
+import agh.ics.oop.*;
 import agh.ics.oop.entities.Entity;
 import agh.ics.oop.entities.FaceType;
 import agh.ics.oop.entities.Object;
@@ -20,32 +17,36 @@ import java.util.List;
 import static agh.ics.oop.mathHelper.ListOperations.toFloatArray;
 
 public class Terrain {
-    private static List<Float> vertices = new ArrayList<Float>();
-    private static List<Float> uvs = new ArrayList<Float>();
-    private static List<Integer> indices = new ArrayList<Integer>();
+    private static List<Float> vertices;
+    private static List<Float> uvs;
+    private static List<Integer> indices;
+
     // maksymalnie 5 ścian sześcianu, górna jest obowiązkowa w każdym sześcianie, pozostałe tylko na krawędziach,
-    public static Entity makeTerrain(RectangularMap map, Texture terrainTexture, Loader loader){
+    public static Entity makeTerrain(IWorldMap map, Texture terrainTexture, Loader loader){
+        vertices = new ArrayList<Float>();
+        uvs = new ArrayList<Float>();
+        indices = new ArrayList<Integer>();
         Vector2d leftDownCorner = map.getLeftBottomCorner();
         Vector2d rightTopCorner = map.getRightTopCorner();
-        for(int i=leftDownCorner.getY();i<=rightTopCorner.getY();++i){
-            for(int j=leftDownCorner.getX();j<=rightTopCorner.getX();++j){
+        for(int i=leftDownCorner.getY();i<rightTopCorner.getY()+1;++i){
+            for(int j=leftDownCorner.getX();j<rightTopCorner.getX()+1;++j){
                 //TOP FACE
-                AddFaceToTerrain(new Vector3f(j,0,i),FaceType.TOP);
+                AddFaceToTerrain(new Vector3f(j,0,i),FaceType.TOP,map);
                 //LEFT FACE
                 if(j == leftDownCorner.getX()){
-                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.LEFT);
+                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.LEFT,map);
                 }
                 //RIGHT FACE
                 if(j == rightTopCorner.getX()){
-                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.RIGHT);
+                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.RIGHT,map);
                 }
                 //FRONT FACE
                 if(i == leftDownCorner.getY()){
-                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.FRONT);
+                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.FRONT,map);
                 }
                 //BACK FACE
                 if(i == rightTopCorner.getY()){
-                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.BACK);
+                    AddFaceToTerrain(new Vector3f(j,0,i),FaceType.BACK,map);
                 }
             }
         }
@@ -54,10 +55,11 @@ public class Terrain {
         int[] indicesArray = indices.stream().mapToInt(Integer::intValue).toArray();
         RawModel terrainModel = loader.loadToVAO(verticesArray,uvsArray,indicesArray);
         TexturedModel texturedModel = new TexturedModel(terrainModel,terrainTexture);
-        return new Object(texturedModel,new Vector3f(leftDownCorner.getX(),0,leftDownCorner.getY()),0,0,0,1);
+        System.out.println("MAP POSITION : " + leftDownCorner.getX() + "  " + leftDownCorner.getY());
+        return new Object(texturedModel,new Vector3f(0,0,0),0,0,0,1);
     }
 
-    private static void AddFaceToTerrain(Vector3f position, FaceType faceType){
+    private static void AddFaceToTerrain(Vector3f position, FaceType faceType,IWorldMap map){
         int vertexIndex=vertices.size()/3;
         for(int i=0;i<4;++i) {
             int index=i;
@@ -76,18 +78,33 @@ public class Terrain {
         indices.add(1+vertexIndex);
         indices.add(3+vertexIndex);
         if(faceType==FaceType.TOP) {
-            //LEFT TOP
-            uvs.add(0.25f);
-            uvs.add(0f);
-            //LEFT DOWN
-            uvs.add(0.25f);
-            uvs.add(0.33f);
-            //RIGHT TOP
-            uvs.add(0.50f);
-            uvs.add(0f);
-            //RIGHT DOWN
-            uvs.add(0.50f);
-            uvs.add(0.33f);
+            if(map.isGrass(new Vector2d((int)position.x,(int)position.z))){
+                //LEFT TOP
+                uvs.add(0.25f);
+                uvs.add(0f);
+                //LEFT DOWN
+                uvs.add(0.25f);
+                uvs.add(0.33f);
+                //RIGHT TOP
+                uvs.add(0.50f);
+                uvs.add(0f);
+                //RIGHT DOWN
+                uvs.add(0.50f);
+                uvs.add(0.33f);
+            }else{
+                //LEFT TOP
+                uvs.add(0.25f);
+                uvs.add(0.66f);
+                //LEFT DOWN
+                uvs.add(0.25f);
+                uvs.add(1f);
+                //RIGHT TOP
+                uvs.add(0.50f);
+                uvs.add(0.66f);
+                //RIGHT DOWN
+                uvs.add(0.50f);
+                uvs.add(1f);
+            }
         }else{
             //LEFT TOP
             uvs.add(0.25f);

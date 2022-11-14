@@ -45,7 +45,7 @@ public class Loader {
         vbos.add(vboID);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER,vboID);
         FloatBuffer buffer = storeDataInFloatBuffer(data);
-        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,buffer,GL15.GL_STATIC_DRAW);
+        GL15.glBufferData(GL15.GL_ARRAY_BUFFER,buffer,GL15.GL_DYNAMIC_DRAW);
         GL20.glVertexAttribPointer(attributeNumber,coordinateSize, GL11.GL_FLOAT,false,0,0);
         GL15.glBindBuffer(GL15.GL_ARRAY_BUFFER,0);
     }

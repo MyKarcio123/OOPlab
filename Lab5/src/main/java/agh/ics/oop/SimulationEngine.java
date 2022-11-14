@@ -20,6 +20,7 @@ public class SimulationEngine implements IEngine{
         this.positions=positions;
         this.entities=entities;
         addAnimalsToMap();
+        System.out.println(map);
     }
     private void addAnimalsToMap(){
         int index=0;

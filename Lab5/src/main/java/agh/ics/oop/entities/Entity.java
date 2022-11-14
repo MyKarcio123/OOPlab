@@ -22,14 +22,14 @@ public abstract class Entity {
         this.model = model;
         this.position = new Vector3f(0,1,0);
         this.rotX = 0;
-        this.rotY = 45;
+        this.rotY = 0;
         this.rotZ = 0;
         this.scale = 1f;
     }
     public Entity(Vector2d positionOnPlane){
         this.position = new Vector3f(positionOnPlane.getX(),1,positionOnPlane.getY());
         this.rotX = 0;
-        this.rotY = 45;
+        this.rotY = 0;
         this.rotZ = 0;
         this.scale = 1f;
     }

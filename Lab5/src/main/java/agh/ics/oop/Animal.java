@@ -51,6 +51,9 @@ public class Animal extends Entity {
                     positionOnPlane = newPosition;
                     setPosition(new Vector3f(newPosition.getX()+0.5f,1,newPosition.getY()+0.5f));
                     map.place(this);
+                    if(map.isGrass(newPosition)){
+                        ((GrassField)map).eatGrass(newPosition);
+                    }
                 }
             }
             case BACKWARD -> {
@@ -59,6 +62,9 @@ public class Animal extends Entity {
                     positionOnPlane = newPosition;
                     setPosition(new Vector3f(newPosition.getX()+0.5f,1,newPosition.getY()+0.5f));
                     map.place(this);
+                    if(map.isGrass(newPosition)){
+                        ((GrassField)map).eatGrass(newPosition);
+                    }
                 }
             }
             case LEFT -> {

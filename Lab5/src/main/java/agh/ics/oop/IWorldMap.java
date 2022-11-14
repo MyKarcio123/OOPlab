@@ -37,6 +37,10 @@ public interface IWorldMap {
      */
     boolean isOccupied(Vector2d position);
 
+    default boolean isGrass(Vector2d position){
+        return false;
+    }
+
     /**
      * Return an object at a given position.
      *
@@ -45,4 +49,8 @@ public interface IWorldMap {
      * @return Object or null if the position is not occupied.
      */
     Object objectAt(Vector2d position);
+
+    Vector2d getLeftBottomCorner();
+
+    Vector2d getRightTopCorner();
 }

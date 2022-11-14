@@ -30,7 +30,7 @@ public class Game{
     static IWorldMap map;
     private final Vector2d[] positionsOnPlane;
     private SimulationEngine engine;
-
+    private Entity terrain;
     private static int oldState = GLFW_RELEASE;
     public Game(int width, int height, String title, List<MoveDirection> directions, IWorldMap map, Vector2d[] positionsOnPlane, String[] objectsPaths, String[] texturesPaths){
         this.directions = directions;
@@ -50,9 +50,7 @@ public class Game{
         }
         entities = EntitiesLoader.loadEntities(ObjectLoader.loadObjModels(objectsPaths,textures,loader));
         entitiesToSimulate=new ArrayList<>(entities);
-        Entity terrain = makeTerrain((RectangularMap) map,new Texture("res/grassTexture.jpg"),loader);
-        entities.add(terrain);
-
+        terrain = makeTerrain( map,new Texture("res/grassTexture.jpg"),loader);
     }
     private void start(){
         engine = new SimulationEngine(directions,map,positionsOnPlane,entitiesToSimulate);
@@ -77,6 +75,7 @@ public class Game{
     private void renderEntitiesOnMap(){
         for(Entity entity:entities){
             renderer.render(entity,shader);
+            renderer.render(terrain,shader);
         }
     }
     private void graphicEnigneOperations(){
@@ -93,6 +92,7 @@ public class Game{
         int state = GLFW.glfwGetMouseButton(Window.windowID,GLFW.GLFW_MOUSE_BUTTON_LEFT);
         if(state==GLFW_RELEASE && oldState == GLFW_PRESS){
             engine.run();
+            terrain = makeTerrain(map,new Texture("res/grassTexture.jpg"),loader);
         }
         oldState=state;
     }
