@@ -39,11 +39,24 @@ public abstract class Entity {
         this.position.y+=dy;
         this.position.z+=dz;
     }
+    public void increasePosition(Vector3f d){
+        this.position.x+=d.x;
+        this.position.y+=d.y;
+        this.position.z+=d.z;
+    }
 
     public void increaseRotation(float dx, float dy, float dz){
         this.rotX+=dx;
         this.rotY+=dy;
         this.rotZ+=dz;
+    }
+    public void increaseRotation(Vector3f d){
+        this.rotX+=d.x;
+        this.rotY+=d.y;
+        this.rotZ+=d.z;
+    }
+    public Vector3f getRotation(){
+        return new Vector3f(rotX,rotY,rotZ);
     }
     public TexturedModel getModel() {
         return model;
@@ -91,5 +104,10 @@ public abstract class Entity {
 
     public void setScale(float scale) {
         this.scale = scale;
+    }
+    public void setRotation(Vector3f rot){
+        this.rotX=rot.x;
+        this.rotY=rot.y;
+        this.rotZ=rot.z;
     }
 }

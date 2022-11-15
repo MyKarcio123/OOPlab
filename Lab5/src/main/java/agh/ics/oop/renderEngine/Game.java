@@ -31,6 +31,8 @@ public class Game{
     private final Vector2d[] positionsOnPlane;
     private SimulationEngine engine;
     private Entity terrain;
+
+    public static AnimationController animationController;
     private static int oldState = GLFW_RELEASE;
     public Game(int width, int height, String title, List<MoveDirection> directions, IWorldMap map, Vector2d[] positionsOnPlane, String[] objectsPaths, String[] texturesPaths){
         this.directions = directions;
@@ -50,14 +52,17 @@ public class Game{
         }
         entities = EntitiesLoader.loadEntities(ObjectLoader.loadObjModels(objectsPaths,textures,loader));
         entitiesToSimulate=new ArrayList<>(entities);
-        terrain = makeTerrain( map,new Texture("res/grassTexture.jpg"),loader);
+
+        animationController = new AnimationController();
     }
     private void start(){
         engine = new SimulationEngine(directions,map,positionsOnPlane,entitiesToSimulate);
+        terrain = makeTerrain(map,new Texture("res/grassTexture.jpg"),loader);
     }
     private void update(){
         graphicEnigneOperations();
         glfwSetKeyCallback();
+        animationController.performCurrentAnimation();
     }
     private void end(){
         shader.cleanUp();
@@ -90,7 +95,7 @@ public class Game{
     }
     private void glfwSetKeyCallback(){
         int state = GLFW.glfwGetMouseButton(Window.windowID,GLFW.GLFW_MOUSE_BUTTON_LEFT);
-        if(state==GLFW_RELEASE && oldState == GLFW_PRESS){
+        if(state==GLFW_RELEASE && oldState == GLFW_PRESS && !animationController.isAtAnimation()){
             engine.run();
             terrain = makeTerrain(map,new Texture("res/grassTexture.jpg"),loader);
         }

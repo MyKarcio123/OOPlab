@@ -2,9 +2,11 @@ package agh.ics.oop;
 
 import agh.ics.oop.entities.Entity;
 import agh.ics.oop.models.TexturedModel;
+import agh.ics.oop.renderEngine.AnimationController;
+import agh.ics.oop.renderEngine.Game;
 import org.joml.Vector3f;
 
-public class Animal extends Entity {
+public class Animal extends Entity{
     private MapDirection orientation;
     private Vector2d positionOnPlane;
     static IWorldMap map;
@@ -49,7 +51,8 @@ public class Animal extends Entity {
                 Vector2d newPosition = positionOnPlane.add(orientation.toUnitVector());
                 if (map.canMoveTo(newPosition)){
                     positionOnPlane = newPosition;
-                    setPosition(new Vector3f(newPosition.getX()+0.5f,1,newPosition.getY()+0.5f));
+                    Vector3f dest = new Vector3f(newPosition.getX()+0.5f,1,newPosition.getY()+0.5f);
+                    Game.animationController.makeAnimation(this,dest,this.getRotation(),1);
                     map.place(this);
                     if(map.isGrass(newPosition)){
                         ((GrassField)map).eatGrass(newPosition);
@@ -60,7 +63,8 @@ public class Animal extends Entity {
                 Vector2d newPosition = positionOnPlane.subtract(orientation.toUnitVector());
                 if (map.canMoveTo(newPosition)) {
                     positionOnPlane = newPosition;
-                    setPosition(new Vector3f(newPosition.getX()+0.5f,1,newPosition.getY()+0.5f));
+                    Vector3f dest = new Vector3f(newPosition.getX()+0.5f,1,newPosition.getY()+0.5f);;
+                    Game.animationController.makeAnimation(this,dest,this.getRotation(),1);
                     map.place(this);
                     if(map.isGrass(newPosition)){
                         ((GrassField)map).eatGrass(newPosition);
@@ -69,11 +73,13 @@ public class Animal extends Entity {
             }
             case LEFT -> {
                 orientation = orientation.previous();
-                setRotY(getRotY()-90);
+                Vector3f rot = new Vector3f(getRotX(),getRotY()-90,getRotX());
+                Game.animationController.makeAnimation(this,getPosition(),rot,1);
             }
             case RIGHT -> {
                 orientation = orientation.next();
-                setRotY(getRotY()+90);
+                Vector3f rot = new Vector3f(getRotX(),getRotY()+90,getRotX());
+                Game.animationController.makeAnimation(this,getPosition(),rot,1);
             }
             case NONE -> {}
         }

@@ -38,6 +38,9 @@ public class SimulationEngine implements IEngine{
             currentEnttity.setPositionOnPlane(position);
             currentEnttity.resetOrientation();
             map.place(currentEnttity);
+            if(map.isGrass(position)){
+                ((GrassField)map).eatGrass(position);
+            }
             index++;
         }
     }

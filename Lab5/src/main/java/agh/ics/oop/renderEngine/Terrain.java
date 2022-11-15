@@ -106,18 +106,33 @@ public class Terrain {
                 uvs.add(1f);
             }
         }else{
-            //LEFT TOP
-            uvs.add(0.25f);
-            uvs.add(1-0.33f);
-            //LEFT DOWN
-            uvs.add(0.25f);
-            uvs.add(1-0.66f);
-            //RIGHT TOP
-            uvs.add(0.50f);
-            uvs.add(1-0.33f);
-            //RIGHT DOWN
-            uvs.add(0.50f);
-            uvs.add(1-0.66f);
+            if(map.isGrass(new Vector2d((int)position.x,(int)position.z))){
+                //LEFT TOP
+                uvs.add(0.25f);
+                uvs.add(1-0.33f);
+                //LEFT DOWN
+                uvs.add(0.25f);
+                uvs.add(1-0.66f);
+                //RIGHT TOP
+                uvs.add(0.50f);
+                uvs.add(1-0.33f);
+                //RIGHT DOWN
+                uvs.add(0.50f);
+                uvs.add(1-0.66f);
+            }else{
+                //LEFT TOP
+                uvs.add(0.25f);
+                uvs.add(0.66f);
+                //LEFT DOWN
+                uvs.add(0.25f);
+                uvs.add(1f);
+                //RIGHT TOP
+                uvs.add(0.50f);
+                uvs.add(0.66f);
+                //RIGHT DOWN
+                uvs.add(0.50f);
+                uvs.add(1f);
+            }
         }
     }
 }
