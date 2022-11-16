@@ -58,7 +58,6 @@ public class GrassField extends AbstractWorldMap{
     }
     public Object objectAt(Vector2d position){
         if(animalMap.get(position)==null){
-            System.out.println("HEY");
             return grassMap.get(position);
         }
         return animalMap.get(position);

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="agh.ics.oop.GrassFieldTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2022-11-16T10:52:59" hostname="DESKTOP-SRFM3J0" time="0.031">
+  <properties/>
+  <testcase name="canMoveTo()" classname="agh.ics.oop.GrassFieldTest" time="0.023"/>
+  <testcase name="isOccupied()" classname="agh.ics.oop.GrassFieldTest" time="0.003"/>
+  <testcase name="objectAt()" classname="agh.ics.oop.GrassFieldTest" time="0.003"/>
+  <testcase name="place()" classname="agh.ics.oop.GrassFieldTest" time="0.001"/>
+  <system-out><![CDATA[ y\x  0 1 2 3 4 5 6 7 8 910
+ 11: -----------------------
+ 10: | |*| | | | | | | | | |
+  9: | | | |*| | | | | | | |
+  8: | | | | | | | | | | | |
+  7: | | | | |*| | | |*| |*|
+  6: | | | | |*| | | | | | |
+  5: | | | | | | | | | | | |
+  4: | | |N| | | | | | | | |
+  3: | | | | | | | | | | |*|
+  2: |*| | | | | | |*| | | |
+  1: | | | | | | | | | | | |
+  0: | | | |*| | | | | | | |
+ -1: -----------------------
+
+ y\x  0 1 2 3 4 5 6 7 8
+ 10: -------------------
+  9: | | | | |*|*| | | |
+  8: | | | | | | | | | |
+  7: | | | | | | | | | |
+  6: | |*| | | | |*| | |
+  5: | | | | | | | | | |
+  4: | | | | | | | | | |
+  3: |*| |N| | | | |N|*|
+  2: | | | | | | | | | |
+  1: | |*| |*| | | |*| |
+  0: | |*| | | | | | | |
+ -1: -------------------
+
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
