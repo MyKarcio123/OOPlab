@@ -25,7 +25,7 @@ public class AnimationController {
         atAnimation = false;
     }
     public void makeAnimation(Entity entity,Vector3f localTransform, Vector3f rotation,float tratio){
-        float ratio=30f;
+        float ratio=60f;
         this.entity = entity;
         this.transform = localTransform;
         this.rotation = rotation;
