@@ -9,7 +9,16 @@ import org.joml.Vector3f;
 public class Animal extends Entity{
     private MapDirection orientation;
     private Vector2d positionOnPlane;
-    static IWorldMap map;
+    private IWorldMap map;
+    private IWorldMap observer;
+
+    public void removeObserver() {
+        this.observer = null;
+    }
+
+    public void addObserver(IWorldMap observer) {
+        this.observer = observer;
+    }
 
     public Animal(IWorldMap worldMap, TexturedModel model, Vector3f position, float rotX, float rotY, float rotZ, float scale){
         super(model, position, rotX, rotY, rotZ, scale);

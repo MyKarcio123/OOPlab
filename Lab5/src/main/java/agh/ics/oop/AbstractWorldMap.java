@@ -38,5 +38,6 @@ public abstract class AbstractWorldMap implements IWorldMap{
     public Vector2d getRightTopCorner() {
         return rightTopCorner;
     }
+    public abstract boolean place(Animal animal);
 
 }
