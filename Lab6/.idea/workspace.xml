@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e06eff09-d34c-47e3-9346-b134f7a638a5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/caches/7.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/caches/7.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/08cbde89ff35d1948af28d40eeeb62fc/init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/08cbde89ff35d1948af28d40eeeb62fc/init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/0c675634215e86085c8a18b145b27ed9/cp_proj.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/0c675634215e86085c8a18b145b27ed9/cp_proj.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/1268a661470f524b0dc9956874c81973/cp_init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/1268a661470f524b0dc9956874c81973/cp_init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/143d4cc2ff0cb17e56580800eda30f9f/cp_init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/143d4cc2ff0cb17e56580800eda30f9f/cp_init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/1a957788d8e52cda7fc9fc94811ffb61/init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/1a957788d8e52cda7fc9fc94811ffb61/init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/256a12859a4a25e36cf512d40f9a39e7/settings.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/256a12859a4a25e36cf512d40f9a39e7/settings.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/27ec82db14727ce0c035ccbcfbe5ebc3/cp_init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/27ec82db14727ce0c035ccbcfbe5ebc3/cp_init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/33bfac5ed01992976eef1c211d44b240/cp_init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/33bfac5ed01992976eef1c211d44b240/cp_init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/3672ce0787f1a82af4325d69af5e5bc1/init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/3672ce0787f1a82af4325d69af5e5bc1/init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/5ece0c378b3654d0cf46e1e8a696be86/cp_init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/5ece0c378b3654d0cf46e1e8a696be86/cp_init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/61bd2dc80da83e1bd837d0c6fc106cef/init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/61bd2dc80da83e1bd837d0c6fc106cef/init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/6618bdbdf4dae983504aeba514c81fbb/cp_settings.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/6618bdbdf4dae983504aeba514c81fbb/cp_settings.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/6717b8ca4453d2289d1a00dc9abca8b0/cp_init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/6717b8ca4453d2289d1a00dc9abca8b0/cp_init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/72d7b2fe5673ec799b32eade34984502/cp_settings.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/72d7b2fe5673ec799b32eade34984502/cp_settings.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/b49d610a99930e74d89b4597adcacc9d/proj.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/b49d610a99930e74d89b4597adcacc9d/proj.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/cd4d99b4dfc778ee2c8b9220b37bab0b/settings.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/cd4d99b4dfc778ee2c8b9220b37bab0b/settings.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/d97e10c47061503aea728edb93eb2ad1/init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/d97e10c47061503aea728edb93eb2ad1/init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/da8f13af8e18a4bb7440e6720c7a3ca9/cp_proj.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/da8f13af8e18a4bb7440e6720c7a3ca9/cp_proj.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/dc9386fdb5abd51d80736511d5bac6d6/init.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/dc9386fdb5abd51d80736511d5bac6d6/init.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/dfc81c44b10696f9293ebe3cd6c3bcc7/proj.jar.lock.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/jars-9/dfc81c44b10696f9293ebe3cd6c3bcc7/proj.jar.receipt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/journal-1/file-access.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/caches/journal-1/file-access.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/journal-1/journal-1.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/caches/journal-1/journal-1.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.2/3926494c1a91787100e2ad2dac7436cb444b85a6/apiguardian-api-1.1.2.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.apiguardian/apiguardian-api/1.1.2/ce9568cec632f7c99fb26d13c4d5c89517349f6b/apiguardian-api-1.1.2.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.8.1/1a23ecc40ad4ab0d20a7b140694c30e75743209c/junit-jupiter-api-5.8.1.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-api/5.8.1/ca83de90392a6db4d90b59139e14bb510c3867d8/junit-jupiter-api-5.8.1.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.8.1/3aedf7ecc67620ac93d7834df3e6737a3c16a1e/junit-jupiter-engine-5.8.1.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-engine/5.8.1/e05b30784b308307c65e1583e8cfae8fe7ac9505/junit-jupiter-engine-5.8.1.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-params/5.8.1/31cbc710ceade88c918f4a56840d8e07742a805d/junit-jupiter-params-5.8.1.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter-params/5.8.1/7596d9caaa3281697c4e70cd2d6ef147b5576c4c/junit-jupiter-params-5.8.1.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter/5.8.1/a50f9e448d880668ee03cb37931f565ba4cf5d96/junit-jupiter-5.8.1.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.jupiter/junit-jupiter/5.8.1/dff1ddcd26dfd8ce2b4ed32f083e1e6f8d2661da/junit-jupiter-5.8.1.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.8.1/1c93f3af1dc8c0d15157fd9b08f8799413f872f1/junit-platform-commons-1.8.1.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.platform/junit-platform-commons/1.8.1/d8ed3369e66ce5763280869fae629e86aacf270c/junit-platform-commons-1.8.1.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.8.1/4affaa85b24ba5b283e0381676048c3707e0f402/junit-platform-engine-1.8.1.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit.platform/junit-platform-engine/1.8.1/c6978ceef558504301d99a3f6e2cb77ad2fd4407/junit-platform-engine-1.8.1.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit/junit-bom/5.8.1/754cdcf10536dfe22795c26610f9fc4fd3b130ed/junit-bom-5.8.1.module" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.junit/junit-bom/5.8.1/c2c7f6a8e4d6724187175501f9de55f30148bdf0/junit-bom-5.8.1.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/caches/modules-2/files-2.1/org.opentest4j/opentest4j/1.2.0/b5c66f49b69c36797c1fb7f4ec57776f261303ad/opentest4j-1.2.0.pom" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/daemon/7.4/registry.bin" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/daemon/7.4/registry.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/daemon/7.4/registry.bin.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/daemon/7.4/registry.bin.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/LICENSE" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/LICENSE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/NOTICE" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/NOTICE" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/README" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/bin/gradle" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/bin/gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/init.d/readme.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Lab0/oolab/wrapper/dists/gradle-7.4-bin/c0gwcg53nkjbqw7r0h0umtfvt/gradle-7.4/init.d/readme.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/md5-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/checksums/sha1-checksums.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/dependencies-accessors/dependencies-accessors.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/dependencies-accessors/dependencies-accessors.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/7.4/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/workspace-id.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/workspace-id.txt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/libs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/css/base-style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" beforeDir="false" afterPath="$PROJECT_DIR$/build/reports/tests/test/js/report.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/previous-compilation-data.bin" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2I09RbXVKb7sZ3NvaLxFjjyTcXm" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "D:/GitHub/OOPlab/Lab7"
+  }
+}]]></component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="17" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="agh.ics.oop.World" />
+      <module name="oolab.main" />
+      <option name="PROGRAM_PARAMETERS" value="r l f f f f f f f f f f f f f f f f f f f f f f f" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="Lab6" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="Lab6" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e06eff09-d34c-47e3-9346-b134f7a638a5" name="Changes" comment="" />
+      <created>1669307630959</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1669307630959</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
