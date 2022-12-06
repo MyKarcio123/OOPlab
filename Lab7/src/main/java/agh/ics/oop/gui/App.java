@@ -76,11 +76,11 @@ public class App extends Application {
                 Vector2d pos = new Vector2d(i,j);
                 if(map.isOccupied(pos)){
                     Label label = new Label(map.objectAt(pos).toString());
-                    gridPane.add(label,i+1,yMax-j+1);
+                    gridPane.add(label,i,yMax-j+1);
                     GridPane.setHalignment(label,HPos.CENTER);
                 }
                 else {
-                    gridPane.add(new Label(" "),i+1,yMax-j+1);
+                    gridPane.add(new Label(" "),i,yMax-j+1);
                 }
             }
         }
