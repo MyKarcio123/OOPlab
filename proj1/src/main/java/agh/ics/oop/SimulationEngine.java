@@ -1,2 +1,4 @@
-package agh.ics.oop;public class SimulationEngine {
+package agh.ics.oop;
+
+public class SimulationEngine {
 }
