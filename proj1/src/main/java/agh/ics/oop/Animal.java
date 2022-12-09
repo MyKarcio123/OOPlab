@@ -56,7 +56,7 @@ public class Animal extends AbstractMapElement{
         energy-=1;
     }
     @Override
-    public String toString(){return }
+    public String toString(){return "";}
     public boolean isAt(Vector2d position){return this.position.equals(position);}
     public Vector2d getPosition(){return position;}
 }
