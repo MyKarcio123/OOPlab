@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.Map;
+import java.util.Random;
 
 public enum MapDirection {
     NORTH,
@@ -39,5 +40,9 @@ public enum MapDirection {
             case NORTHWEST -> new Vector2d(-1,1);
             default -> new Vector2d(0,0);
         };
+    }
+    public static MapDirection getRandom(){
+        Random rn = new Random();
+        return MapDirection.values()[rn.nextInt(8)];
     }
 }
