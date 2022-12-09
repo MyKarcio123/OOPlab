@@ -1,29 +1,27 @@
 package agh.ics.oop;
 
-import javafx.util.Pair;
+import com.google.common.collect.MultimapBuilder;
+import com.google.common.collect.SetMultimap;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-public abstract class AbstractWorldMap implements IWorldMap {
-    protected final Map<Pair<Vector2d,Integer>, Animal> animalMap;
+public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObserver {
+    protected final SetMultimap<Vector2d,Animal> animalMap;
     protected final Map<Grass, Animal> grassMap;
     protected final MapVisualizer mapVisualizer;
-    private List<Animal> animalList;
+    private HashMap<Vector2d,Integer> deathAnimals;
     private Vector2d mapUpperRight;
     private Vector2d mapLowerLeft;
 
+
     protected AbstractWorldMap() {
-        animalMap = new HashMap<>();
+        animalMap = MultimapBuilder.hashKeys().treeSetValues().build();
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
-        animalList = new ArrayList<>();
     }
 
-    protected Pair<Vector2d, Integer> getKey(Animal animal) {
-        for (Pair<Vector2d,Integer> key : animalMap.keySet()) {
+    protected Vector2d getKey(Animal animal) {
+        for (Vector2d key : animalMap.keySet()) {
             if (animalMap.get(key).equals(animal)) {
                 return key;
             }
@@ -57,9 +55,33 @@ public abstract class AbstractWorldMap implements IWorldMap {
     public boolean isOccupied(Vector2d position) {
         return (animalMap.containsKey(position));
     }
+    public void clearDeathAnimals(){
+        for()
+    }
+    //Logiczne uzasadnienie czeemu do dieEvent przekazuję tylko współrzędne mimo że pod jedną współrzędną w mapie może być n obiektów.
+    //Jest to spowodwane tym, że w mapie zwierząt jest coś ala TreeSet którego pierwszym kryterium jest energia malejąco.
+    //Z tego faktu wynika że nie muszę wiedzieć dokładnie które zwierzę umarło ale ile, bo będę od końca usuwał konieczną ilość zwierząt.
+    @Override
+    public void dieEvent(Vector2d position){
+        if(deathAnimals.containsKey(position)) {
+            deathAnimals.replace(position,deathAnimals.get(position)+1);
+        }
+        deathAnimals.put(position,1);
+    }
+    @Override
+    public void positionChanged(Vector2d oldPosition, Vector2d newPosition, int id) {
+        Set<Animal> animals = animalMap.get(oldPosition);
+        Animal currentAnimal;
+        for(Animal animal : animals){
+            if(animal.getID()==id){
+                currentAnimal=animal;
+                animals.remove(currentAnimal);
+            }
+        }
+        animalMap.put(newPosition,currentAnimal);
+    }
 
-
-//    public boolean place(Animal animal) {
+    //    public boolean place(Animal animal) {
 //        if (this.canMoveTo(animal.getPosition())) {
 //            animalMap.put(animal.getPosition(), animal);
 //            animal.addObserver(this);
