@@ -1,5 +1,4 @@
 package agh.ics.oop;
-import javafx.util.Pair;
 
 public class EarthMap extends AbstractWorldMap{
     @Override
@@ -11,19 +10,29 @@ public class EarthMap extends AbstractWorldMap{
     @Override
     public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition())){
-            //if na animal.getPosition() jest inny wierzak to wywołujemy na nim reproduct(animal, otherAnimal)
-            //if trawa to jedzonko
-            animalMap.put(new Pair<>(animal.getPosition(),getAnimalIndex(animal)), animal);
+            animalMap.put(animal.getPosition(), animal);
             return true;
         }
         return false;
     }
 
-    private void reproduct(Animal animal1, Animal animal2){
-
-    }
     @Override
     public Object objectAt(Vector2d position) {
         return null;
+    }
+
+    @Override
+    public void eatGrass() {
+
+    }
+
+    @Override
+    public void copulateAnimals() {
+
+    }
+
+    @Override
+    public void plantGrass() {
+
     }
 }

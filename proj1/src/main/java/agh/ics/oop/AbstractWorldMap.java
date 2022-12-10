@@ -9,6 +9,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     protected final SetMultimap<Vector2d,Animal> animalMap;
     protected final Map<Grass, Animal> grassMap;
     protected final MapVisualizer mapVisualizer;
+    private List<Vector2d> animalsToRemove;
     private HashMap<Vector2d,Integer> deathAnimals;
     private Vector2d mapUpperRight;
     private Vector2d mapLowerLeft;
@@ -18,6 +19,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         animalMap = MultimapBuilder.hashKeys().treeSetValues().build();
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
+        animalsToRemove = new LinkedList<>();
     }
 
     protected Vector2d getKey(Animal animal) {
@@ -29,9 +31,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         return null;
     }
 
-    public Integer getAnimalIndex(Animal animal){
-        return Integer.valueOf(animalList.indexOf(animal));
-    }
 
     @Override
     public String toString() {
@@ -56,7 +55,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         return (animalMap.containsKey(position));
     }
     public void clearDeathAnimals(){
-        for()
+        for (Vector2d key: animalMap.keySet()){
+
+        }
     }
     //Logiczne uzasadnienie czeemu do dieEvent przekazuję tylko współrzędne mimo że pod jedną współrzędną w mapie może być n obiektów.
     //Jest to spowodwane tym, że w mapie zwierząt jest coś ala TreeSet którego pierwszym kryterium jest energia malejąco.
@@ -71,14 +72,15 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition, int id) {
         Set<Animal> animals = animalMap.get(oldPosition);
-        Animal currentAnimal;
+        Animal currentAnimal=null;
         for(Animal animal : animals){
             if(animal.getID()==id){
                 currentAnimal=animal;
                 animals.remove(currentAnimal);
             }
         }
-        animalMap.put(newPosition,currentAnimal);
+        if (currentAnimal != null){animalMap.put(newPosition,currentAnimal);}
+
     }
 
     //    public boolean place(Animal animal) {

@@ -17,6 +17,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal>{
     private int energy = STARTING_ENERGY;
     private final IAnimalStateMapObserver stateMapObserver;
     private final IAnimalStateEnigneObserver stateEnigneObserver;
+
     public Animal(AbstractWorldMap map,Vector2d position,List<Integer> genotype,int day,SimulationEngine engine){
         this.orientation = MapDirection.getRandom();
         this.genotype = genotype;

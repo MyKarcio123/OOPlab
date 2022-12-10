@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeSet;
 
@@ -8,7 +9,7 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver {
     //lista zwierząt jest relacją porządku więc wystarczy jedno przejście przy założeniu że id są posortowane od najmniejszych do największych
     //żeby pozbyć się wszystkich martwych zwierząt w O(n), trzeba tego pilnować żeby były w kolejności, może treeset będzie lepszy ?
     //jednak fajnie było się uczyć algebry, przydatnych pojęć się nauczyłem
-    private TreeSet<Animal> animals = new TreeSet<>(Comparator.comparing(Animal::getID));
+    private List<Animal> animals = new LinkedList<>;
     private TreeSet<Integer> deathAnimalsIndex = new TreeSet<>();
     private IWorldMap map;
 
