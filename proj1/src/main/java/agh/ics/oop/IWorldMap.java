@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import java.util.TreeSet;
+
 public interface IWorldMap {
 
     boolean canMoveTo(Vector2d position);
@@ -8,7 +10,7 @@ public interface IWorldMap {
 
     boolean isOccupied(Vector2d position);
 
-    Object objectAt(Vector2d position);
+    TreeSet objectAt(Vector2d position);
 
     void clearDeathAnimals();
 

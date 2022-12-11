@@ -65,10 +65,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
 
-    //@Override
-    //public IMapElement objectAt(Vector2d position) {
-    //     return animalMap.get(position);
-    //}
 
     public Vector2d getMapLowerLeft() {
         return this.mapLowerLeft;
@@ -86,7 +82,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         for (Map.Entry<Vector2d, Integer> set : deathAnimals.entrySet()) {
             Vector2d pos = set.getKey();
             Integer amt = set.getValue();
-            TreeSet<Animal> animals = (TreeSet) animalMap.get(pos);
+            TreeSet<Animal> animals = objectAt(pos);
             for (int i = 0; i < amt; i++) {
                 animals.pollLast();
             }
@@ -110,7 +106,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         int howManyGrassRemoved = 0;
         for (Vector2d pos : placesOfGrassToBeEaten) {
             if (grassMap.containsKey(pos)) {
-                TreeSet<Animal> animals = (TreeSet) animalMap.get(pos);
+                TreeSet<Animal> animals = objectAt(pos);
                 Animal animal = animals.first();
                 animal.gainEnergy();
                 grassMap.remove(pos);
@@ -124,7 +120,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
     public void copulateAnimals() {
         for (Vector2d pos : placesOfCopulation) {
-            TreeSet<Animal> animals = (TreeSet) animalMap.get(pos);
+            TreeSet<Animal> animals = objectAt(pos);
             if (animals.size() > 1) {
                 Animal animal1 = animals.first();
                 Animal animal2 = null;
@@ -170,5 +166,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             animalMap.put(newPosition, currentAnimal);
         }
 
+    }
+
+    @Override
+    public TreeSet objectAt(Vector2d pos){
+        return  (TreeSet) animalMap.get(pos);
     }
 }
