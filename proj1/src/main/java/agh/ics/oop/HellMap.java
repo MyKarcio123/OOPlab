@@ -1,7 +1,5 @@
 package agh.ics.oop;
 
-import java.util.Random;
-
 public class HellMap extends AbstractWorldMap {
     @Override
     public boolean canMoveTo(Vector2d position) {
@@ -19,9 +17,8 @@ public class HellMap extends AbstractWorldMap {
     public boolean place(Animal animal) {
         Vector2d animalPosition = animal.getPosition();
         if (outsideOfMap(animalPosition)) {
-            Random random = new Random();
-            animal.setPosition(new Vector2d(random.nextInt(getMapLowerLeft().getX(), getMapUpperRight().getX()),
-                                            random.nextInt(getMapLowerLeft().getY(), getMapUpperRight().getY())));
+            Vector2d newPosition = RandomPosition.getRandomPosition(getMapLowerLeft(),getMapUpperRight());
+            animal.setPosition(newPosition);
         }
         return super.place(animal);
 

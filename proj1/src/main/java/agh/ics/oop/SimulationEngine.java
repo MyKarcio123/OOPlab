@@ -25,8 +25,8 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver {
     private void addAnimalsToMap(){
 
     }
+
     public void run(){
-        //TODO a czy przypadkiem nie powinniśmy teraz czyścić tych list z miejscami kopulacji i trawą do zjedzenia?
         clearDeathAnimals();
         map.clearDeathAnimals();
         moveAnimals();
