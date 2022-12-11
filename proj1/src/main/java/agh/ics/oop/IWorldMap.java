@@ -12,9 +12,9 @@ public interface IWorldMap {
 
     void clearDeathAnimals();
 
-    void eatGrass();
+    int eatGrass();
 
     void copulateAnimals();
 
-    void plantGrass();
+    void plantGrass(int howManyGrassToAdd);
 }
