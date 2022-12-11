@@ -6,7 +6,8 @@ import com.google.common.collect.SetMultimap;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static agh.ics.oop.Parameters.MINIMUM_COPULATE_ENERGY;
+
+
 
 public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObserver {
     protected final SetMultimap<Vector2d, Animal> animalMap;
@@ -27,7 +28,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         placeInitGrass(1); ///nwm ile mamy kłaść
     }
 
-    //Ogólnie to nie uwzglęniam tuta gdzie jest jaki teren, ale no na razie niech będzie
+
+    //TODO Ogólnie to nie uwzglęniam tuta gdzie jest jaki teren, ale no na razie niech będzie
     private void placeInitGrass(int amount) {
         ArrayList<Vector2d> grassPositions = new ArrayList<>();
         int bound = (int) Math.sqrt(10 * amount);
@@ -98,6 +100,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     public void dieEvent(Vector2d position) {
         if (deathAnimals.containsKey(position)) {
             deathAnimals.replace(position, deathAnimals.get(position) + 1);
+
         }
         deathAnimals.put(position, 1);
     }
@@ -118,6 +121,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
     @Override
+
     public void copulateAnimals() {
         for (Vector2d pos : placesOfCopulation) {
             TreeSet<Animal> animals = (TreeSet) animalMap.get(pos);
@@ -132,7 +136,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                     }
                     i++;
                 }
-                if (animal2.getEnergy() > MINIMUM_COPULATE_ENERGY) {
+
+                if (animal2.canCopulate()) {
+
                     //TODO powymyślać stałe, bo poniżej wpisałem losowe liczby
                     List<Integer> genotype1 = animal1.copulate(1, 1.0F);
                     List<Integer> genotype2 = animal2.copulate(1,1.0F);
