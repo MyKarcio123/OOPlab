@@ -38,7 +38,9 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         newActiveGen();
         lowerEnergy();
     }
-
+    public void setPosition(Vector2d position){
+        this.position = position;
+    }
     private void updateDirection() {
         int currentOrientIndex = this.orientation.ordinal();
         currentOrientIndex += genotype.get(activeGen);

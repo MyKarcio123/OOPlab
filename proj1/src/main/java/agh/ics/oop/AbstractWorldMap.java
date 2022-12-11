@@ -87,6 +87,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 animals.pollLast();
             }
         }
+        deathAnimals.clear();
     }
 
     //Logiczne uzasadnienie czeemu do dieEvent przekazuję tylko współrzędne mimo że pod jedną współrzędną w mapie może być n obiektów.
@@ -113,6 +114,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 howManyGrassRemoved += 1;
             }
         }
+        placesOfGrassToBeEaten.clear();
         return howManyGrassRemoved;
     }
 
@@ -144,6 +146,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 }
             }
         }
+        placesOfCopulation.clear();
     }
 
     @Override
@@ -171,5 +174,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     @Override
     public TreeSet objectAt(Vector2d pos){
         return  (TreeSet) animalMap.get(pos);
+    }
+
+    @Override
+    public boolean place(Animal animal){
+        animalMap.put(animal.getPosition(), animal);
+        return true;
     }
 }
