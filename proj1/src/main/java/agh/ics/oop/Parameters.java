@@ -2,6 +2,7 @@ package agh.ics.oop;
 
 public class Parameters {
     public static int STARTING_ENERGY = 10;
+    public static int MAX_ENERGY = 100;
     public static int STARTING_ANIMALS = 10;
     public static int NEXT_GEN_TYPE = 0;
     public static int GEN_LENGTH = 10;
