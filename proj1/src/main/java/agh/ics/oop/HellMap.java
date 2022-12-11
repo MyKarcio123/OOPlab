@@ -18,14 +18,12 @@ public class HellMap extends AbstractWorldMap {
     @Override
     public boolean place(Animal animal) {
         Vector2d animalPosition = animal.getPosition();
-
         if (outsideOfMap(animalPosition)) {
             Random random = new Random();
-            animalPosition = new Vector2d(random.nextInt(getMapLowerLeft().getX(), getMapUpperRight().getX()),
-                                            random.nextInt(getMapLowerLeft().getY(), getMapUpperRight().getY()));
+            animal.setPosition(new Vector2d(random.nextInt(getMapLowerLeft().getX(), getMapUpperRight().getX()),
+                                            random.nextInt(getMapLowerLeft().getY(), getMapUpperRight().getY())));
         }
-        animalMap.put(animalPosition, animal);
-        return true;
+        return super.place(animal);
 
     }
 

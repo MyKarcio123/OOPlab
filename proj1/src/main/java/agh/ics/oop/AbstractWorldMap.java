@@ -172,4 +172,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     public TreeSet objectAt(Vector2d pos){
         return  (TreeSet) animalMap.get(pos);
     }
+
+    @Override
+    public boolean place(Animal animal){
+        animalMap.put(animal.getPosition(), animal);
+        return true;
+    }
 }
