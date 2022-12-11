@@ -21,18 +21,5 @@ public class EarthMap extends AbstractWorldMap{
         return null;
     }
 
-    @Override
-    public void eatGrass() {
 
-    }
-
-    @Override
-    public void copulateAnimals() {
-
-    }
-
-    @Override
-    public void plantGrass() {
-
-    }
 }
