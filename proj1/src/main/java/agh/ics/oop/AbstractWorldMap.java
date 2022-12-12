@@ -19,13 +19,16 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     private Vector2d mapUpperRight;
     private Vector2d mapLowerLeft;
 
+    private IMapStateEngineObserver observer;
 
-    protected AbstractWorldMap() {
+
+    protected AbstractWorldMap(IMapStateEngineObserver observer) {
         animalMap = MultimapBuilder.hashKeys().treeSetValues().build();
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
         placesOfGrassToBeEaten = new LinkedList<>();
         placeInitGrass(1); ///nwm ile mamy kłaść
+        this.observer = observer;
     }
 
 
@@ -48,7 +51,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         }
 
     }
-
     protected Vector2d getKey(Animal animal) {
         for (Vector2d key : animalMap.keySet()) {
             if (animalMap.get(key).equals(animal)) {
@@ -97,7 +99,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     public void dieEvent(Vector2d position) {
         if (deathAnimals.containsKey(position)) {
             deathAnimals.replace(position, deathAnimals.get(position) + 1);
-
         }
         deathAnimals.put(position, 1);
     }
@@ -110,6 +111,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 TreeSet<Animal> animals = objectAt(pos);
                 Animal animal = animals.first();
                 animal.gainEnergy();
+                animal.grassCounter();
                 grassMap.remove(pos);
                 howManyGrassRemoved += 1;
             }
@@ -136,6 +138,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 }
 
                 if (animal2.canCopulate()) {
+
+                    //TODO powymyślać stałe, bo poniżej wpisałem losowe liczby- jakie stałe jak to mają być losowo generowane liczby XD?
+                    //TODO ty w ogóle czytałeś te wypociny na gitubie XD
+                    //TODO poprawiłem trochę tą funkcję bo 1. nowy animal nie może być Tworzony w mapie, bo Engine go potrzebuje 2. nie masz licznika dni w tym scope
+                    //TODO piszę wszystko w todo bo ładny kolorek ma
                     //krok 1 - losowanie strony
                     int mutationSite = getMutationSite();
                     // krok 2 - zbieranie genów
@@ -154,6 +161,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
                     //krok 4 - zrobienie dziecka
                     Animal child = new Animal(this, animal1.getPosition(), genotype, 0, animal1.getStateEngineObserver());
+
+                    Animal child = observer.bornEvent(this,animal1.getPosition(),genotype);
+
                     this.place(child);
                 }
             }
@@ -168,7 +178,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
 
     @Override
-    public void positionChanged(Vector2d oldPosition, Vector2d newPosition, int id) {
+    public Vector2d positionChanged(Vector2d oldPosition, Vector2d newPosition, int id) {
         Set<Animal> animals = animalMap.get(oldPosition);
         Animal currentAnimal = null;
         for (Animal animal : animals) {
@@ -178,9 +188,18 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             }
         }
         if (currentAnimal != null) {
-            animalMap.put(newPosition, currentAnimal);
+            if(canMoveTo(newPosition)){
+                animalMap.put(newPosition, currentAnimal);
+                return newPosition;
+            }else{
+                newPosition = getNewPosition(newPosition);
+                if(newPosition==null){
+                    return oldPosition;
+                }
+                return newPosition;
+            }
         }
-
+        return oldPosition;
     }
 
     @Override

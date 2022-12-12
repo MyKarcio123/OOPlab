@@ -1,6 +1,10 @@
 package agh.ics.oop;
 
 public class EarthMap extends AbstractWorldMap{
+    protected EarthMap(IMapStateEngineObserver observer) {
+        super(observer);
+    }
+
     @Override
     public boolean canMoveTo(Vector2d position) {
         int y = position.getY();
@@ -8,20 +12,15 @@ public class EarthMap extends AbstractWorldMap{
     }
 
     @Override
-    public boolean place(Animal animal) {
-        Vector2d animalPosition = animal.getPosition();
-        if (canMoveTo(animalPosition)){
-            if (animalPosition.getX()> getMapUpperRight().getX()){
-                animal.setPosition(new Vector2d(getMapLowerLeft().getX(), animalPosition.getY()));
-            }
-            if (animalPosition.getX()< getMapLowerLeft().getX()){
-                animal.setPosition(new Vector2d(getMapUpperRight().getX(), animalPosition.getY()));
-            }
+    public Vector2d getNewPosition(Vector2d position) {
+        if (position.getX() > getMapUpperRight().getX()){
+            return new Vector2d(getMapLowerLeft().getX(),position.getY());
         }
-        return super.place(animal);
+        if (position.getX()< getMapLowerLeft().getX()){
+            return new Vector2d(getMapUpperRight().getX(),position.getY());
+        }
+        return null;
     }
-
-
 
 
 }

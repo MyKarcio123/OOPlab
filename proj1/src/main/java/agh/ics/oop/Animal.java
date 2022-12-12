@@ -10,12 +10,14 @@ import static java.lang.Math.min;
 public class Animal extends AbstractMapElement implements Comparable<Animal> {
     private MapDirection orientation;
     private final AbstractWorldMap map;
-    private List<Integer> genotype;
+    private final List<Integer> genotype;
     private final Random rd = new Random();
     private final int id;
     int activeGen = 0;
     private int childAmount = 0;
     private final int day;
+    private int dayOfDeath;
+    private int grassEaten;
     private int energy = STARTING_ENERGY;
     private final IAnimalStateMapObserver stateMapObserver;
     private final IAnimalStateEnigneObserver stateEnigneObserver;
@@ -25,7 +27,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         this.genotype = genotype;
         this.position = position;
         this.map = map;
-        this.id = getID();
+        this.id = Parameters.getID();
         this.day = day;
         this.stateMapObserver = map;
         this.stateEnigneObserver = engine;
@@ -50,8 +52,13 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
 
     private void move() {
         Vector2d newPosition = position.add(orientation.toUnitVector());
-        //miejsce na move
-        stateMapObserver.positionChanged(position, newPosition, id);
+        Vector2d futurePosition = stateMapObserver.positionChanged(position, newPosition, id);
+        if(futurePosition!=newPosition){
+            if(MAP_VARIANT==1){
+                energy -= COPULATE_ENERGY_DECREASE;
+            }
+            newPosition=futurePosition;
+        }
         this.position = newPosition;
     }
 
@@ -76,7 +83,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         energy -= 1;
         if (energy <= 0) {
             stateMapObserver.dieEvent(position);
-            stateEnigneObserver.dieEvent(id);
+            dayOfDeath = stateEnigneObserver.dieEvent(id);
         }
     }
 
@@ -88,9 +95,10 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     public void gainEnergy(int energyValue) {
         energy += energyValue;
     }
+    public void grassCounter(){grassEaten+=1;}
 
     public void gainEnergy() {
-        energy = min(ENERGY_VALUE_FROM_GRASS,MAX_ENERGY);
+        energy += ENERGY_VALUE_FROM_GRASS;
     }
 
     public int getID() {
@@ -109,6 +117,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
             childGenotype.add(genotype.get(currentIndex));
             currentIndex += 1;
         }
+        childAmount+=1;
         return childGenotype;
     }
 
@@ -158,7 +167,4 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         return 1;
     }
 
-    public SimulationEngine getStateEngineObserver() {
-        return (SimulationEngine) this.stateEnigneObserver;
-    }
 }

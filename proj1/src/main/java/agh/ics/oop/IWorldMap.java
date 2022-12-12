@@ -19,4 +19,6 @@ public interface IWorldMap {
     void copulateAnimals();
 
     void plantGrass(int howManyGrassToAdd);
+
+    Vector2d getNewPosition(Vector2d position);
 }
