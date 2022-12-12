@@ -8,4 +8,9 @@ public class RandomPosition {
         return new Vector2d(random.nextInt(lowerLeft.getX(), upperRight.getX()),
                 random.nextInt(lowerLeft.getY(), upperRight.getY()));
     }
+
+    public static int getMutationSite(){
+        Random random = new Random();
+        return random.nextInt(0,1);
+    }
 }

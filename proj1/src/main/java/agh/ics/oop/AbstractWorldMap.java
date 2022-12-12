@@ -6,7 +6,7 @@ import com.google.common.collect.SetMultimap;
 import java.util.*;
 import java.util.stream.Stream;
 
-
+import static agh.ics.oop.RandomPosition.getMutationSite;
 
 
 public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObserver {
@@ -136,11 +136,23 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 }
 
                 if (animal2.canCopulate()) {
-
-                    //TODO powymyślać stałe, bo poniżej wpisałem losowe liczby
-                    List<Integer> genotype1 = animal1.copulate(1, 1.0F);
-                    List<Integer> genotype2 = animal2.copulate(1,1.0F);
+                    //krok 1 - losowanie strony
+                    int mutationSite = getMutationSite();
+                    // krok 2 - zbieranie genów
+                    List<Integer> genotype1 = new ArrayList<>();
+                    List<Integer> genotype2 = new ArrayList<>();
+                    int sumOfEnergies=animal1.getEnergy()+animal2.getEnergy();
+                    if(mutationSite ==0){
+                        genotype1 = animal2.copulate(1, animal2.getEnergy()/sumOfEnergies);
+                        genotype2 = animal1.copulate(0, animal1.getEnergy()/sumOfEnergies);
+                    }else{
+                        genotype1 = animal1.copulate(1, animal1.getEnergy()/sumOfEnergies);
+                        genotype2 = animal2.copulate(0, animal2.getEnergy()/sumOfEnergies);
+                    }
                     List<Integer> genotype = Stream.concat(genotype1.stream(), genotype2.stream()).toList();
+                    //krok 3- robienie mutacji na genotypie
+
+                    //krok 4 - zrobienie dziecka
                     Animal child = new Animal(this, animal1.getPosition(), genotype, 0, animal1.getStateEngineObserver());
                     this.place(child);
                 }
