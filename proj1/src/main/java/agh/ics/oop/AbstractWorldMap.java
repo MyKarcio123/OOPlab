@@ -6,8 +6,7 @@ import com.google.common.collect.SetMultimap;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static agh.ics.oop.Parameters.GRASS_GROW_VARIANT;
-import static agh.ics.oop.Parameters.MUTATION_VARIANT;
+import static agh.ics.oop.Parameters.*;
 import static agh.ics.oop.RandomPosition.*;
 
 
@@ -18,6 +17,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     private List<Vector2d> placesOfGrassToBeEaten;
     private List<Vector2d> placesOfCopulation;
     private HashMap<Vector2d, Integer> deathAnimals;
+    private HashMap<Vector2d, Integer> historyOfDeathAnimals;
     private Vector2d mapUpperRight;
     private Vector2d mapLowerLeft;
 
@@ -29,7 +29,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
         placesOfGrassToBeEaten = new LinkedList<>();
-        placeInitGrass(1); ///nwm ile mamy kłaść
+        placeInitGrass(STARTING_GRASS);
         this.observer = observer;
     }
 
