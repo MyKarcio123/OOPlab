@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import static agh.ics.oop.Parameters.*;
 import static agh.ics.oop.RandomPosition.*;
+import static java.lang.Math.min;
 
 
 public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObserver {
@@ -15,11 +16,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     protected final Map<Vector2d, Grass> grassMap;
     protected final MapVisualizer mapVisualizer;
     private List<Vector2d> placesOfGrassToBeEaten;
-    private List<Vector2d> placesOfCopulation;
+    private Set<Vector2d> placesOfCopulation;
     private HashMap<Vector2d, Integer> deathAnimals;
     private HashMap<Vector2d, Integer> historyOfDeathAnimals;
     private Vector2d mapUpperRight;
-    private Vector2d mapLowerLeft;
+    private Vector2d mapLowerLeft = new Vector2d(0,0);
 
     private IMapStateEngineObserver observer;
 
@@ -31,10 +32,18 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         placesOfGrassToBeEaten = new LinkedList<>();
         placeInitGrass(STARTING_GRASS);
         this.observer = observer;
+        if(GRASS_GROW_VARIANT == 1){
+            historyOfDeathAnimals = new HashMap<>();
+            for (int i = mapLowerLeft.getX(); i <= mapUpperRight.getX(); i++) {
+                for (int j = mapLowerLeft.getY(); j <= mapUpperRight.getY(); j++) {
+                    historyOfDeathAnimals.put(new Vector2d(i, j),0);
+                }
+            }
+        }
+        placesOfCopulation = new HashSet<>();
     }
 
 
-    //TODO Toksyczne Trupy
     private void placeInitGrass(int amount) {
         //Wariant zrównoważony wzrost
         if (GRASS_GROW_VARIANT == 0){
@@ -78,9 +87,31 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             }
         //wariant Toksyczne Trupy
         }else if(GRASS_GROW_VARIANT == 1){
-
+            //szukanie ile jest to najmniej
+            Integer minDeathToll = Integer.MAX_VALUE;
+            for(Integer deathToll : historyOfDeathAnimals.values()){
+                minDeathToll = min(minDeathToll, deathToll);
+            }
+            //wybieranie pozycji na której mamy kłaść trawy
+            ArrayList<Vector2d> grassPositions = new ArrayList<>();
+            for (Map.Entry<Vector2d, Integer> entry : historyOfDeathAnimals.entrySet()) {
+                Vector2d key = entry.getKey();
+                Integer value = entry.getValue();
+                if (Objects.equals(value, minDeathToll)){
+                    grassPositions.add(key);
+                }
+            }
+            //wylosowywanie tych pozycji i kładzenie trawy
+            Random random = new Random();
+            for (int i = 0; i < amount; ++i) {
+                int randomIndex = random.nextInt(grassPositions.size());
+                Vector2d grassPosition = grassPositions.get(randomIndex);
+                grassMap.put(grassPosition, new Grass(grassPosition));
+                grassPositions.remove(grassPosition);
+            }
         }
     }
+
     protected Vector2d getKey(Animal animal) {
         for (Vector2d key : animalMap.keySet()) {
             if (animalMap.get(key).equals(animal)) {
@@ -114,6 +145,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         for (Map.Entry<Vector2d, Integer> set : deathAnimals.entrySet()) {
             Vector2d pos = set.getKey();
             Integer amt = set.getValue();
+            Integer hist_amt = historyOfDeathAnimals.get(pos);
+            hist_amt += amt;
+            historyOfDeathAnimals.remove(pos);
+            historyOfDeathAnimals.put(pos,hist_amt);
             TreeSet<Animal> animals = objectAt(pos);
             for (int i = 0; i < amt; i++) {
                 animals.pollLast();
@@ -237,16 +272,28 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             }
         }
         if (currentAnimal != null) {
-            if(canMoveTo(newPosition)){
+            if (canMoveTo(newPosition)){
                 animalMap.put(newPosition, currentAnimal);
+                if(animalMap.get(newPosition).size() == 2){
+                    placesOfCopulation.add(newPosition);
+                }
                 return newPosition;
             }else{
                 newPosition = getNewPosition(newPosition);
                 if(newPosition==null){
+                    if(animalMap.get(oldPosition).size() >= 2){
+                        placesOfCopulation.add(oldPosition);
+                    }
                     return oldPosition;
+                }
+                if(animalMap.get(newPosition).size() == 2){
+                    placesOfCopulation.add(newPosition);
                 }
                 return newPosition;
             }
+        }
+        if(animalMap.get(oldPosition).size() >= 2){
+            placesOfCopulation.add(oldPosition);
         }
         return oldPosition;
     }
