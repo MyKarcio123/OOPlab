@@ -250,7 +250,7 @@
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="2">
                                     <children>
-                                        <Button fx:id="deleteFromList" mnemonicParsing="false" onAction="#loadSaves" text="Usuń ustawienie z listy" />
+                                        <Button fx:id="deleteFromList" mnemonicParsing="false" text="Usuń ustawienie z listy" />
                                     </children>
                                 </HBox>
                                 <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" />
