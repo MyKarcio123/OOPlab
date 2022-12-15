@@ -21,4 +21,6 @@ public interface IWorldMap {
     void plantGrass(int howManyGrassToAdd);
 
     Vector2d getNewPosition(Vector2d position);
+    public Vector2d getMapLowerLeft();
+    public Vector2d getMapUpperRight();
 }

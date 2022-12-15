@@ -1,8 +1,6 @@
 package agh.ics.oop;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.TreeSet;
+import java.util.*;
 
 public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMapStateEngineObserver {
     //lista zwierząt jest relacją porządku więc wystarczy jedno przejście przy założeniu że id są posortowane od najmniejszych do największych
@@ -12,24 +10,19 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMa
     // ble + ble ble = ble ble ble
     private List<Animal> animals = new LinkedList<>();
     private TreeSet<Integer> deathAnimalsIndex = new TreeSet<>();
-    private IWorldMap map;
+    private AbstractWorldMap map;
     private int dayCounter = 0;
 
-    public SimulationEngine(List<Animal> animalsList,IWorldMap map){
-        this.map = map;
-        animals.addAll(animalsList);
+    public SimulationEngine(){
+        if(Parameters.MAP_VARIANT==0) this.map = new EarthMap(this);
+        else this.map = new HellMap(this);
+        generateAnimals();
     }
     private void moveAnimals(){
         for(Animal animal : animals){
             animal.dayCycle();
         }
     }
-    private void addAnimalsToMap(){
-        for(Animal animal : animals){
-            map.place(animal);
-        }
-    }
-
     public void run(){
         clearDeathAnimals();
         map.clearDeathAnimals();
@@ -44,6 +37,21 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMa
             animals.removeIf(animal -> id == animal.getID());
         }
         deathAnimalsIndex.clear();
+    }
+    private void generateAnimals(){
+        for(int i=0;i<Parameters.STARTING_ANIMALS;++i){
+            Animal newAnimal = new Animal(map,RandomPosition.getRandomPosition(map.getMapLowerLeft(),map.getMapUpperRight()),generateGenotype(),dayCounter,this);
+            animals.add(newAnimal);
+            map.place(newAnimal);
+        }
+    }
+    private List<Integer> generateGenotype(){
+        List<Integer> genotype = new ArrayList<>();
+        Random random = new Random();
+        for(int i=0;i<Parameters.GEN_LENGTH;++i){
+            genotype.add(random.nextInt(0,8));
+        }
+        return genotype;
     }
     @Override
     public int dieEvent(int id) {

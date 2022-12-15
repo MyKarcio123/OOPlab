@@ -22,5 +22,4 @@ public class EarthMap extends AbstractWorldMap{
         return null;
     }
 
-
 }
