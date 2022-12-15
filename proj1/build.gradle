@@ -36,3 +36,5 @@ java {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
+
+mainClassName = 'agh.ics.oop.'

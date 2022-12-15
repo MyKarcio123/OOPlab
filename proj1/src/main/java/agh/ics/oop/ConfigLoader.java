@@ -18,7 +18,7 @@ public class ConfigLoader {
         String st;
 
         while((st = br.readLine()) != null){
-            String[] words = st.split("\\s+");
+            String[] words = st.split(":");
             switch (words[0]) {
                 case "height" -> HEIGHT_MAP = Integer.parseInt(words[1]);
                 case "width" -> WIDTH_MAP = Integer.parseInt(words[1]);

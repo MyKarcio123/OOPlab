@@ -1,0 +1,17 @@
+name:Ustawienie 1
+height:1
+width:1
+map_variant:1
+starting_grass:1
+energy_from_grass:1
+new_grass_per_day:1
+grass_grow_variant:1
+starting_animals:1
+starting_animals_energy:1
+minimum_copulate_energy:1
+copulate_energy_decrease:1
+minimum_mutation:1
+maximum_mutation:1
+mutation_variant:1
+next_gen_type:1
+gen_length:1
