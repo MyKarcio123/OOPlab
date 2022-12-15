@@ -219,7 +219,7 @@
                                                         <Insets right="5.0" />
                                                     </HBox.margin>
                                                 </TextField>
-                                                <Button fx:id="saveConfig" mnemonicParsing="false" text="Zapamiętaj" />
+                                                <Button fx:id="saveConfig" mnemonicParsing="false" onAction="#onAddToFavoritesButtonClick" text="Zapamiętaj" />
                                             </children>
                                             <GridPane.margin>
                                                 <Insets top="2.0" />
