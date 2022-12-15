@@ -1,10 +1,9 @@
-package agh.ics.oop.app;
+package agh.ics.oop.gui;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-public class Application {
+public class ShowSimulation {
 
     @FXML
     private GridPane ;
