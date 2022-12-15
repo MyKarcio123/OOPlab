@@ -1,0 +1,17 @@
+name:
+height:
+width:
+map_variant:
+starting_grass:
+energy_from_grass:
+new_grass_per_day:
+grass_grow_variant:
+starting_animals:
+starting_animals_energy:
+minimum_copulate_energy:
+copulate_energy_decrease:
+minimum_mutation:
+maximum_mutation:
+mutation_variant:
+next_gen_type:
+gen_length:

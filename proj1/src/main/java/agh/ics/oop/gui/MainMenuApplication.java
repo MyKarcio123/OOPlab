@@ -26,6 +26,7 @@ public class MainMenuApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         MainMenuController menuController = fxmlLoader.getController();
+        menuController.loadSaves();
     }
 
 }

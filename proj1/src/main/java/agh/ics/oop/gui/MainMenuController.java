@@ -12,77 +12,104 @@ import javafx.stage.FileChooser;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainMenuController {
+    private List<ConfigButton> configButtons = new ArrayList<>();
+    private List<String> currentConfig = new ArrayList<>();
     @FXML
     private GridPane settingGrid;
+
     @FXML
-    private void addButton(String text){
-        Button button = new Button(text);
-        AnchorPane pane = new AnchorPane(button);
-        AnchorPane.setBottomAnchor(button,5.0);
-        AnchorPane.setLeftAnchor(button,5.0);
-        AnchorPane.setRightAnchor(button,5.0);
-        AnchorPane.setTopAnchor(button,5.0);
-        settingGrid.add(pane,0,settingGrid.getRowCount());
+    private void makeButton(List<String> configProperties) {
+        ConfigButton currentButton = new ConfigButton(configProperties);
+        configButtons.add(currentButton);
+        settingGrid.add(currentButton.getPane(), 0, settingGrid.getRowCount());
     }
+
     @FXML
-    public void loadSaves(){
-        URL resource = getClass().getClassLoader().getResource("saves.txt");
-        if(resource == null) throw new IllegalArgumentException("File not found!");
+    public void loadSaves() {
+        URL resource = getClass().getResource("/saves.txt");
+        if (resource == null) throw new IllegalArgumentException("File not found!");
         FileReader fr = null;
-        System.out.println(String.valueOf(resource));
         try {
-            fr = new FileReader(String.valueOf(resource));
+            fr = new FileReader(resource.getPath());
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-        BufferedReader reader =new BufferedReader(fr);
+        BufferedReader reader = new BufferedReader(fr);
         String line;
-        try{
-            while ((line = reader.readLine()) != null){
+        try {
+            List<String> configProperties = new ArrayList<>();
+            while ((line = reader.readLine()) != null) {
+                if (line.equals("")) continue;
                 String[] currentLine = line.split(":");
-                if(Objects.equals(currentLine[0], "name")) addButton(currentLine[1]);
+                configProperties.add(currentLine[1]);
+                if (Objects.equals(currentLine[0], "gen_length")) {
+                    makeButton(configProperties);
+                    configProperties.clear();
+                }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
     }
+
     @FXML
-    protected void onOpenFileButtonClick() throws RuntimeException {
+    protected void onOpenFileButtonClick() throws Exception {
         FileChooser fc = new FileChooser();
         fc.setTitle("Wybierz plik konfiguracyjny");
         fc.setInitialDirectory(new File(System.getProperty("user.home")));
 
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files","*.txt"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
 
         File file = fc.showOpenDialog(null);
-        System.out.println(file.getAbsolutePath()+"\n");
+
+        List<String> configProperties = new ArrayList<>(ConfigLoader.loadData(file.getAbsolutePath()));
+
+        currentConfig = configProperties;
     }
 
     @FXML
-    protected void onSaveFileButtonClick(){
+    protected void onSaveFileButtonClick() {
         FileChooser fc = new FileChooser();
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files","*.txt"));
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("Text Files", "*.txt"));
 
         File file = fc.showSaveDialog(null);
-        if(file != null){
-            saveTextToFile("test",file);
+        if (file != null) {
+            saveTextToFile(file);
         }
     }
-    private void saveTextToFile(String content, File file) {
+
+    private void saveTextToFile(File file) {
         try {
             PrintWriter writer;
             writer = new PrintWriter(file);
-            writer.println(content);
+
+            URL resource = getClass().getResource("/template.txt");
+            if (resource == null) throw new IllegalArgumentException("File not found!");
+            FileReader fr = null;
+            try {
+                fr = new FileReader(resource.getPath());
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+            BufferedReader reader = new BufferedReader(fr);
+            String line;
+            int iter = 0;
+            while ((line = reader.readLine()) != null) {
+                line += currentConfig.get(iter);
+                iter += 1;
+                writer.println(line);
+            }
             writer.close();
-        } catch (IOException ex) {
-            Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }
