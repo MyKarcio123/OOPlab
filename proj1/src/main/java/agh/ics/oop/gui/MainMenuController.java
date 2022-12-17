@@ -3,12 +3,19 @@ package agh.ics.oop.gui;
 import javafx.fxml.FXML;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import javafx.scene.control.TextField;
 
 import java.io.*;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,16 +48,8 @@ public class MainMenuController implements IMainMenuControllerObserver {
     }
 
     @FXML
-    public void loadSaves() {
-        URL resource = getClass().getResource("/saves.txt");
-        if (resource == null) throw new IllegalArgumentException("File not found!");
-        FileReader fr = null;
-        try {
-            fr = new FileReader(resource.getPath());
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        BufferedReader reader = new BufferedReader(fr);
+    public void loadSaves() throws FileNotFoundException {
+        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/saves.txt"));
         String line;
         try {
             List<String> configProperties = new ArrayList<>();
@@ -81,9 +80,8 @@ public class MainMenuController implements IMainMenuControllerObserver {
 
         File file = fc.showOpenDialog(null);
 
-        List<String> configProperties = new ArrayList<>(ConfigLoader.loadData(file.getAbsolutePath()));
+        currentConfig = new ArrayList<>(ConfigLoader.loadData(file.getAbsolutePath()));
 
-        currentConfig = configProperties;
     }
 
     @FXML
@@ -100,25 +98,26 @@ public class MainMenuController implements IMainMenuControllerObserver {
     }
 
     @FXML
-    protected void onAddToFavoritesButtonClick() {
-        try {
-            currentConfig = loadData();
-            //BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(Objects.requireNonNull(getClass().getResource("/template.txt")).getPath())));
+    protected void onAddToFavoritesButtonClick() throws IOException {
+        currentConfig = loadData();
 
-            FileWriter out = new FileWriter("/saves.txt", true);
-            for (String s : currentConfig) {
-                out.write(s + "\n");
-            }
-            makeButton(currentConfig);
-            //reader.close();
-            out.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        BufferedReader reader = new BufferedReader(new FileReader(Objects.requireNonNull(getClass().getResource("/template.txt")).getPath()));
+
+        String ans = "\n";
+
+        for (String s : currentConfig) {
+            ans= ans + reader.readLine() + s + "\n";
         }
+        reader.close();
+
+        Files.write(Path.of("src/main/resources/saves.txt"),ans.getBytes(), StandardOpenOption.APPEND);
+
+
+        makeButton(currentConfig);
     }
 
     private void saveTextToFile(File file) {
-        saveTextToFileStatic(file, currentConfig, textFields, radioButtonList);
+        saveTextToFileStatic(file, textFields, radioButtonList);
     }
 
     @FXML

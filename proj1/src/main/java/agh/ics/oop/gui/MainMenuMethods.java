@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Objects;
 
 public class MainMenuMethods {
-    protected static void saveTextToFileStatic(File file, List<String> currentConfig, List<TextField> textFields, List<RadioButton> radioButtonList) {
+    protected static void saveTextToFileStatic(File file, List<TextField> textFields, List<RadioButton> radioButtonList) {
         try {
-            currentConfig = new ArrayList<>(loadDataStatic(textFields, radioButtonList));
+            ArrayList<String> currentConfig = new ArrayList<>(loadDataStatic(textFields, radioButtonList));
             PrintWriter writer;
             writer = new PrintWriter(file);
 
@@ -32,6 +32,8 @@ public class MainMenuMethods {
                 iter += 1;
                 writer.println(line);
             }
+            reader.close();
+            fr.close();
             writer.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
