@@ -13,6 +13,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import static agh.ics.oop.gui.MainMenuMethods.loadDataStatic;
+import static agh.ics.oop.gui.MainMenuMethods.saveTextToFileStatic;
+
 public class MainMenuController implements IMainMenuControllerObserver {
 
     private List<TextField> textFields = new ArrayList<>();
@@ -23,6 +26,7 @@ public class MainMenuController implements IMainMenuControllerObserver {
     @Override
     public void setCurrentConfig(List<String> currentConfig) {
         this.currentConfig = new ArrayList<>(currentConfig);
+        loadToArray();
         updateData();
     }
 
@@ -98,7 +102,7 @@ public class MainMenuController implements IMainMenuControllerObserver {
     @FXML
     protected void onAddToFavoritesButtonClick() {
         try {
-            currentConfig = new ArrayList<>(loadData());
+            currentConfig = loadData();
             //BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(Objects.requireNonNull(getClass().getResource("/template.txt")).getPath())));
 
             FileWriter out = new FileWriter("/saves.txt", true);
@@ -114,31 +118,7 @@ public class MainMenuController implements IMainMenuControllerObserver {
     }
 
     private void saveTextToFile(File file) {
-        try {
-            currentConfig = new ArrayList<>(loadData());
-            PrintWriter writer;
-            writer = new PrintWriter(file);
-
-            URL resource = getClass().getResource("/template.txt");
-            if (resource == null) throw new IllegalArgumentException("File not found!");
-            FileReader fr = null;
-            try {
-                fr = new FileReader(resource.getPath());
-            } catch (FileNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-            BufferedReader reader = new BufferedReader(fr);
-            String line;
-            int iter = 0;
-            while ((line = reader.readLine()) != null) {
-                line += currentConfig.get(iter);
-                iter += 1;
-                writer.println(line);
-            }
-            writer.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        saveTextToFileStatic(file, currentConfig, textFields, radioButtonList);
     }
 
     @FXML
@@ -212,30 +192,10 @@ public class MainMenuController implements IMainMenuControllerObserver {
 
     private List<String> loadData() {
         loadToArray();
-        currentConfig.clear();
-        for (TextField textField : textFields) {
-            currentConfig.add(textField.getText());
-        }
-        for (RadioButton radioButton : radioButtonList) {
-            if (radioButton.isSelected()) currentConfig.add("0");
-            else currentConfig.add("1");
-        }
-        return currentConfig;
+        return loadDataStatic( textFields, radioButtonList);
     }
 
     private void updateData() {
-        loadToArray();
-        for (int i = 0; i < currentConfig.size(); ++i) {
-            if (i <= 12) {
-                textFields.get(i).setText(currentConfig.get(i));
-            } else {
-                if (Objects.equals(currentConfig.get(i), "0")) {
-                    radioButtonList.get(2*(i - 13)).setSelected(Objects.equals(currentConfig.get(i), "0"));
-                } else {
-                    radioButtonList.get(2*(i - 13)+1).setSelected(Objects.equals(currentConfig.get(i), "1"));
-                }
-
-            }
-        }
+        MainMenuMethods.updateDataStatic(currentConfig, textFields,radioButtonList);
     }
 }
