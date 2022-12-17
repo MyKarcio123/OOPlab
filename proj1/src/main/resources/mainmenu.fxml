@@ -186,7 +186,7 @@
                                                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                             </rowConstraints>
                                             <children>
-                                                <RadioButton fx:id="fullControllVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="pełna predystynacja" wrapText="true">
+                                                <RadioButton fx:id="fullControlVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="pełna predystynacja" wrapText="true">
                                                     <toggleGroup>
                                                         <ToggleGroup fx:id="reactionRadio" />
                                                     </toggleGroup>

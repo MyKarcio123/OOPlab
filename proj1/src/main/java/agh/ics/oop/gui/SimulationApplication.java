@@ -1,9 +1,6 @@
 package agh.ics.oop.gui;
 
-import agh.ics.oop.AbstractMapElement;
-import agh.ics.oop.AbstractWorldMap;
-import agh.ics.oop.EarthMap;
-import agh.ics.oop.Vector2d;
+import agh.ics.oop.*;
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +39,7 @@ public class SimulationApplication extends Application {
 
         try{
             //directions = parse(args);
-            map = new EarthMap();
+            map = new EarthMap(new SimulationEngine());
             positions = new Vector2d[]{new Vector2d(2, 2), new Vector2d(3, 4)};
 
             gridPane = new GridPane();

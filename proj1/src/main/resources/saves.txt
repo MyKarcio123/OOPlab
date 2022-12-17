@@ -13,8 +13,8 @@ maximum_mutation:1
 gen_length:1
 map_variant:1
 grass_grow_variant:1
-mutation_variant:1
-next_gen_type:1
+mutation_variant:0
+next_gen_type:0
 
 name:Pieklo
 height:1
@@ -33,4 +33,3 @@ map_variant:1
 grass_grow_variant:1
 mutation_variant:1
 next_gen_type:1
-

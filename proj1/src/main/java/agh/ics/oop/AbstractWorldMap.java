@@ -30,7 +30,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
         placesOfGrassToBeEaten = new LinkedList<>();
-        placeInitGrass(STARTING_GRASS);
+
         this.observer = observer;
         if (GRASS_GROW_VARIANT == 1) {
             historyOfDeathAnimals = new HashMap<>();
@@ -41,6 +41,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             }
         }
         placesOfCopulation = new HashSet<>();
+        mapUpperRight = new Vector2d(100,100);
+        placeInitGrass(STARTING_GRASS);
     }
 
 
