@@ -6,19 +6,20 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 
 import javafx.scene.control.TextField;
+
 import java.io.*;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class MainMenuController implements IMainMenuControllerObserver{
+public class MainMenuController implements IMainMenuControllerObserver {
 
     private List<TextField> textFields = new ArrayList<>();
     private List<RadioButton> radioButtonList = new ArrayList<>();
     private List<ConfigButton> configButtons = new ArrayList<>();
     private List<String> currentConfig = new ArrayList<>();
+
     @Override
     public void setCurrentConfig(List<String> currentConfig) {
         this.currentConfig = new ArrayList<>(currentConfig);
@@ -30,13 +31,13 @@ public class MainMenuController implements IMainMenuControllerObserver{
 
     @FXML
     private void makeButton(List<String> configProperties) {
-        ConfigButton currentButton = new ConfigButton(configProperties,(IMainMenuControllerObserver) this);
+        ConfigButton currentButton = new ConfigButton(configProperties, (IMainMenuControllerObserver) this);
         configButtons.add(currentButton);
         settingGrid.add(currentButton.getPane(), 0, settingGrid.getRowCount());
     }
 
     @FXML
-        public void loadSaves() {
+    public void loadSaves() {
         URL resource = getClass().getResource("/saves.txt");
         if (resource == null) throw new IllegalArgumentException("File not found!");
         FileReader fr = null;
@@ -53,10 +54,11 @@ public class MainMenuController implements IMainMenuControllerObserver{
                 if (line.equals("")) continue;
                 String[] currentLine = line.split(":");
                 configProperties.add(currentLine[1]);
-                if (Objects.equals(currentLine[0], "gen_length")) {
+                if (Objects.equals(currentLine[0], "next_gen_type")) {
                     makeButton(configProperties);
                     configProperties.clear();
                 }
+
             }
             reader.close();
         } catch (IOException e) {
@@ -92,17 +94,19 @@ public class MainMenuController implements IMainMenuControllerObserver{
             saveTextToFile(file);
         }
     }
+
     @FXML
-    protected void onAddToFavoritesButtonClick(){
-        try{
+    protected void onAddToFavoritesButtonClick() {
+        try {
             currentConfig = new ArrayList<>(loadData());
-            BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(Objects.requireNonNull(getClass().getResource("/template.txt")).getPath())));
-            PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(String.valueOf(Objects.requireNonNull(getClass().getResource("/saves.txt")).getPath()),true)));
+            //BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(Objects.requireNonNull(getClass().getResource("/template.txt")).getPath())));
+
+            FileWriter out = new FileWriter("/saves.txt", true);
             for (String s : currentConfig) {
-                out.println(reader.readLine() + s);
+                out.write(s + "\n");
             }
             makeButton(currentConfig);
-            reader.close();
+            //reader.close();
             out.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -136,6 +140,7 @@ public class MainMenuController implements IMainMenuControllerObserver{
             throw new RuntimeException(e);
         }
     }
+
     @FXML
     TextField configurationName;
     @FXML
@@ -145,6 +150,8 @@ public class MainMenuController implements IMainMenuControllerObserver{
     @FXML
     RadioButton earthVariant;
     @FXML
+    RadioButton hellVariant;
+    @FXML
     TextField grassAmountField;
     @FXML
     TextField energyFromGrassField;
@@ -152,6 +159,8 @@ public class MainMenuController implements IMainMenuControllerObserver{
     TextField grassPerDayField;
     @FXML
     RadioButton goodVariant;
+    @FXML
+    RadioButton toxicVariant;
     @FXML
     TextField startingAnimalField;
     @FXML
@@ -167,19 +176,27 @@ public class MainMenuController implements IMainMenuControllerObserver{
     @FXML
     RadioButton randomVariant;
     @FXML
+    RadioButton correctionVariant;
+    @FXML
     TextField genomeLengthField;
     @FXML
-    RadioButton fullControllVariant;
-    private void loadToArray(){
+    RadioButton fullControlVariant;
+    @FXML
+    RadioButton bitOfRandomVariant;
+
+    private void loadToArray() {
         textFields.clear();
+        radioButtonList.clear();
         textFields.add(configurationName);
         textFields.add(heighField);
         textFields.add(widthField);
         radioButtonList.add(earthVariant);
+        radioButtonList.add(hellVariant);
         textFields.add(grassAmountField);
         textFields.add(energyFromGrassField);
         textFields.add(grassPerDayField);
         radioButtonList.add(goodVariant);
+        radioButtonList.add(toxicVariant);
         textFields.add(startingAnimalField);
         textFields.add(startingEnergyField);
         textFields.add(energyNeededField);
@@ -187,14 +204,17 @@ public class MainMenuController implements IMainMenuControllerObserver{
         textFields.add(minMutationField);
         textFields.add(maxMutationField);
         radioButtonList.add(randomVariant);
-        radioButtonList.add(fullControllVariant);
+        radioButtonList.add(correctionVariant);
+        radioButtonList.add(fullControlVariant);
+        radioButtonList.add(bitOfRandomVariant);
         textFields.add(genomeLengthField);
     }
-    private List<String> loadData(){
+
+    private List<String> loadData() {
         loadToArray();
         currentConfig.clear();
         for (TextField textField : textFields) {
-            currentConfig.add(textField.toString());
+            currentConfig.add(textField.getText());
         }
         for (RadioButton radioButton : radioButtonList) {
             if (radioButton.isSelected()) currentConfig.add("0");
@@ -202,13 +222,19 @@ public class MainMenuController implements IMainMenuControllerObserver{
         }
         return currentConfig;
     }
-    private void updateData(){
+
+    private void updateData() {
         loadToArray();
-        for(int i=0;i<currentConfig.size();++i){
-            if(i<=12){
+        for (int i = 0; i < currentConfig.size(); ++i) {
+            if (i <= 12) {
                 textFields.get(i).setText(currentConfig.get(i));
-            }else{
-                radioButtonList.get(i-12).setSelected(Objects.equals(currentConfig.get(i), "0"));
+            } else {
+                if (Objects.equals(currentConfig.get(i), "0")) {
+                    radioButtonList.get(2*(i - 13)).setSelected(Objects.equals(currentConfig.get(i), "0"));
+                } else {
+                    radioButtonList.get(2*(i - 13)+1).setSelected(Objects.equals(currentConfig.get(i), "1"));
+                }
+
             }
         }
     }

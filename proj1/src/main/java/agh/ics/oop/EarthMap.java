@@ -1,7 +1,7 @@
 package agh.ics.oop;
 
 public class EarthMap extends AbstractWorldMap{
-    protected EarthMap(IMapStateEngineObserver observer) {
+    public EarthMap(IMapStateEngineObserver observer) {
         super(observer);
     }
 
