@@ -14,7 +14,7 @@ public class GuiElementBox {
     private VBox vBox = new VBox();
 
     public GuiElementBox(AbstractMapElement element) {
-            this.image = new Image("file:src/main/resources/" + element.getImagePath() + ".png");
+            this.image = new Image("file:src/main/resources/N.png");
             imageView.setImage(image);
             imageView.setFitHeight(20);
             imageView.setFitWidth(20);
