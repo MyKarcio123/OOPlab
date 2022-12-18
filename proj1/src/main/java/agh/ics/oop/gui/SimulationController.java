@@ -6,19 +6,25 @@ import javafx.geometry.HPos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeSet;
+
+import static javafx.scene.layout.GridPane.setHgrow;
+import static javafx.scene.layout.GridPane.setVgrow;
 
 public class SimulationController {
 
     @FXML
-    private GridPane mapVisualizer;
+    private GridPane mapWrapper;
+
 
     private int xMin;
     private int yMin;
     private int xMax;
     private int yMax;
-    private final int HEIGHT = 5;
-    private final int WIDTH = 5;
+    private final int HEIGHT = 50;
+    private final int WIDTH = 50;
     private AbstractWorldMap map;
 
     public void init(){
@@ -38,72 +44,77 @@ public class SimulationController {
         }
     }
 
-    public void xyLabel(){
+    public void xyLabel(GridPane mapVisualizer){
         GridPane.setHalignment(new Label("y/x"), HPos.CENTER);
         mapVisualizer.getColumnConstraints().add(new ColumnConstraints(WIDTH));
         mapVisualizer.getRowConstraints().add(new RowConstraints(HEIGHT));
         mapVisualizer.add(new Label("y/x"), 0, 0);
     }
 
-    public void columnsFunction(){
+    public void columnsFunction(GridPane mapVisualizer){
         for (int i = xMin; i <= xMax; i++){
             Label label = new Label();
             GridPane.setHalignment(label, HPos.CENTER);
             mapVisualizer.getColumnConstraints().add(new ColumnConstraints(WIDTH));
             mapVisualizer.add(label, i-xMin+1, 0);
+
         }
     }
 
     public void updateBounds(){
         xMin = 0;
-        yMin = 1;
-        xMax = 100;
-        yMax = 100;
+        yMin = 0;
+        xMax = 20;
+        yMax = 20;
     }
 
             ;
-    public void rowsFunction(){
+    public void rowsFunction(GridPane mapVisualizer){
         for (int i = yMax; i >= yMin; i--){
             Label label = new Label();
-            //GridPane.setHalignment(label, HPos.CENTER);
             mapVisualizer.getRowConstraints().add(new RowConstraints(HEIGHT));
             mapVisualizer.add(label, 0, yMax -i + 1);
         }
     }
-//
-//    public void addElements() {
-//        for (int i = xMin; i <= xMax; i++) {
-//            for (int j = yMax; j >= yMin; j--) {
-//                Vector2d pos = new Vector2d(i,j);
-//                if(map.isOccupied(pos)){
-//                    TreeSet obj = map.objectAt(pos);
-//                    AbstractMapElement elem = (AbstractMapElement) obj.first();
-//                    GuiElementBox elementBox = new GuiElementBox(elem);
-//                    gridPane.add(elementBox.getvBox(),i-xMin+1,yMax-j+1);
-//                    GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
-//                }
-//                else {
-//                    gridPane.add(new Label(" "),i-xMin+1,yMax-j+1);
-//                }
-//            }
-//        }
-//    }
+
+    public void addElements(GridPane mapVisualizer) {
+        for (int i = xMin; i <= xMax; i++) {
+            for (int j = yMax; j >= yMin; j--) {
+                Vector2d pos = new Vector2d(i,j);
+                //if(map.isOccupied(pos)){
+                    //TreeSet obj = map.objectAt(pos);
+                    //AbstractMapElement elem = (AbstractMapElement) obj.first();
+                    List<Integer> genotype = new ArrayList<>();
+                    genotype.add(1);
+                    genotype.add(1);
+                    AbstractMapElement elem = new Animal(new EarthMap(new SimulationEngine()),new Vector2d(2,4),genotype,0,new SimulationEngine() );
+                    GuiElementBox elementBox = new GuiElementBox(elem);
+                    mapVisualizer.add(elementBox.getvBox(),i-xMin+1,yMax-j+1);
+                    GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
+               // }
+                //else {
+                    //mapVisualizer.add(new Label(" "),i-xMin+1,yMax-j+1);
+                //}
+            }
+        }
+    }
 
 
 
     @FXML
     public void prepareBackground(){
+        GridPane mapVisualizer = new GridPane();
         updateBounds();
-        xyLabel();
-        columnsFunction();
-        rowsFunction();
-        //addElements();
+        xyLabel(mapVisualizer);
+        columnsFunction(mapVisualizer);
+        rowsFunction(mapVisualizer);
+        addElements(mapVisualizer);
+        mapWrapper.add(mapVisualizer,0,0);
+
+
         mapVisualizer.setGridLinesVisible(true);
     }
-    //gridPane.setGridLinesVisible(true);
 
-    @FXML
-    VBox mapVis;
 
 
 }
