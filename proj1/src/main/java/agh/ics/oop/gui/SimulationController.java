@@ -16,7 +16,7 @@ import static javafx.scene.layout.GridPane.setVgrow;
 public class SimulationController {
 
     @FXML
-    private GridPane mapWrapper;
+    private AnchorPane mapWrapper;
 
 
     private int xMin;
@@ -53,10 +53,11 @@ public class SimulationController {
 
     public void columnsFunction(GridPane mapVisualizer){
         for (int i = xMin; i <= xMax; i++){
-            Label label = new Label();
+            Integer columnIndex = i-xMin;
+            Label label = new Label(columnIndex.toString());
             GridPane.setHalignment(label, HPos.CENTER);
             mapVisualizer.getColumnConstraints().add(new ColumnConstraints(WIDTH));
-            mapVisualizer.add(label, i-xMin+1, 0);
+            mapVisualizer.add(label, columnIndex+1, 0);
 
         }
     }
@@ -64,16 +65,17 @@ public class SimulationController {
     public void updateBounds(){
         xMin = 0;
         yMin = 0;
-        xMax = 20;
-        yMax = 20;
+        xMax = 100;
+        yMax = 100;
     }
 
             ;
     public void rowsFunction(GridPane mapVisualizer){
         for (int i = yMax; i >= yMin; i--){
-            Label label = new Label();
+            Integer rowIndex = yMax -i;
+            Label label = new Label(rowIndex.toString());
             mapVisualizer.getRowConstraints().add(new RowConstraints(HEIGHT));
-            mapVisualizer.add(label, 0, yMax -i + 1);
+            mapVisualizer.add(label, 0, rowIndex+1);
         }
     }
 
@@ -104,12 +106,14 @@ public class SimulationController {
     @FXML
     public void prepareBackground(){
         GridPane mapVisualizer = new GridPane();
+        setHgrow(mapVisualizer,Priority.ALWAYS);
+        setVgrow(mapVisualizer,Priority.ALWAYS);
         updateBounds();
         xyLabel(mapVisualizer);
         columnsFunction(mapVisualizer);
         rowsFunction(mapVisualizer);
         addElements(mapVisualizer);
-        mapWrapper.add(mapVisualizer,0,0);
+        mapWrapper.getChildren().add(mapVisualizer);
 
 
         mapVisualizer.setGridLinesVisible(true);
