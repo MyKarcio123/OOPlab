@@ -1,4 +1,4 @@
-package prime;
+package agh.ics.oop;
 
 /**
  * <p>A Perlin noise generation utility. Construct the PerlinNoise object with
@@ -15,6 +15,7 @@ public class PerlinNoise {
 	private double amplitude;
 	private double frequency;
 	private double persistence;
+	private float scale;
 	private int    seed;
 
 	/**
@@ -25,12 +26,12 @@ public class PerlinNoise {
 	 * @param amplitude
 	 * @param octaves
 	 */
-	public PerlinNoise(int seed, double persistence, double frequency, double amplitude, int octaves) {
-		set(seed, persistence, frequency, amplitude, octaves);
+	public PerlinNoise(int seed, double persistence, double frequency, double amplitude, int octaves, float scale) {
+		set(seed, persistence, frequency, amplitude, octaves, scale);
 	}
 
 	public PerlinNoise() {
-		set(0,0,0,0,0);
+		set(0,0,0,0,0,0);
 	}
 	
 	/**
@@ -86,12 +87,13 @@ public class PerlinNoise {
 	 * @param octaves
 	 *            The octaves of the frequency
 	 */
-	public final void set(int seed, double persistence, double frequency, double amplitude, int octaves) {
+	public final void set(int seed, double persistence, double frequency, double amplitude, int octaves,float scale) {
 		this.seed        = 2 + seed * seed;
 		this.octaves     = octaves;
 		this.amplitude   = amplitude;
 		this.frequency   = frequency;
 		this.persistence = persistence;
+		this.scale = scale;
 	}
 	
 	public void setSeed(int seed) {
@@ -124,7 +126,7 @@ public class PerlinNoise {
 		double freq = frequency;
 		
 		for(int k = 0; k < octaves; k++) {
-	        t    += getValue(y * freq + seed, x * freq + seed) * amp;
+	        t    += getValue((y + seed) / scale * frequency, (x + seed) / scale * frequency) * amp;
 	        amp  *= persistence;
 	        freq *= 2;
 	    }

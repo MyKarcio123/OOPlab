@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomPosition {
+    public static int getRandomSeed(){
+        Random random = new Random();
+        return random.nextInt(0,4000);
+    }
     public static Vector2d getRandomPosition(Vector2d lowerLeft, Vector2d upperRight){
         Random random = new Random();
         return new Vector2d(random.nextInt(lowerLeft.getX(), upperRight.getX()),
