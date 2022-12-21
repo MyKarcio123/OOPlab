@@ -40,10 +40,21 @@ public class MainMenuMethods {
         }
     }
 
-    protected static List<String> loadDataStatic( List<TextField> textFields, List<RadioButton> radioButtonList) {
+    protected static List<String> loadDataStatic( List<TextField> textFields, List<RadioButton> radioButtonList) throws IllegalArgumentException {
         List<String> currentConfig = new ArrayList<>();
+        int iter=0;
         for (TextField textField : textFields) {
+            if(textField.getText().replaceAll("\\s","").equals("")){
+                throw new IllegalArgumentException("Pole nie może być puste!");
+            }
+            if(iter!=0 && !textField.getText().matches("[0-9]+")){
+                throw new IllegalArgumentException("Pole musi być liczbą!");
+            }
+            if(iter!=0 && Integer.parseInt(textField.getText()) <= 0){
+                throw new IllegalArgumentException("Pole nie może być mniejsze od 0!");
+            }
             currentConfig.add(textField.getText());
+            iter+=1;
         }
         for (int i =0; i<8;i+=2) {
 

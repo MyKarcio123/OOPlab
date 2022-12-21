@@ -1,13 +1,18 @@
 package agh.ics.oop.gui;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -33,12 +38,13 @@ public class MainMenuController implements IMainMenuControllerObserver {
     @Override
     public void setCurrentConfig(List<String> currentConfig) {
         this.currentConfig = new ArrayList<>(currentConfig);
-        loadToArray();
         updateData();
     }
 
     @FXML
     private GridPane settingGrid;
+    @FXML
+    private Button start;
 
     @FXML
     private void makeButton(List<String> configProperties) {
@@ -49,6 +55,7 @@ public class MainMenuController implements IMainMenuControllerObserver {
 
     @FXML
     public void loadSaves() throws FileNotFoundException {
+        loadToArray();
         BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/saves.txt"));
         String line;
         try {
@@ -190,11 +197,18 @@ public class MainMenuController implements IMainMenuControllerObserver {
     }
 
     private List<String> loadData() {
-        loadToArray();
         return loadDataStatic( textFields, radioButtonList);
     }
 
     private void updateData() {
         MainMenuMethods.updateDataStatic(currentConfig, textFields,radioButtonList);
+    }
+
+    public Button getStartButton(){
+        return start;
+    }
+    public List<String> getCurrentConfig(){
+        loadData();
+        return currentConfig;
     }
 }

@@ -14,9 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.TreeSet;
 
-public class SimulationApplication extends Application {
+public class SimulationApplication implements IWindow{
 
     @FXML
     private VBox mapVis;
@@ -31,9 +32,9 @@ public class SimulationApplication extends Application {
     private Vector2d[] positions;
     private static GridPane gridPane;
 
-
-    public static void main(String[] args) {
-        launch(args);
+    public void runApp(Stage primaryStage, DataParameters currentConfig) throws IOException {
+        init();
+        start(primaryStage);
     }
 
     public void init(){
@@ -50,7 +51,6 @@ public class SimulationApplication extends Application {
         }
     }
 
-    @Override
     public void start(Stage primaryStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/showSimulation.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 699, 622);

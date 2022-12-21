@@ -1,6 +1,10 @@
 package agh.ics.oop.gui;
 
+import agh.ics.oop.DataParameters;
+import agh.ics.oop.IWindow;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -9,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class MainMenuApplication extends Application {
 
@@ -27,6 +32,15 @@ public class MainMenuApplication extends Application {
         primaryStage.show();
         MainMenuController menuController = fxmlLoader.getController();
         menuController.loadSaves();
+        menuController.getStartButton().setOnAction(event -> {
+            try {
+                Stage stage = new Stage();
+                IWindow simulationApplication = new SimulationApplication();
+                simulationApplication.runApp(stage,new DataParameters(menuController.getCurrentConfig()));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
     }
 
 }
