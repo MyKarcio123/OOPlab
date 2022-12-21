@@ -1,6 +1,7 @@
 package agh.ics.oop.gui;
 
 import agh.ics.oop.*;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.control.Label;
@@ -8,8 +9,11 @@ import javafx.scene.layout.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import java.util.TreeSet;
 
+import static agh.ics.oop.Parameters.HEIGHT_MAP;
+import static agh.ics.oop.Parameters.WIDTH_MAP;
 import static javafx.scene.layout.GridPane.setHgrow;
 import static javafx.scene.layout.GridPane.setVgrow;
 
@@ -17,6 +21,7 @@ public class SimulationController {
 
     @FXML
     private AnchorPane mapWrapper;
+    private static GridPane mapVisualizer;
 
 
     private int xMin;
@@ -25,24 +30,13 @@ public class SimulationController {
     private int yMax;
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
+
+    public void setMap(AbstractWorldMap map) {
+        this.map = map;
+    }
+
     private AbstractWorldMap map;
 
-    public void init(){
-
-        //String[] args = getParameters().getRaw().toArray(new String[0]);
-
-        try{
-            //directions = parse(args);
-            map = new EarthMap(new SimulationEngine());
-            //positions = new Vector2d[]{new Vector2d(2, 2), new Vector2d(3, 4)};
-
-            //gridPane = new GridPane();
-
-        }catch (IllegalArgumentException e){
-            System.out.println(e);
-            System.exit(0);
-        }
-    }
 
     public void xyLabel(GridPane mapVisualizer){
         GridPane.setHalignment(new Label("y/x"), HPos.CENTER);
@@ -65,8 +59,8 @@ public class SimulationController {
     public void updateBounds(){
         xMin = 0;
         yMin = 0;
-        xMax = 100;
-        yMax = 100;
+        xMax = WIDTH_MAP;
+        yMax = HEIGHT_MAP;
     }
 
             ;
@@ -82,21 +76,18 @@ public class SimulationController {
     public void addElements(GridPane mapVisualizer) {
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMax; j >= yMin; j--) {
-                Vector2d pos = new Vector2d(i,j);
-                //if(map.isOccupied(pos)){
-                    //TreeSet obj = map.objectAt(pos);
-                    //AbstractMapElement elem = (AbstractMapElement) obj.first();
-                    List<Integer> genotype = new ArrayList<>();
-                    genotype.add(1);
-                    genotype.add(1);
-                    AbstractMapElement elem = new Animal(new EarthMap(new SimulationEngine()),new Vector2d(2,4),genotype,0,new SimulationEngine() );
-                    GuiElementBox elementBox = new GuiElementBox(elem);
-                    mapVisualizer.add(elementBox.getvBox(),i-xMin+1,yMax-j+1);
-                    GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
-               // }
-                //else {
-                    //mapVisualizer.add(new Label(" "),i-xMin+1,yMax-j+1);
-                //}
+                Vector2d position = new Vector2d(i,j);
+                if(map.isOccupied(position)){
+                    Set<Animal> animals = map.objectAt(position);
+                    for (Animal animal : animals){
+                        GuiElementBox elementBox = new GuiElementBox(animal);
+                        mapVisualizer.add(elementBox.getvBox(),i-xMin+1,j-yMin+1);
+                        GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
+                    }
+                }
+                else {
+                    mapVisualizer.add(new Label(" "),i-xMin+1,yMax-j+1);
+                }
             }
         }
     }
@@ -105,7 +96,7 @@ public class SimulationController {
 
     @FXML
     public void prepareBackground(){
-        GridPane mapVisualizer = new GridPane();
+        mapVisualizer = new GridPane();
         setHgrow(mapVisualizer,Priority.ALWAYS);
         setVgrow(mapVisualizer,Priority.ALWAYS);
         updateBounds();
@@ -117,6 +108,16 @@ public class SimulationController {
 
 
         mapVisualizer.setGridLinesVisible(true);
+    }
+
+    public void refreshMap(){
+        Platform.runLater(() ->{
+            mapVisualizer.getChildren().clear();
+            mapVisualizer.setGridLinesVisible(false);
+            mapVisualizer.getColumnConstraints().clear();
+            mapVisualizer.getRowConstraints().clear();
+            prepareBackground();
+        });
     }
 
 

@@ -41,7 +41,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             }
         }
         placesOfCopulation = new HashSet<>();
-        mapUpperRight = new Vector2d(100,100);
+        mapUpperRight = new Vector2d(WIDTH_MAP,HEIGHT_MAP);
         placeInitGrass(STARTING_GRASS);
     }
 
@@ -81,7 +81,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             Vector2d pos = set.getKey();
             Integer amt = set.getValue();
             historyOfDeathAnimals.replace(pos, historyOfDeathAnimals.get(pos) + amt);
-            TreeSet<Animal> animals = objectAt(pos);
+            Set<Animal> animalsSet = objectAt(pos);
+            TreeSet<Animal> animals = (TreeSet<Animal>) animalsSet;
             for (int i = 0; i < amt; i++) {
                 animals.pollLast();
             }
@@ -105,7 +106,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         int howManyGrassRemoved = 0;
         for (Vector2d pos : placesOfGrassToBeEaten) {
             if (grassMap.containsKey(pos)) {
-                TreeSet<Animal> animals = objectAt(pos);
+                Set<Animal> animalsSet = objectAt(pos);
+                TreeSet<Animal> animals = (TreeSet<Animal>) animalsSet;
                 Animal animal = animals.first();
                 animal.gainEnergy();
                 animal.grassCounter();
@@ -121,7 +123,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
     public void copulateAnimals() {
         for (Vector2d pos : placesOfCopulation) {
-            TreeSet<Animal> animals = objectAt(pos);
+            Set<Animal> animalsSet = objectAt(pos);
+            TreeSet<Animal> animals = (TreeSet<Animal>) animalsSet;
             if (animals.size() > 1) {
                 Animal animal1 = animals.first();
                 Animal animal2 = null;
@@ -223,8 +226,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
     @Override
-    public TreeSet objectAt(Vector2d pos) {
-        return (TreeSet) animalMap.get(pos);
+    public Set<Animal> objectAt(Vector2d pos) {
+        return (Set<Animal>) animalMap.get(pos);
     }
 
     @Override

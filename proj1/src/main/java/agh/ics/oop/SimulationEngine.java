@@ -65,4 +65,8 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMa
         animals.add(newAnimal);
         return newAnimal;
     }
+
+    public AbstractWorldMap getMap() {
+        return this.map;
+    }
 }
