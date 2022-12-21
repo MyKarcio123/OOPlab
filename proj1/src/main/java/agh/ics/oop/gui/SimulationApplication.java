@@ -38,14 +38,11 @@ public class SimulationApplication extends Application {
 
     public void init(){
 
-        String[] args = getParameters().getRaw().toArray(new String[0]);
-
         try{
-            //directions = parse(args);
-            //map = new GrassField(10);
-            positions = new Vector2d[]{new Vector2d(2, 2), new Vector2d(3, 4)};
-
-            gridPane = new GridPane();
+            SimulationEngine simulationEngine = new SimulationEngine();
+            this.map = simulationEngine.getMap();
+            Thread thread = new Thread( simulationEngine);
+            thread.start();
 
         }catch (IllegalArgumentException e){
             System.out.println(e);
@@ -62,7 +59,9 @@ public class SimulationApplication extends Application {
         primaryStage.setTitle("Symulacja 2");
         primaryStage.setScene(scene);
         primaryStage.show();
+
         SimulationController simulationController = fxmlLoader.getController();
+        simulationController.setMap(map);
         simulationController.prepareBackground();
     }
 }

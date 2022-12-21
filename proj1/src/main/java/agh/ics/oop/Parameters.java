@@ -6,8 +6,8 @@ public class Parameters {
     public static int NEXT_GEN_TYPE = 0;
     public static int GEN_LENGTH = 10;
     public static int ENERGY_VALUE_FROM_GRASS = 0;
-    public static int HEIGHT_MAP = 100;
-    public static int WIDTH_MAP = 100;
+    public static int HEIGHT_MAP = 10;
+    public static int WIDTH_MAP = 20;
     public static int MINIMUM_COPULATE_ENERGY = 100;
     public static int COPULATE_ENERGY_DECREASE = 10;
     public static int MUTATION_VARIANT = 0;
