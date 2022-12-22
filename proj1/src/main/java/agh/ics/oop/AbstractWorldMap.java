@@ -30,6 +30,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
         placesOfGrassToBeEaten = new LinkedList<>();
+        deathAnimals = new HashMap<>();
 
         this.observer = observer;
         if (GRASS_GROW_VARIANT == 1) {
