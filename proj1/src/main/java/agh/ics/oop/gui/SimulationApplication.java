@@ -2,6 +2,7 @@ package agh.ics.oop.gui;
 
 import agh.ics.oop.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -31,6 +32,7 @@ public class SimulationApplication implements IWindow{
     private final int HEIGHT = 50;
     private Vector2d[] positions;
     private static GridPane gridPane;
+    private SimulationController simulationController;
 
     public void runApp(Stage primaryStage, DataParameters currentConfig) throws IOException {
         init();
@@ -40,7 +42,7 @@ public class SimulationApplication implements IWindow{
     public void init(){
 
         try{
-            SimulationEngine simulationEngine = new SimulationEngine();
+            SimulationEngine simulationEngine = new SimulationEngine(this);
             this.map = simulationEngine.getMap();
             Thread thread = new Thread( simulationEngine);
             thread.start();
@@ -61,7 +63,12 @@ public class SimulationApplication implements IWindow{
         primaryStage.show();
 
         SimulationController simulationController = fxmlLoader.getController();
+        this.simulationController = simulationController;
         simulationController.setMap(map);
         simulationController.prepareBackground();
+    }
+
+    public void refreshMap(){
+        simulationController.refreshMap();
     }
 }
