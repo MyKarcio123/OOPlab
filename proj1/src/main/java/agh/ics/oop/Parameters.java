@@ -18,6 +18,7 @@ public class Parameters {
     public static int NEW_GRASS_PER_DAY = 1;
     public static int GRASS_GROW_VARIANT = 0;
     private static int ID = 0;
+    public static int MOVE_DELAY = 200;
     static public int getID(){
         ID+=1;
         return ID-1;

@@ -1,6 +1,10 @@
 package agh.ics.oop;
 
+import agh.ics.oop.gui.SimulationApplication;
+
 import java.util.*;
+
+import static agh.ics.oop.Parameters.MOVE_DELAY;
 
 public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMapStateEngineObserver {
     //lista zwierząt jest relacją porządku więc wystarczy jedno przejście przy założeniu że id są posortowane od najmniejszych do największych
@@ -12,6 +16,14 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMa
     private TreeSet<Integer> deathAnimalsIndex = new TreeSet<>();
     private AbstractWorldMap map;
     private int dayCounter = 0;
+    private SimulationApplication app;
+
+    public SimulationEngine(SimulationApplication app){
+        if(Parameters.MAP_VARIANT==0) this.map = new EarthMap(this);
+        else this.map = new HellMap(this);
+        this.app = app;
+        generateAnimals();
+    }
 
     public SimulationEngine(){
         if(Parameters.MAP_VARIANT==0) this.map = new EarthMap(this);
@@ -30,6 +42,16 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMa
         int howManyGrassToAdd = map.eatGrass();
         map.copulateAnimals();
         map.plantGrass(howManyGrassToAdd);
+
+        app.refreshMap();
+        System.out.println(map);
+        try{
+            Thread.sleep(MOVE_DELAY);
+        }
+        catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         dayCounter+=1;
     }
     private void clearDeathAnimals(){

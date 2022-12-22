@@ -20,7 +20,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     private HashMap<Vector2d, Integer> deathAnimals;
     private HashMap<Vector2d, Integer> historyOfDeathAnimals;
     private Vector2d mapUpperRight;
-    private Vector2d mapLowerLeft = new Vector2d(0, 0);
+    private Vector2d mapLowerLeft = new Vector2d(1, 1);
 
     private IMapStateEngineObserver observer;
 
