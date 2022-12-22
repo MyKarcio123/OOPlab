@@ -1,7 +1,10 @@
 package agh.ics.oop;
 
+import com.google.common.collect.Iterables;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.SetMultimap;
+import com.google.common.collect.Sets.SetView;
+
 
 import java.util.*;
 import java.util.stream.Stream;
@@ -107,9 +110,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         int howManyGrassRemoved = 0;
         for (Vector2d pos : placesOfGrassToBeEaten) {
             if (grassMap.containsKey(pos)) {
-                Set<Animal> animalsSet = objectAt(pos);
-                TreeSet<Animal> animals = (TreeSet<Animal>) animalsSet;
-                Animal animal = animals.first();
+                SetView<Animal> animalsSet = objectAt(pos);
+                Animal animal = Iterables.getFirst(animalsSet, null);
                 animal.gainEnergy();
                 animal.grassCounter();
                 grassMap.remove(pos);
@@ -124,19 +126,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
     public void copulateAnimals() {
         for (Vector2d pos : placesOfCopulation) {
-            Set<Animal> animalsSet = objectAt(pos);
-            TreeSet<Animal> animals = (TreeSet<Animal>) animalsSet;
-            if (animals.size() > 1) {
-                Animal animal1 = animals.first();
-                Animal animal2 = null;
-                int i = 0;
-                for (Animal animal : animals) {
-                    if (i == 1) {
-                        animal2 = animal;
-                        break;
-                    }
-                    i++;
-                }
+            SetView<Animal> animalsSet = objectAt(pos);
+            if (animalsSet.size() > 1) {
+                Animal animal1 = Iterables.getFirst(animalsSet, null);
+                Animal animal2 = Iterables.get( animalsSet, 2);
 
                 if (animal2.canCopulate()) {
 
@@ -227,8 +220,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
     @Override
-    public Set<Animal> objectAt(Vector2d pos) {
-        return (Set<Animal>) animalMap.get(pos);
+    public SetView<Animal> objectAt(Vector2d pos) {
+        return (SetView<Animal>) animalMap.get(pos);
     }
 
     @Override

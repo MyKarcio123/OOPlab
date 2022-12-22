@@ -30,12 +30,14 @@ public class SimulationController {
     private int yMax;
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
+    private AbstractWorldMap map;
 
     public void setMap(AbstractWorldMap map) {
+
         this.map = map;
     }
 
-    private AbstractWorldMap map;
+
 
 
     public void xyLabel(GridPane mapVisualizer){

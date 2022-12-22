@@ -35,15 +35,25 @@ public class SimulationApplication implements IWindow{
     private SimulationController simulationController;
 
     public void runApp(Stage primaryStage, DataParameters currentConfig) throws IOException {
-        init();
+        init(primaryStage);
         start(primaryStage);
     }
 
-    public void init(){
-
+    public void init(Stage primaryStage) throws IOException {
         try{
             SimulationEngine simulationEngine = new SimulationEngine(this);
             this.map = simulationEngine.getMap();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/showSimulation.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 699, 622);
+            primaryStage.setMinHeight(622);
+            primaryStage.setMinWidth(699);
+            primaryStage.setTitle("Symulacja 2");
+            primaryStage.setScene(scene);
+            SimulationController simulationController = fxmlLoader.getController();
+            simulationController.setMap(map);
+            this.simulationController = simulationController;
+
             Thread thread = new Thread( simulationEngine);
             thread.start();
 
@@ -53,18 +63,10 @@ public class SimulationApplication implements IWindow{
         }
     }
 
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/showSimulation.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 699, 622);
-        primaryStage.setMinHeight(622);
-        primaryStage.setMinWidth(699);
-        primaryStage.setTitle("Symulacja 2");
-        primaryStage.setScene(scene);
+    public void start(Stage primaryStage) {
         primaryStage.show();
 
-        SimulationController simulationController = fxmlLoader.getController();
-        this.simulationController = simulationController;
-        simulationController.setMap(map);
+
         simulationController.prepareBackground();
     }
 
