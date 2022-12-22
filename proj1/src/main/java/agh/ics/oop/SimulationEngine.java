@@ -36,23 +36,28 @@ public class SimulationEngine implements Runnable,IAnimalStateEnigneObserver,IMa
         }
     }
     public void run(){
-        clearDeathAnimals();
-        map.clearDeathAnimals();
-        moveAnimals();
-        int howManyGrassToAdd = map.eatGrass();
-        map.copulateAnimals();
-        map.plantGrass(howManyGrassToAdd);
-
-        app.refreshMap();
         System.out.println(map);
-        try{
-            Thread.sleep(MOVE_DELAY);
-        }
-        catch (InterruptedException e) {
-            e.printStackTrace();
+        while (true) {
+            clearDeathAnimals();
+            map.clearDeathAnimals();
+
+            moveAnimals();
+            int howManyGrassToAdd = map.eatGrass();
+            map.copulateAnimals();
+            map.plantGrass(howManyGrassToAdd);
+
+            app.refreshMap();
+
+            try{
+                Thread.sleep(MOVE_DELAY);
+            }
+            catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            dayCounter+=1;
         }
 
-        dayCounter+=1;
     }
     private void clearDeathAnimals(){
         for(Integer id : deathAnimalsIndex){
