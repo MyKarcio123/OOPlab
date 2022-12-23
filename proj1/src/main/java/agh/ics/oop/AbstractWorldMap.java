@@ -159,11 +159,11 @@ public DataParameters getDataParameters(){return this.dataParameters;}
                     List<Integer> genotype2;
                     int sumOfEnergies = animal1.getEnergy() + animal2.getEnergy();
                     if (mutationSite == 0) {
-                        genotype1 = animal2.copulate(1, animal2.getEnergy() / sumOfEnergies);
-                        genotype2 = animal1.copulate(0, animal1.getEnergy() / sumOfEnergies);
+                        genotype1 = animal2.copulate(1, animal2.getEnergy() / (float) sumOfEnergies);
+                        genotype2 = animal1.copulate(0, animal1.getEnergy() / (float) sumOfEnergies);
                     } else {
-                        genotype1 = animal1.copulate(1, animal1.getEnergy() / sumOfEnergies);
-                        genotype2 = animal2.copulate(0, animal2.getEnergy() / sumOfEnergies);
+                        genotype1 = animal1.copulate(1, animal1.getEnergy() / (float) sumOfEnergies);
+                        genotype2 = animal2.copulate(0, animal2.getEnergy() / (float) sumOfEnergies);
                     }
                     List<Integer> genotype = new ArrayList<>(Stream.concat(genotype1.stream(), genotype2.stream()).toList());
 
@@ -181,7 +181,10 @@ public DataParameters getDataParameters(){return this.dataParameters;}
                             } else {
                                 geneChange = 1;
                             }
-                            genotype.set(index, genotype.get(index) + geneChange);
+                            int newGene = genotype.get(index) + geneChange;
+                            if(newGene<0) newGene = 7;
+                            if(newGene>7) newGene = 0;
+                            genotype.set(index, newGene);
                         }
                     }
 
@@ -207,9 +210,11 @@ public DataParameters getDataParameters(){return this.dataParameters;}
         for (Animal animal : animals) {
             if (animal.getID() == id) {
                 currentAnimal = animal;
-                animals.remove(currentAnimal);
+                break;
             }
         }
+        animals.remove(currentAnimal); //TO JEST ANIMAL NIE POWINEN BYĆ NULLEM BO TO ZNACZY ŻE COŚ NIE DZIALA
+
         if (currentAnimal != null) {
             if (canMoveTo(newPosition)) {
                 animalMap.put(newPosition, currentAnimal);

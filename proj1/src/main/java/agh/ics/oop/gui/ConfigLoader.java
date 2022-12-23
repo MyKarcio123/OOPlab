@@ -6,8 +6,6 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import static agh.ics.oop.Parameters.*;
-
 public class ConfigLoader {
     public static List<String> loadData(String path) throws Exception{
         List<String> configProperties = new ArrayList<>();

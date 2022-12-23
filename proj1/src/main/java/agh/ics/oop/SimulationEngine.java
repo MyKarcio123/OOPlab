@@ -63,7 +63,6 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
     private void clearDeathAnimals() {
         for (Integer id : deathAnimalsIndex) {
-            System.out.println("HEY");
             animals.removeIf(animal -> id == animal.getID());
         }
         deathAnimalsIndex.clear();

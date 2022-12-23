@@ -237,7 +237,7 @@ public class MainMenuController implements IMainMenuControllerObserver {
         return start;
     }
     public List<String> getCurrentConfig(){
-        loadData();
+        currentConfig = loadData();
         return currentConfig;
     }
 }
