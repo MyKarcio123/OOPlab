@@ -2,6 +2,7 @@ package agh.ics.oop.gui;
 
 import agh.ics.oop.*;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.HPos;
@@ -31,17 +32,28 @@ public class SimulationApplication implements IWindow{
     private final int HEIGHT = 50;
     private Vector2d[] positions;
     private static GridPane gridPane;
+    private SimulationController simulationController;
 
     public void runApp(Stage primaryStage, DataParameters currentConfig) throws IOException {
-        init();
+        init(primaryStage);
         start(primaryStage);
     }
 
-    public void init(){
-
+    public void init(Stage primaryStage) throws IOException {
         try{
-            SimulationEngine simulationEngine = new SimulationEngine();
+            SimulationEngine simulationEngine = new SimulationEngine(this);
             this.map = simulationEngine.getMap();
+
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/showSimulation.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 699, 622);
+            primaryStage.setMinHeight(622);
+            primaryStage.setMinWidth(699);
+            primaryStage.setTitle("Symulacja 2");
+            primaryStage.setScene(scene);
+            SimulationController simulationController = fxmlLoader.getController();
+            simulationController.setMap(map);
+            this.simulationController = simulationController;
+
             Thread thread = new Thread( simulationEngine);
             thread.start();
 
@@ -51,17 +63,14 @@ public class SimulationApplication implements IWindow{
         }
     }
 
-    public void start(Stage primaryStage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/showSimulation.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 699, 622);
-        primaryStage.setMinHeight(622);
-        primaryStage.setMinWidth(699);
-        primaryStage.setTitle("Symulacja 2");
-        primaryStage.setScene(scene);
+    public void start(Stage primaryStage) {
         primaryStage.show();
 
-        SimulationController simulationController = fxmlLoader.getController();
-        simulationController.setMap(map);
+
         simulationController.prepareBackground();
+    }
+
+    public void refreshMap(){
+        simulationController.refreshMap();
     }
 }

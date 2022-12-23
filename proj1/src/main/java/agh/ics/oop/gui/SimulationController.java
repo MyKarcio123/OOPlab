@@ -30,12 +30,14 @@ public class SimulationController {
     private int yMax;
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
+    private AbstractWorldMap map;
 
     public void setMap(AbstractWorldMap map) {
+
         this.map = map;
     }
 
-    private AbstractWorldMap map;
+
 
 
     public void xyLabel(GridPane mapVisualizer){
@@ -47,29 +49,29 @@ public class SimulationController {
 
     public void columnsFunction(GridPane mapVisualizer){
         for (int i = xMin; i <= xMax; i++){
-            Integer columnIndex = i-xMin;
+            Integer columnIndex = i-xMin+1;
             Label label = new Label(columnIndex.toString());
             GridPane.setHalignment(label, HPos.CENTER);
             mapVisualizer.getColumnConstraints().add(new ColumnConstraints(WIDTH));
-            mapVisualizer.add(label, columnIndex+1, 0);
+            mapVisualizer.add(label, columnIndex, 0);
 
         }
     }
 
     public void updateBounds(){
-        xMin = 0;
-        yMin = 0;
+        xMin = 1;
+        yMin = 1;
         xMax = WIDTH_MAP;
         yMax = HEIGHT_MAP;
     }
 
-            ;
+    ;
     public void rowsFunction(GridPane mapVisualizer){
         for (int i = yMax; i >= yMin; i--){
-            Integer rowIndex = yMax -i;
+            Integer rowIndex = yMax -i+1;
             Label label = new Label(rowIndex.toString());
             mapVisualizer.getRowConstraints().add(new RowConstraints(HEIGHT));
-            mapVisualizer.add(label, 0, rowIndex+1);
+            mapVisualizer.add(label, 0, rowIndex);
         }
     }
 
