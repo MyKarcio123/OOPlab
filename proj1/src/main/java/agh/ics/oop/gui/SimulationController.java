@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-import static agh.ics.oop.Parameters.HEIGHT_MAP;
-import static agh.ics.oop.Parameters.WIDTH_MAP;
 import static javafx.scene.layout.GridPane.setHgrow;
 import static javafx.scene.layout.GridPane.setVgrow;
 
@@ -31,9 +29,12 @@ public class SimulationController {
     private final int HEIGHT = 50;
     private final int WIDTH = 50;
     private AbstractWorldMap map;
+    private int WIDTH_MAP;
+    private int HEIGHT_MAP;
 
     public void setMap(AbstractWorldMap map) {
-
+        this.WIDTH_MAP = map.getDataParameters().getWidth();
+        this.HEIGHT_MAP = map.getDataParameters().getHeight();
         this.map = map;
     }
 
@@ -86,6 +87,11 @@ public class SimulationController {
                         mapVisualizer.add(elementBox.getvBox(),i-xMin+1,j-yMin+1);
                         GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                     }
+                }
+                else if(map.isOccupiedByGrass(position)){
+                    GuiElementBox elementBox = new GuiElementBox(new Grass(position));
+                    mapVisualizer.add(elementBox.getvBox(),i-xMin+1,j-yMin+1);
+                    GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                 }
                 else {
                     mapVisualizer.add(new Label(" "),i-xMin+1,yMax-j+1);

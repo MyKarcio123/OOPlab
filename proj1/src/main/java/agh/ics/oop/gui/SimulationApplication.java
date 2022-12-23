@@ -35,13 +35,13 @@ public class SimulationApplication implements IWindow{
     private SimulationController simulationController;
 
     public void runApp(Stage primaryStage, DataParameters currentConfig) throws IOException {
-        init(primaryStage);
+        init(primaryStage, currentConfig);
         start(primaryStage);
     }
 
-    public void init(Stage primaryStage) throws IOException {
+    public void init(Stage primaryStage,DataParameters currentConfig) throws IOException {
         try{
-            SimulationEngine simulationEngine = new SimulationEngine(this);
+            SimulationEngine simulationEngine = new SimulationEngine(this, currentConfig);
             this.map = simulationEngine.getMap();
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/showSimulation.fxml"));

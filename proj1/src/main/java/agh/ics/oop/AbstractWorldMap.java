@@ -9,7 +9,6 @@ import com.google.common.collect.Sets.SetView;
 import java.util.*;
 import java.util.stream.Stream;
 
-import static agh.ics.oop.Parameters.*;
 import static agh.ics.oop.PlaceInitGrass.placeGrass;
 import static agh.ics.oop.RandomPosition.*;
 
@@ -26,17 +25,20 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     private final Vector2d mapLowerLeft = new Vector2d(1, 1);
 
     private final IMapStateEngineObserver observer;
+    private DataParameters dataParameters;
 
 
-    protected AbstractWorldMap(IMapStateEngineObserver observer) {
+    protected AbstractWorldMap(IMapStateEngineObserver observer, DataParameters currentConfig) {
         animalMap = MultimapBuilder.hashKeys().treeSetValues().build();
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
         placesOfGrassToBeEaten = new LinkedList<>();
         deathAnimals = new HashMap<>();
+        dataParameters = currentConfig;
+        mapUpperRight = new Vector2d(dataParameters.getWidth(),dataParameters.getHeight());
 
         this.observer = observer;
-        if (GRASS_GROW_VARIANT == 1) {
+        if (dataParameters.getGrassGrowVariant() == 1) {
             historyOfDeathAnimals = new HashMap<>();
             for (int i = mapLowerLeft.getX(); i <= mapUpperRight.getX(); i++) {
                 for (int j = mapLowerLeft.getY(); j <= mapUpperRight.getY(); j++) {
@@ -45,13 +47,13 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             }
         }
         placesOfCopulation = new HashSet<>();
-        mapUpperRight = new Vector2d(WIDTH_MAP,HEIGHT_MAP);
-        placeInitGrass(STARTING_GRASS);
+
+        placeInitGrass(dataParameters.getStartingGrass());
     }
 
-
+public DataParameters getDataParameters(){return this.dataParameters;}
     private void placeInitGrass(int amount) {
-        List<Vector2d> placesOfGrass = placeGrass(this, amount);
+        List<Vector2d> placesOfGrass = placeGrass(this, amount, dataParameters.getGrassGrowVariant());
         for (Vector2d grassPosition : placesOfGrass) {
             grassMap.put(grassPosition, new Grass(grassPosition));
         }
@@ -84,13 +86,23 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         for (Map.Entry<Vector2d, Integer> set : deathAnimals.entrySet()) {
             Vector2d pos = set.getKey();
             Integer amt = set.getValue();
-            //historyOfDeathAnimals.replace(pos, historyOfDeathAnimals.get(pos) + amt);
+            Integer histAmt = historyOfDeathAnimals.get(pos);
+            if (histAmt == null) {
+                historyOfDeathAnimals.replace(pos, amt);
+            }
+            else{
+                historyOfDeathAnimals.replace(pos, histAmt + amt);
+            }
             NavigableSet<Animal> animals = objectAt(pos);
             for (int i = 0; i < amt; i++) {
                 animals.pollLast();
             }
         }
         deathAnimals.clear();
+    }
+
+    public boolean isOccupiedByGrass(Vector2d position) {
+        return (grassMap.containsKey(position));
     }
 
     //Logiczne uzasadnienie czeemu do dieEvent przekazuję tylko współrzędne mimo że pod jedną współrzędną w mapie może być n obiektów.
@@ -157,11 +169,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
                     //krok 3- robienie mutacji na genotypie
                     List<Integer> indexesOfGenesToChange = getListOfIndexesOfGenesToChange(genotype.size());
-                    if (MUTATION_VARIANT == 0) {
+                    if (dataParameters.getMutationVariant() == 0) {
                         for (Integer index : indexesOfGenesToChange) {
                             genotype.set(index, getRandomGene());
                         }
-                    } else if (MUTATION_VARIANT == 1) {
+                    } else if (dataParameters.getMutationVariant() == 1) {
                         for (Integer index : indexesOfGenesToChange) {
                             int geneChange;
                             if (getBinaryDigit() == 0) {

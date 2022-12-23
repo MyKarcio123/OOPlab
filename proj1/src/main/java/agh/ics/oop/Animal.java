@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import static agh.ics.oop.Parameters.*;
+import static agh.ics.oop.DataParameters.getDataID;
 import static java.lang.Math.min;
 
 public class Animal extends AbstractMapElement implements Comparable<Animal> {
@@ -17,17 +17,20 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     private final int day;
     private int dayOfDeath;
     private int grassEaten;
-    private int energy = STARTING_ENERGY;
+    private int energy;
     private final IAnimalStateMapObserver stateMapObserver;
     private final IAnimalStateEnigneObserver stateEnigneObserver;
+    private DataParameters dataParameters;
 
     public Animal(AbstractWorldMap map, Vector2d position, List<Integer> genotype, int day, SimulationEngine engine) {
+        this.stateMapObserver = map;
+        this.dataParameters = map.getDataParameters();
         this.orientation = MapDirection.getRandom();
         this.genotype = genotype;
         this.position = position;
-        this.id = Parameters.getID();
+        this.energy = dataParameters.getStratingAnimalsEnergy();
+        this.id = getDataID();
         this.day = day;
-        this.stateMapObserver = map;
         this.stateEnigneObserver = engine;
         getRandomActiveGen();
     }
@@ -53,15 +56,15 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         Vector2d futurePosition = stateMapObserver.positionChanged(position, newPosition, id);
         if(futurePosition!=newPosition){
             newPosition=futurePosition;
-            if(MAP_VARIANT==1){
-                energy -= COPULATE_ENERGY_DECREASE;
+            if(dataParameters.getMapVariant()==1){
+                energy -= dataParameters.getCopulateEnergyDecrease();
             }
         }
         this.position = newPosition;
     }
 
     private void newActiveGen() {
-        if (NEXT_GEN_TYPE == 0) {                       //pełna predystynacja
+        if (dataParameters.getNextGenType() == 0) {                       //pełna predystynacja
             activeGen += 1;
         } else {                                      //nieco szaleństwa
             int chance = rd.nextInt(10) + 1;
@@ -86,7 +89,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     }
 
     public boolean canCopulate() {
-        return energy >= MINIMUM_COPULATE_ENERGY;
+        return energy >= dataParameters.getMinimumCopulateEnergy();
     }
 
     //Przeładowuję funkcję gainEnergy jeżeli w przyszłości hipotetycznie chcielibyśmy dodać inną wartość za każdą trawę
@@ -96,7 +99,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     public void grassCounter(){grassEaten+=1;}
 
     public void gainEnergy() {
-        energy += ENERGY_VALUE_FROM_GRASS;
+        energy += dataParameters.getEnergyFromGrass();
     }
 
     public int getID() {
@@ -106,7 +109,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     //side - lewo = 0, prawo = 0, ratio liczba z przedziału <0,1> która wskazuje jaki procent genów leci do bobusia
     public List<Integer> copulate(int side, float ratio) {
         int currentIndex;
-        energy -= COPULATE_ENERGY_DECREASE;
+        energy -= dataParameters.getCopulateEnergyDecrease();
         int genesToChild = (int) (genotype.size() * ratio);
         List<Integer> childGenotype = new ArrayList<>();
         if (side == 0) currentIndex = genotype.size() - genesToChild;
