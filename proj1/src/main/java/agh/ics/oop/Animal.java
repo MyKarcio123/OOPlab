@@ -9,7 +9,6 @@ import static java.lang.Math.min;
 
 public class Animal extends AbstractMapElement implements Comparable<Animal> {
     private MapDirection orientation;
-    private final AbstractWorldMap map;
     private final List<Integer> genotype;
     private final Random rd = new Random();
     private final int id;
@@ -26,7 +25,6 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         this.orientation = MapDirection.getRandom();
         this.genotype = genotype;
         this.position = position;
-        this.map = map;
         this.id = Parameters.getID();
         this.day = day;
         this.stateMapObserver = map;
@@ -54,10 +52,10 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         Vector2d newPosition = position.add(orientation.toUnitVector());
         Vector2d futurePosition = stateMapObserver.positionChanged(position, newPosition, id);
         if(futurePosition!=newPosition){
+            newPosition=futurePosition;
             if(MAP_VARIANT==1){
                 energy -= COPULATE_ENERGY_DECREASE;
             }
-            newPosition=futurePosition;
         }
         this.position = newPosition;
     }
@@ -152,6 +150,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
 
     @Override
     public int compareTo(Animal animal) {
+        if(animal.getID()==this.getID()){return 0;}
         int v;
         if ((v = Integer.compare(getEnergy(), animal.getEnergy())) != 0) {
             return v;

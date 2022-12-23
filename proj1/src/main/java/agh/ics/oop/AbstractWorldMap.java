@@ -18,14 +18,14 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     protected final SetMultimap<Vector2d, Animal> animalMap;
     protected final Map<Vector2d, Grass> grassMap;
     protected final MapVisualizer mapVisualizer;
-    private List<Vector2d> placesOfGrassToBeEaten;
-    private Set<Vector2d> placesOfCopulation;
-    private HashMap<Vector2d, Integer> deathAnimals;
-    private HashMap<Vector2d, Integer> historyOfDeathAnimals;
+    private final List<Vector2d> placesOfGrassToBeEaten;
+    private final Set<Vector2d> placesOfCopulation;
+    private final HashMap<Vector2d, Integer> deathAnimals;
+    private HashMap<Vector2d, Integer> historyOfDeathAnimals = new HashMap<>();
     private Vector2d mapUpperRight;
-    private Vector2d mapLowerLeft = new Vector2d(1, 1);
+    private final Vector2d mapLowerLeft = new Vector2d(1, 1);
 
-    private IMapStateEngineObserver observer;
+    private final IMapStateEngineObserver observer;
 
 
     protected AbstractWorldMap(IMapStateEngineObserver observer) {
@@ -84,9 +84,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         for (Map.Entry<Vector2d, Integer> set : deathAnimals.entrySet()) {
             Vector2d pos = set.getKey();
             Integer amt = set.getValue();
-            historyOfDeathAnimals.replace(pos, historyOfDeathAnimals.get(pos) + amt);
-            Set<Animal> animalsSet = objectAt(pos);
-            TreeSet<Animal> animals = (TreeSet<Animal>) animalsSet;
+            //historyOfDeathAnimals.replace(pos, historyOfDeathAnimals.get(pos) + amt);
+            NavigableSet<Animal> animals = objectAt(pos);
             for (int i = 0; i < amt; i++) {
                 animals.pollLast();
             }
@@ -110,8 +109,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         int howManyGrassRemoved = 0;
         for (Vector2d pos : placesOfGrassToBeEaten) {
             if (grassMap.containsKey(pos)) {
-                SetView<Animal> animalsSet = objectAt(pos);
-                Animal animal = Iterables.getFirst(animalsSet, null);
+                NavigableSet<Animal> animalsSet = objectAt(pos);
+                Animal animal = animalsSet.first();
                 animal.gainEnergy();
                 animal.grassCounter();
                 grassMap.remove(pos);
@@ -123,13 +122,12 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
     @Override
-
     public void copulateAnimals() {
         for (Vector2d pos : placesOfCopulation) {
-            SetView<Animal> animalsSet = objectAt(pos);
+            NavigableSet<Animal> animalsSet = objectAt(pos);
             if (animalsSet.size() > 1) {
-                Animal animal1 = Iterables.getFirst(animalsSet, null);
-                Animal animal2 = Iterables.get( animalsSet, 2);
+                Animal animal1 = animalsSet.first();
+                Animal animal2 = animalsSet.floor(animal1);
 
                 if (animal2.canCopulate()) {
 
@@ -145,8 +143,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                     int mutationSite = getBinaryDigit();
 
                     // krok 2 - zbieranie genów
-                    List<Integer> genotype1 = new ArrayList<>();
-                    List<Integer> genotype2 = new ArrayList<>();
+                    List<Integer> genotype1;
+                    List<Integer> genotype2;
                     int sumOfEnergies = animal1.getEnergy() + animal2.getEnergy();
                     if (mutationSite == 0) {
                         genotype1 = animal2.copulate(1, animal2.getEnergy() / sumOfEnergies);
@@ -155,7 +153,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                         genotype1 = animal1.copulate(1, animal1.getEnergy() / sumOfEnergies);
                         genotype2 = animal2.copulate(0, animal2.getEnergy() / sumOfEnergies);
                     }
-                    List<Integer> genotype = Stream.concat(genotype1.stream(), genotype2.stream()).toList();
+                    List<Integer> genotype = new ArrayList<>(Stream.concat(genotype1.stream(), genotype2.stream()).toList());
 
                     //krok 3- robienie mutacji na genotypie
                     List<Integer> indexesOfGenesToChange = getListOfIndexesOfGenesToChange(genotype.size());
@@ -192,7 +190,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
     @Override
     public Vector2d positionChanged(Vector2d oldPosition, Vector2d newPosition, int id) {
-        Set<Animal> animals = animalMap.get(oldPosition);
+        NavigableSet<Animal> animals = objectAt(oldPosition);
         Animal currentAnimal = null;
         for (Animal animal : animals) {
             if (animal.getID() == id) {
@@ -203,25 +201,25 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         if (currentAnimal != null) {
             if (canMoveTo(newPosition)) {
                 animalMap.put(newPosition, currentAnimal);
-                if (animalMap.get(newPosition).size() == 2) {placesOfCopulation.add(newPosition);}
-                return newPosition;
             } else {
                 newPosition = getNewPosition(newPosition);
+                animalMap.put(newPosition,currentAnimal);
                 if (newPosition == null) {
                     if (animalMap.get(oldPosition).size() >= 2) {placesOfCopulation.add(oldPosition);}
+                    animalMap.put(oldPosition,currentAnimal);
                     return oldPosition;
                 }
-                if (animalMap.get(newPosition).size() == 2) {placesOfCopulation.add(newPosition);}
-                return newPosition;
             }
+            if (animalMap.get(newPosition).size() == 2) {placesOfCopulation.add(newPosition);}
+            return newPosition;
         }
         if (animalMap.get(oldPosition).size() >= 2) {placesOfCopulation.add(oldPosition);}
         return oldPosition;
     }
 
     @Override
-    public SetView<Animal> objectAt(Vector2d pos) {
-        return (SetView<Animal>) animalMap.get(pos);
+    public NavigableSet<Animal> objectAt(Vector2d pos) {
+        return (NavigableSet<Animal>) animalMap.get(pos);
     }
 
     @Override
