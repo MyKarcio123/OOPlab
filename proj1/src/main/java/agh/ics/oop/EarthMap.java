@@ -7,8 +7,10 @@ public class EarthMap extends AbstractWorldMap{
 
     @Override
     public boolean canMoveTo(Vector2d position) {
+
         int y = position.getY();
-        return y>this.getMapLowerLeft().getY() && y<this.getMapLowerLeft().getY();
+
+        return y>this.getMapLowerLeft().getY() && y<this.getMapUpperRight().getY();
     }
 
     @Override
