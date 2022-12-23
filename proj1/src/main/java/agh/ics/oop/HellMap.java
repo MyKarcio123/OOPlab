@@ -1,8 +1,8 @@
 package agh.ics.oop;
 
 public class HellMap extends AbstractWorldMap {
-    protected HellMap(IMapStateEngineObserver observer) {
-        super(observer);
+    protected HellMap(IMapStateEngineObserver observer, DataParameters currentConfig) {
+        super(observer, currentConfig);
     }
 
     @Override

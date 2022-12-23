@@ -2,11 +2,10 @@ package agh.ics.oop;
 
 import java.util.*;
 
-import static agh.ics.oop.Parameters.GRASS_GROW_VARIANT;
 import static java.lang.Math.min;
 
 public class PlaceInitGrass {
-    public static List<Vector2d> placeGrass (AbstractWorldMap map, int amount) {
+    public static List<Vector2d> placeGrass (AbstractWorldMap map, int amount, int GRASS_GROW_VARIANT) {
         List<Vector2d> placesOfGrass = new ArrayList<>();
         //Wariant zrównoważony wzrost
         if (GRASS_GROW_VARIANT == 0){
