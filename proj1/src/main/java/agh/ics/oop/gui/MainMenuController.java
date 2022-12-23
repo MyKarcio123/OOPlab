@@ -30,9 +30,9 @@ import static agh.ics.oop.gui.MainMenuMethods.saveTextToFileStatic;
 
 public class MainMenuController implements IMainMenuControllerObserver {
 
-    private List<TextField> textFields = new ArrayList<>();
-    private List<RadioButton> radioButtonList = new ArrayList<>();
-    private List<ConfigButton> configButtons = new ArrayList<>();
+    private final List<TextField> textFields = new ArrayList<>();
+    private final List<RadioButton> radioButtonList = new ArrayList<>();
+    private final List<ConfigButton> configButtons = new ArrayList<>();
     private List<String> currentConfig = new ArrayList<>();
 
     @Override
@@ -48,35 +48,61 @@ public class MainMenuController implements IMainMenuControllerObserver {
 
     @FXML
     private void makeButton(List<String> configProperties) {
-        ConfigButton currentButton = new ConfigButton(configProperties, (IMainMenuControllerObserver) this);
+        ConfigButton currentButton = new ConfigButton(configProperties, this);
         configButtons.add(currentButton);
         settingGrid.add(currentButton.getPane(), 0, settingGrid.getRowCount());
     }
 
     @FXML
-    public void loadSaves() throws FileNotFoundException {
+    public void loadSaves() throws IOException {
         loadToArray();
         BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/saves.txt"));
         String line;
-        try {
-            List<String> configProperties = new ArrayList<>();
-            while ((line = reader.readLine()) != null) {
-                if (line.equals("")) continue;
-                String[] currentLine = line.split(":");
-                configProperties.add(currentLine[1]);
-                if (Objects.equals(currentLine[0], "next_gen_type")) {
-                    makeButton(configProperties);
-                    configProperties.clear();
-                }
-
+        List<String> configProperties = new ArrayList<>();
+        while ((line = reader.readLine()) != null) {
+            if (line.equals("")) continue;
+            String[] currentLine = line.split(":");
+            configProperties.add(currentLine[1]);
+            if (Objects.equals(currentLine[0], "next_gen_type")) {
+                makeButton(configProperties);
+                configProperties.clear();
             }
-            reader.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
+        reader.close();
 
     }
-
+    //metoda która usuwa aktualnie wybraną konfigurację z pliku .txt
+    @FXML
+    protected void deleteCurrentConfiguration() throws IndexOutOfBoundsException, IOException {
+        boolean delete=false;
+        int iter=-1;
+        String nameSaveToDelete = currentConfig.get(0);
+        BufferedReader reader = new BufferedReader(new FileReader("src/main/resources/saves.txt"));
+        String line;
+        StringBuilder newSaveString = new StringBuilder();
+        while ((line = reader.readLine()) != null) {
+            if(line.equals("")) continue;
+            String[] currentLine = line.split(":");
+            if(currentLine[0].equals("name")){
+                iter+=1;
+                if(delete) {
+                    delete = false;
+                }
+            }
+            if(currentLine[1].equals(nameSaveToDelete)){
+                settingGrid.getChildren().remove(configButtons.get(iter).getPane());
+                configButtons.remove(iter);
+                iter-=1;
+                delete = true;
+            }else if(!delete){
+                newSaveString.append(line).append("\n");
+            }
+        }
+        reader.close();
+        BufferedWriter writer = new BufferedWriter(new FileWriter("src/main/resources/saves.txt"));
+        writer.write(String.valueOf(newSaveString));
+        writer.close();
+    }
     @FXML
     protected void onOpenFileButtonClick() throws Exception {
         FileChooser fc = new FileChooser();
@@ -169,6 +195,8 @@ public class MainMenuController implements IMainMenuControllerObserver {
     RadioButton fullControlVariant;
     @FXML
     RadioButton bitOfRandomVariant;
+    @FXML
+    RadioButton biomesVariant;
 
     private void loadToArray() {
         textFields.clear();
@@ -183,6 +211,7 @@ public class MainMenuController implements IMainMenuControllerObserver {
         textFields.add(grassPerDayField);
         radioButtonList.add(goodVariant);
         radioButtonList.add(toxicVariant);
+        radioButtonList.add(biomesVariant);
         textFields.add(startingAnimalField);
         textFields.add(startingEnergyField);
         textFields.add(energyNeededField);

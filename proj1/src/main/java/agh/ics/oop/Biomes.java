@@ -1,12 +1,20 @@
 package agh.ics.oop;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static agh.ics.oop.BiomeType.*;
 
 public class Biomes {
     private final float[][] temperature;
     private final float[][] humidity;
     private BiomeType[][] biomeType;
-
+    private final List<Vector2d> icyFields = new ArrayList<>();
+    private final List<Vector2d> snowyFields = new ArrayList<>();
+    private final List<Vector2d> forestFields = new ArrayList<>();
+    private final List<Vector2d> bagnoFields = new ArrayList<>();
+    private final List<Vector2d> jungleFields = new ArrayList<>();
+    private final List<Vector2d> desertFields = new ArrayList<>();
     private final BiomeType[][] biomeArray = {
             {ICY, ICY, ICY, SNOWY, SNOWY},
             {FOREST,FOREST,FOREST,FOREST,FOREST},
@@ -14,7 +22,6 @@ public class Biomes {
             {FOREST,JUNGLE,JUNGLE,JUNGLE,JUNGLE},
             {DESERT,DESERT,DESERT,DESERT,JUNGLE}
     };
-
     public Biomes(NoiseData temperature,NoiseData humidity,int minValue,int maxValue) {
         this.temperature = generateBiomeMap(temperature,minValue,maxValue);
         this.humidity = generateBiomeMap(humidity,minValue,maxValue);
@@ -24,7 +31,9 @@ public class Biomes {
         biomeType = new BiomeType[temperature.length][temperature.length];
         for(int i=0;i<temperature.length;++i){
             for(int j=0;j<humidity.length;++j){
-                biomeType[i][j]=biomeArray[(int) temperature[i][j]][(int) humidity[i][j]];
+                BiomeType type = biomeArray[(int) temperature[i][j]][(int) humidity[i][j]];
+                biomeType[i][j]=type;
+                addCoordsToList(type,new Vector2d(i,j));
             }
         }
     }
@@ -49,9 +58,39 @@ public class Biomes {
         }
         return noiseMap;
     }
-
+    private void addCoordsToList(BiomeType type, Vector2d coords){
+        if(type==SNOWY){snowyFields.add(coords);}
+        else if(type==ICY){icyFields.add(coords);}
+        else if(type==FOREST){forestFields.add(coords);}
+        else if(type==BAGNO){bagnoFields.add(coords);}
+        else if(type==JUNGLE){jungleFields.add(coords);}
+        else{desertFields.add(coords);}
+    }
     public BiomeType getBiomeTypeAt(Vector2d position) {
         return biomeType[position.getX()][position.getY()];
+    }
+    public List<Vector2d> getIcyFields() {
+        return icyFields;
+    }
+
+    public List<Vector2d> getSnowyFields() {
+        return snowyFields;
+    }
+
+    public List<Vector2d> getForestFields() {
+        return forestFields;
+    }
+
+    public List<Vector2d> getBagnoFields() {
+        return bagnoFields;
+    }
+
+    public List<Vector2d> getJungleFields() {
+        return jungleFields;
+    }
+
+    public List<Vector2d> getDesertFields() {
+        return desertFields;
     }
 
 }
