@@ -42,7 +42,7 @@
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <content>
             <AnchorPane fx:id="mapWrapper" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-            <RadioButton  maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="kula ziemska" wrapText="true">
+<!--            <RadioButton  maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="kula ziemska" wrapText="true">-->
          </content>
       </ScrollPane>
    </children>

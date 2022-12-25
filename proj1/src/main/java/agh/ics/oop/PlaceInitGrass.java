@@ -10,11 +10,11 @@ public class PlaceInitGrass {
         //Wariant zrównoważony wzrost
         if (GRASS_GROW_VARIANT == 0){
             //wymiary równika
-            int amountOnEquator = (int) amount*4/5;
             int equatorRadius = (int) (map.getMapUpperRight().getY()-map.getMapLowerLeft().getY())/10;
             int equatorY = (int)(map.getMapUpperRight().getY()+map.getMapLowerLeft().getY())/2;
             int equatorLowerBound = equatorY - equatorRadius;
             int equatorUpperBound = equatorY + equatorRadius;
+            int amountOnEquator = (int) min(amount*4/5,map.getDataParameters().getWidth()*(equatorUpperBound-equatorLowerBound+1));
 
             //robienie trawy na równiku
             ArrayList<Vector2d> grassPositions = new ArrayList<>();
