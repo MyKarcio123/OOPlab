@@ -149,7 +149,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
 
     @Override
     public String toString() {
-        return position + " " + id;
+        return position + " " + id + "E:" + energy;
     }
 
     @Override
@@ -157,13 +157,13 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         if(animal.getID()==this.getID()){return 0;}
         int v;
         if ((v = Integer.compare(getEnergy(), animal.getEnergy())) != 0) {
-            return v;
-        }
-        if ((v = Integer.compare(getDay(), animal.getDay())) != 0) {
             return -v;
         }
-        if ((v = Integer.compare(getChildAmount(), animal.getChildAmount())) != 0) {
+        if ((v = Integer.compare(getDay(), animal.getDay())) != 0) {
             return v;
+        }
+        if ((v = Integer.compare(getChildAmount(), animal.getChildAmount())) != 0) {
+            return -v;
         }
         v = rd.nextInt(2);
         if (v == 0) return -1;

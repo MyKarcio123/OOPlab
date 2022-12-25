@@ -51,6 +51,8 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
             map.copulateAnimals();
             map.plantGrass(howManyGrassToAdd);
 
+            System.out.println(animals);
+
             app.refreshMap();
 
             try {

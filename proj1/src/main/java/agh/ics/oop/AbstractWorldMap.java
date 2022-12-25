@@ -86,6 +86,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
     public void clearDeathAnimals() {
+        System.out.println(animalMap);
         for (Map.Entry<Vector2d, Integer> set : deathAnimals.entrySet()) {
             Vector2d pos = set.getKey();
             Integer amt = set.getValue();
@@ -144,8 +145,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         for (Vector2d pos : placesOfCopulation) {
             NavigableSet<Animal> animalsSet = objectAt(pos);
             if (animalsSet.size() > 1) {
-                Animal animal1 = animalsSet.first();
-                Animal animal2 = animalsSet.floor(animal1);
+                Animal animal1 = animalsSet.pollFirst();
+                Animal animal2 = animalsSet.pollFirst();
 
                 if (animal2.canCopulate()) {
 
@@ -197,8 +198,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
                     //krok 4 - zrobienie dziecka
                     Animal child = observer.bornEvent(this, animal1.getPosition(), genotype);
-                    this.place(child);
+                    animalsSet.add(child);
                 }
+                animalsSet.add(animal1);
+                animalsSet.add(animal2);
             }
         }
         placesOfCopulation.clear();
@@ -242,7 +245,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 animalMap.put(newPosition, currentAnimal);
             } else {
                 newPosition = getNewPosition(newPosition);
-                animalMap.put(newPosition, currentAnimal);
                 if (newPosition == null) {
                     if (animalMap.get(oldPosition).size() >= 2) {
                         placesOfCopulation.add(oldPosition);
@@ -250,6 +252,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                     animalMap.put(oldPosition, currentAnimal);
                     return oldPosition;
                 }
+                animalMap.put(newPosition, currentAnimal);
             }
             if (animalMap.get(newPosition).size() == 2) {
                 placesOfCopulation.add(newPosition);
