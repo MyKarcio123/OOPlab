@@ -60,6 +60,7 @@ public class DataParameters {
     public int getNextGenType(){
         return Integer.parseInt(currentConfig.get(16));
     }
+    public int getWalkEnergyDecrease(){return Integer.parseInt("1");}
     public int getMoveDelay(){return Integer.parseInt("500");}
     private static int ID = 0;
     static public int getDataID(){

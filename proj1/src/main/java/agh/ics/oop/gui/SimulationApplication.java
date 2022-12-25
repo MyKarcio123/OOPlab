@@ -45,7 +45,7 @@ public class SimulationApplication implements IWindow{
             this.map = simulationEngine.getMap();
 
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/showSimulation.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 699, 622);
+            Scene scene = new Scene(fxmlLoader.load(), 1100, 622);
             primaryStage.setMinHeight(622);
             primaryStage.setMinWidth(699);
             primaryStage.setTitle("Symulacja 2");

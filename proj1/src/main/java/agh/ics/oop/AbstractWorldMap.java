@@ -17,7 +17,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     protected final SetMultimap<Vector2d, Animal> animalMap;
     protected final Map<Vector2d, Grass> grassMap;
     protected final MapVisualizer mapVisualizer;
-    private final List<Vector2d> placesOfGrassToBeEaten;
+    private final Set<Vector2d> placesOfGrassToBeEaten;
     private final Set<Vector2d> placesOfCopulation;
     private final HashMap<Vector2d, Integer> deathAnimals;
     private HashMap<Vector2d, Integer> historyOfDeathAnimals = new HashMap<>();
@@ -32,10 +32,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         animalMap = MultimapBuilder.hashKeys().treeSetValues().build();
         grassMap = new HashMap<>();
         mapVisualizer = new MapVisualizer(this);
-        placesOfGrassToBeEaten = new LinkedList<>();
+        placesOfGrassToBeEaten = new HashSet<>();
         deathAnimals = new HashMap<>();
         dataParameters = currentConfig;
-        mapUpperRight = new Vector2d(dataParameters.getWidth(),dataParameters.getHeight());
+        mapUpperRight = new Vector2d(dataParameters.getWidth(), dataParameters.getHeight());
 
         this.observer = observer;
         if (dataParameters.getGrassGrowVariant() == 1) {
@@ -51,7 +51,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         placeInitGrass(dataParameters.getStartingGrass());
     }
 
-public DataParameters getDataParameters(){return this.dataParameters;}
+    public DataParameters getDataParameters() {
+        return this.dataParameters;
+    }
+
     private void placeInitGrass(int amount) {
         List<Vector2d> placesOfGrass = placeGrass(this, amount, dataParameters.getGrassGrowVariant());
         for (Vector2d grassPosition : placesOfGrass) {
@@ -89,8 +92,7 @@ public DataParameters getDataParameters(){return this.dataParameters;}
             Integer histAmt = historyOfDeathAnimals.get(pos);
             if (histAmt == null) {
                 historyOfDeathAnimals.replace(pos, amt);
-            }
-            else{
+            } else {
                 historyOfDeathAnimals.replace(pos, histAmt + amt);
             }
             NavigableSet<Animal> animals = objectAt(pos);
@@ -131,6 +133,10 @@ public DataParameters getDataParameters(){return this.dataParameters;}
         }
         placesOfGrassToBeEaten.clear();
         return howManyGrassRemoved;
+    }
+
+    public Map<Vector2d, Grass> getGrassMap() {
+        return grassMap;
     }
 
     @Override
@@ -182,11 +188,12 @@ public DataParameters getDataParameters(){return this.dataParameters;}
                                 geneChange = 1;
                             }
                             int newGene = genotype.get(index) + geneChange;
-                            if(newGene<0) newGene = 7;
-                            if(newGene>7) newGene = 0;
+                            if (newGene < 0) newGene = 7;
+                            if (newGene > 7) newGene = 0;
                             genotype.set(index, newGene);
                         }
                     }
+
 
                     //krok 4 - zrobienie dziecka
                     Animal child = observer.bornEvent(this, animal1.getPosition(), genotype);
@@ -202,6 +209,17 @@ public DataParameters getDataParameters(){return this.dataParameters;}
         placeInitGrass(howManyGrassToAdd);
     }
 
+    public boolean isAt(Animal animal) {
+        Vector2d position = animal.getPosition();
+        NavigableSet<Animal> animals = objectAt(position);
+        for (Animal animall : animals) {
+            if (animall.getID() == animal.getID()) {
+                return true;
+            }
+        }
+        return false;
+
+    }
 
     @Override
     public Vector2d positionChanged(Vector2d oldPosition, Vector2d newPosition, int id) {
@@ -213,6 +231,10 @@ public DataParameters getDataParameters(){return this.dataParameters;}
                 break;
             }
         }
+        if (currentAnimal == null) {
+            System.out.println("NULL");
+        }
+
         animals.remove(currentAnimal); //TO JEST ANIMAL NIE POWINEN BYĆ NULLEM BO TO ZNACZY ŻE COŚ NIE DZIALA
 
         if (currentAnimal != null) {
@@ -220,17 +242,26 @@ public DataParameters getDataParameters(){return this.dataParameters;}
                 animalMap.put(newPosition, currentAnimal);
             } else {
                 newPosition = getNewPosition(newPosition);
-                animalMap.put(newPosition,currentAnimal);
+                animalMap.put(newPosition, currentAnimal);
                 if (newPosition == null) {
-                    if (animalMap.get(oldPosition).size() >= 2) {placesOfCopulation.add(oldPosition);}
-                    animalMap.put(oldPosition,currentAnimal);
+                    if (animalMap.get(oldPosition).size() >= 2) {
+                        placesOfCopulation.add(oldPosition);
+                    }
+                    animalMap.put(oldPosition, currentAnimal);
                     return oldPosition;
                 }
             }
-            if (animalMap.get(newPosition).size() == 2) {placesOfCopulation.add(newPosition);}
+            if (animalMap.get(newPosition).size() == 2) {
+                placesOfCopulation.add(newPosition);
+            }
+            if (grassMap.containsKey(newPosition)) {
+                placesOfGrassToBeEaten.add(newPosition);
+            }
             return newPosition;
         }
-        if (animalMap.get(oldPosition).size() >= 2) {placesOfCopulation.add(oldPosition);}
+        if (animalMap.get(oldPosition).size() >= 2) {
+            placesOfCopulation.add(oldPosition);
+        }
         return oldPosition;
     }
 
