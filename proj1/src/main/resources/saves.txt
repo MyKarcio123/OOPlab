@@ -43,7 +43,7 @@ energy_from_grass:1
 new_grass_per_day:1
 starting_animals:10
 starting_animals_energy:10
-minimum_copulate_energy:1
+minimum_copulate_energy:2
 copulate_energy_decrease:1
 minimum_mutation:1
 maximum_mutation:1

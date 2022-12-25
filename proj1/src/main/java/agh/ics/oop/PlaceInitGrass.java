@@ -41,7 +41,7 @@ public class PlaceInitGrass {
                 }
             }
 
-            for (int i = 0; i < amountOnEquator; ++i) {
+            for (int i = 0; i < amount - amountOnEquator; ++i) {
                 int randomIndex = random.nextInt(grassPositions.size());
                 Vector2d grassPosition = grassPositions.get(randomIndex);
                 placesOfGrass.add(grassPosition);

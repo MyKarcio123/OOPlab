@@ -34,7 +34,10 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
     private void moveAnimals() {
         for (Animal animal : animals) {
-            animal.dayCycle();
+            if (map.isAt(animal)){
+                animal.dayCycle();
+            }
+
         }
     }
 
