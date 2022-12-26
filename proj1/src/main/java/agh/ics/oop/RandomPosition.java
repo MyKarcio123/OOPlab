@@ -22,7 +22,6 @@ public class RandomPosition {
 
     public static int getNumberOfGenesToChange(int genotypeLen){
         Random random = new Random();
-        System.out.println(genotypeLen);
         return random.nextInt(0,genotypeLen);
     }
 
