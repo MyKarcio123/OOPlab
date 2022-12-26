@@ -21,11 +21,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     private final Set<Vector2d> placesOfCopulation;
     private final HashMap<Vector2d, Integer> deathAnimals;
     private HashMap<Vector2d, Integer> historyOfDeathAnimals = new HashMap<>();
-    private Vector2d mapUpperRight;
+    private final Vector2d mapUpperRight;
     private final Vector2d mapLowerLeft = new Vector2d(1, 1);
 
     private final IMapStateEngineObserver observer;
-    private DataParameters dataParameters;
+    private final DataParameters dataParameters;
 
 
     protected AbstractWorldMap(IMapStateEngineObserver observer, DataParameters currentConfig) {
@@ -86,7 +86,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
     public void clearDeathAnimals() {
-        System.out.println(animalMap);
         for (Map.Entry<Vector2d, Integer> set : deathAnimals.entrySet()) {
             Vector2d pos = set.getKey();
             Integer amt = set.getValue();
@@ -147,7 +146,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             if (animalsSet.size() > 1) {
                 Animal animal1 = animalsSet.pollFirst();
                 Animal animal2 = animalsSet.pollFirst();
-
                 if (animal2.canCopulate()) {
 
                     //TODO powymyślać stałe, bo poniżej wpisałem losowe liczby- jakie stałe jak to mają być losowo generowane liczby XD?
@@ -197,11 +195,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
 
                     //krok 4 - zrobienie dziecka
-                    Animal child = observer.bornEvent(this, animal1.getPosition(), genotype);
-                    animalsSet.add(child);
+                    Animal child = observer.bornEvent(this, pos, genotype);
+                    animalMap.put(pos,child);
                 }
-                animalsSet.add(animal1);
-                animalsSet.add(animal2);
+                animalMap.put(pos,animal1);
+                animalMap.put(pos,animal2);
             }
         }
         placesOfCopulation.clear();
@@ -234,38 +232,34 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 break;
             }
         }
-        if (currentAnimal == null) {
-            System.out.println("NULL");
-        }
 
-        animals.remove(currentAnimal); //TO JEST ANIMAL NIE POWINEN BYĆ NULLEM BO TO ZNACZY ŻE COŚ NIE DZIALA
+        //do końca życia już tego nie zapomne
+        Animal finalCurrentAnimal = currentAnimal;
+        animals.removeIf(animal -> animal.getID()== finalCurrentAnimal.getID());
 
-        if (currentAnimal != null) {
-            if (canMoveTo(newPosition)) {
-                animalMap.put(newPosition, currentAnimal);
-            } else {
-                newPosition = getNewPosition(newPosition);
-                if (newPosition == null) {
-                    if (animalMap.get(oldPosition).size() >= 2) {
-                        placesOfCopulation.add(oldPosition);
-                    }
-                    animalMap.put(oldPosition, currentAnimal);
-                    return oldPosition;
+        if (canMoveTo(newPosition)) {
+            currentAnimal.lowerEnergy(newPosition);
+            animalMap.put(newPosition, currentAnimal);
+        } else {
+            newPosition = getNewPosition(newPosition);
+            if (newPosition == null) {
+                if (animalMap.get(oldPosition).size() >= 2) {
+                    placesOfCopulation.add(oldPosition);
                 }
-                animalMap.put(newPosition, currentAnimal);
+                currentAnimal.lowerEnergy(oldPosition);
+                animalMap.put(oldPosition, currentAnimal);
+                return oldPosition;
             }
-            if (animalMap.get(newPosition).size() == 2) {
-                placesOfCopulation.add(newPosition);
-            }
-            if (grassMap.containsKey(newPosition)) {
-                placesOfGrassToBeEaten.add(newPosition);
-            }
-            return newPosition;
+            currentAnimal.lowerEnergy(newPosition);
+            animalMap.put(newPosition, currentAnimal);
         }
-        if (animalMap.get(oldPosition).size() >= 2) {
-            placesOfCopulation.add(oldPosition);
+        if (animalMap.get(newPosition).size() == 2) {
+            placesOfCopulation.add(newPosition);
         }
-        return oldPosition;
+        if (grassMap.containsKey(newPosition)) {
+            placesOfGrassToBeEaten.add(newPosition);
+        }
+        return newPosition;
     }
 
     @Override

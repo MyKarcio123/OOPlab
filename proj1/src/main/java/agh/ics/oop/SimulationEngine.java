@@ -34,10 +34,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
     private void moveAnimals() {
         for (Animal animal : animals) {
-            if (map.isAt(animal)){
-                animal.dayCycle();
-            }
-
+            animal.dayCycle();
         }
     }
 
@@ -48,10 +45,9 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
             moveAnimals();
             int howManyGrassToAdd = map.eatGrass();
+
             map.copulateAnimals();
             map.plantGrass(howManyGrassToAdd);
-
-            System.out.println(animals);
 
             app.refreshMap();
 

@@ -1,9 +1,6 @@
 package agh.ics.oop;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 import static agh.ics.oop.DataParameters.getDataID;
 import static java.lang.Math.min;
@@ -40,7 +37,6 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         updateDirection();
         move();
         newActiveGen();
-        lowerEnergy();
     }
     public void setPosition(Vector2d position){
         this.position = position;
@@ -81,7 +77,9 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         activeGen = rd.nextInt(genotype.size());
     }
 
-    private void lowerEnergy() {
+    //z punktu widzenia sorted setu to nie ma znaczenia kiedy odejmiemy energię, bo
+    //jeżeli mamy jakąś kolejność w sorted secie i od wszystkiego odejmiemy 1 to kolejność się nie zmieni
+    public void lowerEnergy(Vector2d position) {
         energy -= 1;
         if (energy <= 0) {
             stateMapObserver.dieEvent(position);
@@ -90,7 +88,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     }
 
     public boolean canCopulate() {
-        return energy >= dataParameters.getMinimumCopulateEnergy();
+        return energy > dataParameters.getMinimumCopulateEnergy();
     }
 
     //Przeładowuję funkcję gainEnergy jeżeli w przyszłości hipotetycznie chcielibyśmy dodać inną wartość za każdą trawę
@@ -149,7 +147,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
 
     @Override
     public String toString() {
-        return position + " " + id + "E:" + energy;
+        return position + " " + id + "E: " + energy;
     }
 
     @Override
@@ -169,5 +167,9 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         if (v == 0) return -1;
         return 1;
     }
-
+    //TODO kiedyś był taki filmik jak w kodzie kangurka kao w komentarzach znaleziono fragmenty jak programiści
+    //TODO przeklinali na kod i że wszystko im się sra, ciekawe czy będziemy mieli tak samo przy ocenie XDD
+    public int hashCode() {
+        return this.id;
+    }
 }

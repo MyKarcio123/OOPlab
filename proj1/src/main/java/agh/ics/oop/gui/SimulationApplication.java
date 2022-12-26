@@ -31,7 +31,7 @@ public class SimulationApplication implements IWindow{
     private final int WIDTH = 50;
     private final int HEIGHT = 50;
     private Vector2d[] positions;
-    private static GridPane gridPane;
+    private GridPane gridPane;
     private SimulationController simulationController;
 
     public void runApp(Stage primaryStage, DataParameters currentConfig) throws IOException {
