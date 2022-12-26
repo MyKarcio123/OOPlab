@@ -106,10 +106,9 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     }
 
     //side - lewo = 0, prawo = 0, ratio liczba z przedziału <0,1> która wskazuje jaki procent genów leci do bobusia
-    public List<Integer> copulate(int side, float ratio) {
+    public List<Integer> copulate(int side, int genesToChild) {
         int currentIndex;
         energy -= dataParameters.getCopulateEnergyDecrease();
-        int genesToChild = (int) (genotype.size() * ratio);
         List<Integer> childGenotype = new ArrayList<>();
         if (side == 0) currentIndex = genotype.size() - genesToChild;
         else currentIndex = 0;
@@ -124,6 +123,8 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     public boolean isAt(Vector2d position) {
         return this.position.equals(position);
     }
+
+    public int getGenotypeSize(){return genotype.size();}
 
     public int getEnergy() {
         return energy;

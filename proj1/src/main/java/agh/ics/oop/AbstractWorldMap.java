@@ -163,16 +163,38 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                     List<Integer> genotype1;
                     List<Integer> genotype2;
                     int sumOfEnergies = animal1.getEnergy() + animal2.getEnergy();
-                    if (mutationSite == 0) {
-                        genotype1 = animal2.copulate(1, animal2.getEnergy() / (float) sumOfEnergies);
-                        genotype2 = animal1.copulate(0, animal1.getEnergy() / (float) sumOfEnergies);
+                    int genotypeSize = animal1.getGenotypeSize();
+                    int infiriorGenotypeSize = 0;
+                    if (animal1.getEnergy() > animal2.getEnergy()) {
+                        infiriorGenotypeSize =  animal2.getEnergy() / sumOfEnergies;
                     } else {
-                        genotype1 = animal1.copulate(1, animal1.getEnergy() / (float) sumOfEnergies);
-                        genotype2 = animal2.copulate(0, animal2.getEnergy() / (float) sumOfEnergies);
+                        infiriorGenotypeSize =  animal1.getEnergy() / sumOfEnergies;
+                    }
+                    int superiorGenotypeSize = genotypeSize - infiriorGenotypeSize;
+                    if (mutationSite == 0) {
+                        if (animal1.getEnergy() > animal2.getEnergy()) {
+                            genotype1 = animal2.copulate(1, superiorGenotypeSize);
+                            genotype2 = animal1.copulate(0, infiriorGenotypeSize);
+                        } else {
+                            genotype1 = animal2.copulate(1, infiriorGenotypeSize);
+                            genotype2 = animal1.copulate(0, superiorGenotypeSize);
+                        }
+                    } else {
+                        if (animal1.getEnergy() > animal2.getEnergy()) {
+                            genotype1 = animal1.copulate(1, superiorGenotypeSize);
+                            genotype2 = animal2.copulate(0, infiriorGenotypeSize);
+                        } else {
+                            genotype1 = animal1.copulate(1, infiriorGenotypeSize);
+                            genotype2 = animal2.copulate(0, superiorGenotypeSize);
+                        }
+
                     }
                     List<Integer> genotype = new ArrayList<>(Stream.concat(genotype1.stream(), genotype2.stream()).toList());
 
                     //krok 3- robienie mutacji na genotypie
+                    if (genotype.size() == 0) {
+                        System.out.println("zle");
+                    }
                     List<Integer> indexesOfGenesToChange = getListOfIndexesOfGenesToChange(genotype.size());
                     if (dataParameters.getMutationVariant() == 0) {
                         for (Integer index : indexesOfGenesToChange) {
@@ -196,10 +218,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
                     //krok 4 - zrobienie dziecka
                     Animal child = observer.bornEvent(this, pos, genotype);
-                    animalMap.put(pos,child);
+                    animalMap.put(pos, child);
                 }
-                animalMap.put(pos,animal1);
-                animalMap.put(pos,animal2);
+                animalMap.put(pos, animal1);
+                animalMap.put(pos, animal2);
             }
         }
         placesOfCopulation.clear();
@@ -210,17 +232,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         placeInitGrass(howManyGrassToAdd);
     }
 
-    public boolean isAt(Animal animal) {
-        Vector2d position = animal.getPosition();
-        NavigableSet<Animal> animals = objectAt(position);
-        for (Animal animall : animals) {
-            if (animall.getID() == animal.getID()) {
-                return true;
-            }
-        }
-        return false;
-
-    }
 
     @Override
     public Vector2d positionChanged(Vector2d oldPosition, Vector2d newPosition, int id) {
@@ -235,7 +246,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
         //do końca życia już tego nie zapomne
         Animal finalCurrentAnimal = currentAnimal;
-        animals.removeIf(animal -> animal.getID()== finalCurrentAnimal.getID());
+        animals.removeIf(animal -> animal.getID() == finalCurrentAnimal.getID());
 
         if (canMoveTo(newPosition)) {
             currentAnimal.lowerEnergy(newPosition);
