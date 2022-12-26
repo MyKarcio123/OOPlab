@@ -192,9 +192,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                     List<Integer> genotype = new ArrayList<>(Stream.concat(genotype1.stream(), genotype2.stream()).toList());
 
                     //krok 3- robienie mutacji na genotypie
-                    if (genotype.size() == 0) {
-                        System.out.println("zle");
-                    }
+
                     List<Integer> indexesOfGenesToChange = getListOfIndexesOfGenesToChange(genotype.size());
                     if (dataParameters.getMutationVariant() == 0) {
                         for (Integer index : indexesOfGenesToChange) {
