@@ -32,17 +32,41 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-
 
 <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.ics.oop.gui.SimulationController">
    <children>
       <ScrollPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <content>
-            <AnchorPane fx:id="mapWrapper" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" />
-<!--            <RadioButton  maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="kula ziemska" wrapText="true">-->
+            <GridPane prefHeight="598.0" prefWidth="903.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="572.6000061035156" minHeight="10.0" prefHeight="537.3999938964844" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="294.1999816894531" minHeight="10.0" prefHeight="60.600006103515625" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <AnchorPane fx:id="mapWrapper" prefHeight="200.0" prefWidth="200.0" />
+                  <Button mnemonicParsing="false" text="Stop/Wznów" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="20.0" />
+                     </GridPane.margin>
+                  </Button>
+                  <Button mnemonicParsing="false" text="Pokaż statystyki" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets bottom="5.0" left="120.0" right="5.0" top="5.0" />
+                     </GridPane.margin>
+                  </Button>
+               </children>
+            </GridPane>
          </content>
       </ScrollPane>
    </children>
