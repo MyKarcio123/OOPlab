@@ -58,7 +58,6 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
             }
 
             dayCounter += 1;
-            System.out.println(animals.size() + "  " + map.animalMap.size());
         }
 
     }

@@ -113,9 +113,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     @Override
     public void dieEvent(Vector2d position) {
         if (deathAnimals.containsKey(position)) {
-            deathAnimals.replace(position, deathAnimals.get(position) + 1);
+            deathAnimals.merge(position,1,Integer::sum);
+        }else {
+            deathAnimals.put(position, 1);
         }
-        deathAnimals.put(position, 1);
     }
 
     @Override
