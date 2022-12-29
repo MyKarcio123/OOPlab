@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import agh.ics.oop.gui.SimulationApplication;
+import agh.ics.oop.gui.StatsApplication;
 
 import java.util.*;
 
@@ -16,7 +17,9 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     private AbstractWorldMap map;
     private int dayCounter = 0;
     private SimulationApplication app;
+    private StatsApplication statsApplication = null;
     private DataParameters dataParameters;
+    private boolean exit = false;
 
     public SimulationEngine(SimulationApplication app, DataParameters currentConfig) {
         dataParameters = currentConfig;
@@ -24,6 +27,10 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
         else this.map = new HellMap(this, currentConfig);
         this.app = app;
         generateAnimals();
+    }
+
+    public void setStatsApplication(StatsApplication statsApplication){
+        this.statsApplication = statsApplication;
     }
 
     public SimulationEngine(DataParameters currentConfig) {
@@ -39,7 +46,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     }
 
     public void run() {
-        while (true) {
+        while (!exit) {
             clearDeathAnimals();
             map.clearDeathAnimals();
 
@@ -50,11 +57,15 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
             map.plantGrass(howManyGrassToAdd);
 
             app.refreshMap();
+            if (statsApplication != null){
+                statsApplication.refreshStats(new ArrayList<>(Arrays.asList(dayCounter,map.getNumberOfAnimals(),map.getAmountOfAnimalsDead(),map.getAmountOfGrass())));
+            }
+
 
             try {
                 Thread.sleep(dataParameters.getMoveDelay());
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                System.out.println("Koniec symulacji, bo została interrupted");
             }
 
             dayCounter += 1;
@@ -102,5 +113,9 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
     public AbstractWorldMap getMap() {
         return this.map;
+    }
+
+    public void setExit(boolean b) {
+        this.exit = b;
     }
 }

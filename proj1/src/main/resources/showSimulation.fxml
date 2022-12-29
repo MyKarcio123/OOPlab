@@ -55,12 +55,12 @@
               </rowConstraints>
                <children>
                   <AnchorPane fx:id="mapWrapper" prefHeight="200.0" prefWidth="200.0" />
-                  <Button mnemonicParsing="false" text="Stop/Wznów" GridPane.rowIndex="1">
+                  <Button fx:id="startStopBT" mnemonicParsing="false" text="Stop/Wznów" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Pokaż statystyki" GridPane.rowIndex="1">
+                  <Button fx:id="showStatBT" mnemonicParsing="false" text="Pokaż statystyki" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets bottom="5.0" left="120.0" right="5.0" top="5.0" />
                      </GridPane.margin>

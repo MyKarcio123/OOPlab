@@ -4,7 +4,9 @@ import agh.ics.oop.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
 
 import java.util.ArrayList;
@@ -20,6 +22,10 @@ public class SimulationController {
     @FXML
     private AnchorPane mapWrapper;
     private static GridPane mapVisualizer;
+    @FXML
+    private Button startStopBT;
+    @FXML
+    private Button showStatBT;
 
 
     private int xMin;
@@ -127,6 +133,9 @@ public class SimulationController {
             prepareBackground();
         });
     }
+
+    public Button getStartStopBT(){ return startStopBT;}
+    public Button getShowStatBT(){ return showStatBT;}
 
 
 
