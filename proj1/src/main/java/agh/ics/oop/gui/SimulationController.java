@@ -37,11 +37,13 @@ public class SimulationController {
     private AbstractWorldMap map;
     private int WIDTH_MAP;
     private int HEIGHT_MAP;
+    private boolean biomesMode = false;
 
-    public void setMap(AbstractWorldMap map) {
+    public void setMap(AbstractWorldMap map,int biomeMode) {
         this.WIDTH_MAP = map.getDataParameters().getWidth();
         this.HEIGHT_MAP = map.getDataParameters().getHeight();
         this.map = map;
+        if(biomeMode==2) biomesMode=true;
     }
 
 
@@ -86,7 +88,9 @@ public class SimulationController {
             for (int j = yMax; j >= yMin; j--) {
                 Vector2d position = new Vector2d(i,j);
                 AnchorPane biome = new AnchorPane();
-                biome.setStyle("-fx-background-color: " + map.getBiomeFromMap(new Vector2d(i-xMin+1,yMax-j+1)).toString());
+                String value = "#ffffff";
+                if(biomesMode) value = map.getBiomeFromMap(new Vector2d(i-xMin+1,yMax-j+1)).toString();
+                biome.setStyle("-fx-background-color: " + value);
                 if(map.isOccupied(position)){
                     Set<Animal> animals = map.objectAt(position);
                     for (Animal animal : animals){

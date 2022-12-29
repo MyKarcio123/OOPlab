@@ -19,6 +19,8 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     private final IAnimalStateMapObserver stateMapObserver;
     private final IAnimalStateEnigneObserver stateEnigneObserver;
     private DataParameters dataParameters;
+    private boolean lastCycleMove = false;
+    private BiomeType currentBiome = BiomeType.FOREST;
 
     public Animal(AbstractWorldMap map, Vector2d position, List<Integer> genotype, int day, SimulationEngine engine) {
         this.stateMapObserver = map;
@@ -50,6 +52,15 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
 
     private void move() {
         Vector2d newPosition = position.add(orientation.toUnitVector());
+        if(dataParameters.getGrassGrowVariant()==2) {
+            currentBiome = stateMapObserver.getBiomeFromMap(position);
+        }
+        if(currentBiome==BiomeType.BAGNO && lastCycleMove) {
+            lastCycleMove = false;
+            return;
+        }else if(currentBiome==BiomeType.ICY){
+            newPosition = position.add(orientation.toUnitVector());
+        }
         Vector2d futurePosition = stateMapObserver.positionChanged(position, newPosition, id);
         if(futurePosition!=newPosition){
             newPosition=futurePosition;
@@ -58,6 +69,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
             }
         }
         this.position = newPosition;
+        lastCycleMove=true;
     }
 
     private void newActiveGen() {
@@ -81,6 +93,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     //jeżeli mamy jakąś kolejność w sorted secie i od wszystkiego odejmiemy 1 to kolejność się nie zmieni
     public void lowerEnergy(Vector2d position) {
         energy -= 1;
+        if(currentBiome==BiomeType.SNOWY) energy -=1;
         if (energy <= 0) {
             stateMapObserver.dieEvent(position);
             dayOfDeath = stateEnigneObserver.dieEvent(id);
@@ -98,7 +111,11 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     public void grassCounter(){grassEaten+=1;}
 
     public void gainEnergy() {
-        energy += dataParameters.getEnergyFromGrass();
+        switch (currentBiome){
+            case SNOWY -> energy += (dataParameters.getEnergyFromGrass()/2);
+            case DESERT -> energy -= dataParameters.getEnergyFromGrass();
+            default -> energy += dataParameters.getEnergyFromGrass();
+        }
     }
 
     public int getID() {

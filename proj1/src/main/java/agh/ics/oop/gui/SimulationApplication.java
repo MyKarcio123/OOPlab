@@ -59,7 +59,7 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
             primaryStage.setTitle("Symulacja "+ Integer.toString(simulationNumber));
             primaryStage.setScene(scene);
             SimulationController simulationController = fxmlLoader.getController();
-            simulationController.setMap(map);
+            simulationController.setMap(map,currentConfig.getGrassGrowVariant());
             this.simulationController = simulationController;
 
 
