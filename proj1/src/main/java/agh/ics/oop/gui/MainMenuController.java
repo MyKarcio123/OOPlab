@@ -204,14 +204,14 @@ public class MainMenuController implements IMainMenuControllerObserver {
         textFields.add(configurationName);
         textFields.add(heighField);
         textFields.add(widthField);
-        radioButtonList.add(earthVariant);
-        radioButtonList.add(hellVariant);
         textFields.add(grassAmountField);
         textFields.add(energyFromGrassField);
         textFields.add(grassPerDayField);
         radioButtonList.add(goodVariant);
         radioButtonList.add(toxicVariant);
         radioButtonList.add(biomesVariant);
+        radioButtonList.add(earthVariant);
+        radioButtonList.add(hellVariant);
         textFields.add(startingAnimalField);
         textFields.add(startingEnergyField);
         textFields.add(energyNeededField);

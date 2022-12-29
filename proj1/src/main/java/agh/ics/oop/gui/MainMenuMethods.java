@@ -56,7 +56,12 @@ public class MainMenuMethods {
             currentConfig.add(textField.getText());
             iter+=1;
         }
-        for (int i =0; i<8;i+=2) {
+        for(int i = 0;i<3;i++){
+            if(radioButtonList.get(i).isSelected()) {
+                currentConfig.add("" + i);
+            }
+        }
+        for (int i =3; i<8;i+=2) {
 
             if (radioButtonList.get(i).isSelected()) currentConfig.add("0");
             else currentConfig.add("1");

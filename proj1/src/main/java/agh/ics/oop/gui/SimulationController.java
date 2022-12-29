@@ -72,7 +72,6 @@ public class SimulationController {
         yMax = HEIGHT_MAP;
     }
 
-    ;
     public void rowsFunction(GridPane mapVisualizer){
         for (int i = yMax; i >= yMin; i--){
             Integer rowIndex = yMax -i+1;
@@ -86,21 +85,25 @@ public class SimulationController {
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMax; j >= yMin; j--) {
                 Vector2d position = new Vector2d(i,j);
+                AnchorPane biome = new AnchorPane();
+                biome.setStyle("-fx-background-color: " + map.getBiomeFromMap(new Vector2d(i-xMin+1,yMax-j+1)).toString());
                 if(map.isOccupied(position)){
                     Set<Animal> animals = map.objectAt(position);
                     for (Animal animal : animals){
                         GuiElementBox elementBox = new GuiElementBox(animal);
-                        mapVisualizer.add(elementBox.getvBox(),i-xMin+1,j-yMin+1);
+                        biome.getChildren().add(elementBox.getvBox());
                         GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                     }
+                    mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                 }
                 else if(map.isOccupiedByGrass(position)){
                     GuiElementBox elementBox = new GuiElementBox(new Grass(position));
-                    mapVisualizer.add(elementBox.getvBox(),i-xMin+1,j-yMin+1);
+                    biome.getChildren().add(elementBox.getvBox());
+                    mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                     GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                 }
                 else {
-                    mapVisualizer.add(new Label(" "),i-xMin+1,yMax-j+1);
+                    mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                 }
             }
         }

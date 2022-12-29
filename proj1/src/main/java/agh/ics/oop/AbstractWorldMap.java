@@ -26,6 +26,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
     private final IMapStateEngineObserver observer;
     private final DataParameters dataParameters;
+    protected Biomes biomes;
 
 
     protected AbstractWorldMap(IMapStateEngineObserver observer, DataParameters currentConfig) {
@@ -45,6 +46,10 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                     historyOfDeathAnimals.put(new Vector2d(i, j), 0);
                 }
             }
+        }else if(dataParameters.getMapVariant() == 2){
+            NoiseData temperature = new NoiseData(101,101,0.1,0.09,8,1);
+            NoiseData rainfall = new NoiseData(101,101,0.3,0.2,8,1);
+            biomes = new Biomes(temperature,rainfall,0,4);
         }
         placesOfCopulation = new HashSet<>();
 
@@ -294,5 +299,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     public boolean place(Animal animal) {
         animalMap.put(animal.getPosition(), animal);
         return true;
+    }
+    public BiomeType getBiomeFromMap(Vector2d pos){
+        return biomes.getBiomeTypeAt(pos);
     }
 }
