@@ -119,6 +119,19 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         }
     }
 
+
+    public int getNumberOfAnimals(){
+        return animalMap.size();
+    }
+
+    public int getAmountOfGrass(){
+        return grassMap.size();
+    }
+
+    public Integer getAmountOfAnimalsDead(){
+        return  historyOfDeathAnimals.values().stream().reduce(0, Integer::sum);
+    }
+
     @Override
     public int eatGrass() {
         int howManyGrassRemoved = 0;

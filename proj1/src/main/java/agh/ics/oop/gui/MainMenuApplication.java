@@ -2,6 +2,7 @@ package agh.ics.oop.gui;
 
 import agh.ics.oop.DataParameters;
 import agh.ics.oop.IWindow;
+import agh.ics.oop.SimulationEngine;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -14,8 +15,29 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
-public class MainMenuApplication extends Application {
+public class MainMenuApplication extends Application implements IWindow {
+
+
+    private int simulationCounter = 0;
+
+    @Override
+    public void runApp(IWindow mainMenuApplication, Stage primaryStage, DataParameters currentConfig) throws IOException {
+
+    }
+
+    public int getSimulationCounterAndAdd(){
+        simulationCounter += 1;
+        return simulationCounter;
+    }
+
+    @Override
+    public SimulationEngine getSimulationEngine() {
+        return null;
+    }
+
 
     public static void main(String[] args) {
         launch(args);
@@ -36,7 +58,11 @@ public class MainMenuApplication extends Application {
             try {
                 Stage stage = new Stage();
                 IWindow simulationApplication = new SimulationApplication();
-                simulationApplication.runApp(stage,new DataParameters(menuController.getCurrentConfig()));
+                simulationApplication.runApp((IWindow) this, stage,new DataParameters(menuController.getCurrentConfig()));
+
+                /*Thread thread = new Thread(simulationApplication);
+                thread.start();
+                //simulationApplication.run((IWindow) this, stage,new DataParameters(menuController.getCurrentConfig())); */
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
