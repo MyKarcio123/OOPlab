@@ -3,6 +3,7 @@ package agh.ics.oop;
 import java.util.*;
 
 import static agh.ics.oop.DataParameters.getDataID;
+import static agh.ics.oop.RandomPosition.getBinaryDigit;
 import static java.lang.Math.min;
 
 public class Animal extends AbstractMapElement implements Comparable<Animal> {
@@ -114,6 +115,13 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         switch (currentBiome){
             case SNOWY -> energy += (dataParameters.getEnergyFromGrass()/2);
             case DESERT -> energy -= dataParameters.getEnergyFromGrass();
+            case BAGNO -> {
+                if(getBinaryDigit()==1){
+                    lastCycleMove=true;
+                }else{
+                    energy += dataParameters.getEnergyFromGrass();
+                }
+            }
             default -> energy += dataParameters.getEnergyFromGrass();
         }
     }

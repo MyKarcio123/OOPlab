@@ -4,10 +4,13 @@ import agh.ics.oop.*;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,13 +25,17 @@ public class SimulationController {
     @FXML
     private AnchorPane mapWrapper;
     private static GridPane mapVisualizer;
-
+    private GridPane minimap;
     @FXML
     public Button startStopBT;
 
     @FXML
     public Button showStatsBT;
 
+    @FXML
+    public HBox buttonProperties;
+    @FXML
+    public Button minimapShow;
 
     private int xMin;
     private int yMin;
@@ -40,14 +47,42 @@ public class SimulationController {
     private int WIDTH_MAP;
     private int HEIGHT_MAP;
     private boolean biomesMode = false;
+    private Stage minimapStage;
 
     public void setMap(AbstractWorldMap map,int biomeMode) {
         this.WIDTH_MAP = map.getDataParameters().getWidth();
         this.HEIGHT_MAP = map.getDataParameters().getHeight();
         this.map = map;
-        if(biomeMode==2) biomesMode=true;
+        if(biomeMode==2) {
+            minimapShow.setVisible(true);
+            biomesMode=true;
+            miniMap();
+            minimapStage = new Stage();
+            minimapStage.setTitle("Minimapa");
+            Scene test = new Scene(minimap,xMax*10,yMax*10);
+            minimapStage.setScene(test);
+            minimapStage.setMaxHeight(test.getHeight()+39);
+            minimapStage.setMaxWidth(test.getWidth()+11);
+        }
     }
-
+    public void showMinimap(){
+        if(minimapStage.isShowing()) minimapStage.close();
+        else minimapStage.show();
+    }
+    public void miniMap(){
+        minimap = new GridPane();
+        updateBounds();
+        for (int i = xMin; i <= xMax; i++){minimap.getColumnConstraints().add(new ColumnConstraints(10));}
+        for (int i = yMax; i >= yMin; i--){minimap.getRowConstraints().add(new RowConstraints(10));}
+        for (int i = xMin; i <= xMax; i++) {
+            for (int j = yMax; j >= yMin; j--) {
+                AnchorPane biome = new AnchorPane();
+                String value = map.getBiomeFromMap(new Vector2d(i - xMin + 1, yMax - j + 1)).toString();
+                biome.setStyle("-fx-background-color: " + value);
+                minimap.add(biome,i-xMin,j-yMin);
+            }
+        }
+    }
 
 
 
@@ -103,6 +138,7 @@ public class SimulationController {
                     mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                 }
                 else if(map.isOccupiedByGrass(position)){
+                    System.out.println("HEY");
                     GuiElementBox elementBox = new GuiElementBox(new Grass(position));
                     biome.getChildren().add(elementBox.getvBox());
                     mapVisualizer.add(biome,i-xMin+1,j-yMin+1);

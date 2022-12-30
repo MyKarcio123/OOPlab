@@ -17,7 +17,7 @@ public class RandomPosition {
 
     public static int getBinaryDigit(){
         Random random = new Random();
-        return random.nextInt(0,1);
+        return random.nextInt(0,2);
     }
 
     public static int getNumberOfGenesToChange(int genotypeLen){

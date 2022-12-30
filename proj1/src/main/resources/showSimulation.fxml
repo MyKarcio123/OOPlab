@@ -32,9 +32,11 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox fx:id="vvbox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="622.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.ics.oop.gui.SimulationController">
@@ -44,7 +46,18 @@
           <AnchorPane fx:id="mapWrapper" minHeight="0.0" minWidth="0.0" />
         </content>
       </ScrollPane>
-      <Button fx:id="startStopBT" mnemonicParsing="false" text="Start/Wznów" />
-      <Button fx:id="showStatsBT" mnemonicParsing="false" text="Pokaż Statystyki" />
+      <HBox fx:id="buttonProperties" prefWidth="1100.0" spacing="10.0">
+         <children>
+            <Button fx:id="startStopBT" mnemonicParsing="false" text="Start/Wznów" />
+            <Button fx:id="showStatsBT" mnemonicParsing="false" text="Pokaż Statystyki" />
+            <Button fx:id="minimapShow" mnemonicParsing="false" onAction="#showMinimap" text="Pokaż minimapę terenu" visible="false" />
+         </children>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <VBox.margin>
+            <Insets />
+         </VBox.margin>
+      </HBox>
    </children>
 </VBox>
