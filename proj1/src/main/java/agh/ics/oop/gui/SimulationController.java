@@ -22,10 +22,12 @@ public class SimulationController {
     @FXML
     private AnchorPane mapWrapper;
     private static GridPane mapVisualizer;
+
     @FXML
-    private Button startStopBT;
+    public Button startStopBT;
+
     @FXML
-    private Button showStatBT;
+    public Button showStatsBT;
 
 
     private int xMin;
@@ -134,8 +136,9 @@ public class SimulationController {
         });
     }
 
-    public Button getStartStopBT(){ return startStopBT;}
-    public Button getShowStatBT(){ return showStatBT;}
+    public Button getStartStopBT(){
+        return startStopBT;}
+    public Button getShowStatBT(){ return showStatsBT;}
 
 
 
