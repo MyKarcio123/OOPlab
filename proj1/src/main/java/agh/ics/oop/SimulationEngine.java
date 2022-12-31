@@ -20,6 +20,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     private StatsApplication statsApplication = null;
     private DataParameters dataParameters;
     private boolean exit = false;
+    private boolean stop = false;
 
     public SimulationEngine(SimulationApplication app, DataParameters currentConfig) {
         dataParameters = currentConfig;
@@ -39,6 +40,14 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
         generateAnimals();
     }
 
+    public void setStop(boolean val){
+        this.stop = val;
+    }
+
+    public boolean getStop(){
+        return this.stop;
+    }
+
     private void moveAnimals() {
         for (Animal animal : animals) {
             animal.dayCycle();
@@ -47,30 +56,41 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
     public void run() {
         while (!exit) {
-            clearDeathAnimals();
-            map.clearDeathAnimals();
+            while (true) {
+                if (!stop) {
+                    clearDeathAnimals();
+                    map.clearDeathAnimals();
 
-            moveAnimals();
-            int howManyGrassToAdd = map.eatGrass();
+                    moveAnimals();
+                    int howManyGrassToAdd = map.eatGrass();
 
-            map.copulateAnimals();
-            map.plantGrass(howManyGrassToAdd);
+                    map.copulateAnimals();
+                    map.plantGrass(howManyGrassToAdd);
 
-            app.refreshMap();
-            if (statsApplication != null){
-                statsApplication.refreshStats(new ArrayList<>(Arrays.asList(dayCounter,map.getNumberOfAnimals(),map.getAmountOfAnimalsDead(),map.getAmountOfGrass())));
+                    app.refreshMap();
+                    if (statsApplication != null){
+                        statsApplication.refreshStats(new ArrayList<>(Arrays.asList(dayCounter,map.getNumberOfAnimals(),map.getAmountOfAnimalsDead(),map.getAmountOfGrass())));
+                    }
+
+
+                    try {
+                        System.out.println("jazda");
+                        Thread.sleep(dataParameters.getMoveDelay());
+                    } catch (InterruptedException e) {
+                        System.out.println("Koniec symulacji, bo została interrupted");
+                    }
+
+                    dayCounter += 1;
+                }else{
+                    try {
+                        System.out.println("zatrzymano nas");
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        System.out.println("Koniec symulacji, bo została interrupted");
+                    }
+                }
             }
-
-
-            try {
-                Thread.sleep(dataParameters.getMoveDelay());
-            } catch (InterruptedException e) {
-                System.out.println("Koniec symulacji, bo została interrupted");
-            }
-
-            dayCounter += 1;
         }
-
     }
 
     private void clearDeathAnimals() {
