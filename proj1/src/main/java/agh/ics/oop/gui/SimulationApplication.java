@@ -79,10 +79,10 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
         primaryStage.show();
         simulationController.prepareBackground();
         simulationController.getStartStopBT().setOnAction(event -> {
-            if(thread.isAlive()){
-                stopSimulation();
+            if(!simulationEngine.getStop()){
+                simulationEngine.setStop(true);
             }else{
-                continueSimulation();
+                simulationEngine.setStop(false);
             }
             });
         simulationController.getShowStatBT().setOnAction(event -> {
@@ -109,9 +109,6 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
             //thread.suspend();
     }
 
-    public void continueSimulation(){
-        thread.start();
-    }
 
     public SimulationEngine getSimulationEngine(){return this.simulationEngine;}
 
