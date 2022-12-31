@@ -14,32 +14,35 @@ public class GuiElementBox {
     private ImageView imageView = new ImageView();
     private VBox vBox = new VBox();
     private boolean clicked = false;
+    private EntityType entityType;
 
-    public GuiElementBox(AbstractMapElement element) {
+    public GuiElementBox(AbstractMapElement element,String fileName,EntityType entityType) {
 
-        this.image = new Image("file:src/main/resources/N.png");
+        this.image = new Image("file:src/main/resources/"+fileName+".png");
         this.clicked = element.isClicked();
+        this.entityType = entityType;
 
-        if (!this.clicked) {
+        if (!this.clicked || entityType==EntityType.PLANT) {
             makeNormalView(element);
 
         } else {
             vBox.getChildren().clear();
             vBox.getChildren().add(new Text("sledza mnie"));
         }
-
-        vBox.setOnMouseClicked(event -> {
-            if (!this.clicked) {
-                vBox.getChildren().clear();
-                vBox.getChildren().add(new Text("sledza mnie"));
-                clicked = true;
-                element.setClicked(true);
-            } else {
-                makeNormalView(element);
-                clicked = false;
-                element.setClicked(false);
-            }
-        });
+        if(entityType==EntityType.ANIMAL) {
+            vBox.setOnMouseClicked(event -> {
+                if (!this.clicked) {
+                    vBox.getChildren().clear();
+                    vBox.getChildren().add(new Text("sledza mnie"));
+                    clicked = true;
+                    element.setClicked(true);
+                } else {
+                    makeNormalView(element);
+                    clicked = false;
+                    element.setClicked(false);
+                }
+            });
+        }
     }
 
     public VBox getvBox() {
@@ -48,8 +51,8 @@ public class GuiElementBox {
 
     private void makeNormalView(AbstractMapElement element){
         imageView.setImage(image);
-        imageView.setFitHeight(20);
-        imageView.setFitWidth(20);
+        imageView.setFitHeight(30);
+        imageView.setFitWidth(30);
 
 
         Label label = new Label(element.getDesc());

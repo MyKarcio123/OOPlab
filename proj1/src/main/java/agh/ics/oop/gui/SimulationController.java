@@ -131,7 +131,7 @@ public class SimulationController {
                 if(map.isOccupied(position)){
                     Set<Animal> animals = map.objectAt(position);
                     for (Animal animal : animals){
-                        GuiElementBox elementBox = new GuiElementBox(animal);
+                        GuiElementBox elementBox = new GuiElementBox(animal,animal.getOrientation().toString(),EntityType.ANIMAL);
                         biome.getChildren().add(elementBox.getvBox());
                         GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                     }
@@ -139,7 +139,16 @@ public class SimulationController {
                 }
                 else if(map.isOccupiedByGrass(position)){
                     System.out.println("HEY");
-                    GuiElementBox elementBox = new GuiElementBox(new Grass(position));
+                    String fileName = "plant_normal";
+                    if(map.getDataParameters().getGrassGrowVariant()==2){
+                        switch(map.getBiomeFromMap(position)){
+                            case ICY -> fileName="plant_ice";
+                            case DESERT -> fileName="cactus";
+                            case JUNGLE -> fileName="plant_jungle";
+                            default -> fileName="plant_normal";
+                        }
+                    }
+                    GuiElementBox elementBox = new GuiElementBox(new Grass(position),fileName,EntityType.PLANT);
                     biome.getChildren().add(elementBox.getvBox());
                     mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                     GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);

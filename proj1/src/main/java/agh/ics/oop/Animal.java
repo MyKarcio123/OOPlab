@@ -113,6 +113,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
 
     public void gainEnergy() {
         switch (currentBiome){
+            case JUNGLE -> energy += dataParameters.getEnergyFromGrass()*2;
             case SNOWY -> energy += (dataParameters.getEnergyFromGrass()/2);
             case DESERT -> energy -= dataParameters.getEnergyFromGrass();
             case BAGNO -> {
@@ -197,5 +198,9 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     //TODO przeklinali na kod i że wszystko im się sra, ciekawe czy będziemy mieli tak samo przy ocenie XDD
     public int hashCode() {
         return this.id;
+    }
+
+    public MapDirection getOrientation() {
+        return orientation;
     }
 }

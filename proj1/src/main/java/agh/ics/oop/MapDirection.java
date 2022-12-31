@@ -17,14 +17,14 @@ public enum MapDirection {
     @Override
     public String toString() {
         return switch (this) {
-            case NORTH -> "Północ";
-            case NORTHEAST -> "Północny-Wchód";
-            case EAST -> "Wschód";
-            case SOUTHEAST -> "Południowy-Wschód";
-            case SOUTH -> "Południe";
-            case SOUTHWEST -> "Południowy-Zachód";
-            case WEST -> "Zachód";
-            case NORTHWEST -> "Północ-Zachód";
+            case NORTH -> "N";
+            case NORTHEAST -> "NE";
+            case EAST -> "E";
+            case SOUTHEAST -> "SE";
+            case SOUTH -> "S";
+            case SOUTHWEST -> "SW";
+            case WEST -> "W";
+            case NORTHWEST -> "NW";
             default -> "Brak kierunku";
         };
     }
