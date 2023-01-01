@@ -138,7 +138,6 @@ public class SimulationController {
                     mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                 }
                 else if(map.isOccupiedByGrass(position)){
-                    System.out.println("HEY");
                     String fileName = "plant_normal";
                     if(map.getDataParameters().getGrassGrowVariant()==2){
                         switch(map.getBiomeFromMap(position)){

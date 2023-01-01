@@ -38,7 +38,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         dataParameters = currentConfig;
         mapUpperRight = new Vector2d(dataParameters.getWidth(), dataParameters.getHeight());
 
-        System.out.println(dataParameters.getGrassGrowVariant());
         this.observer = observer;
         if (dataParameters.getGrassGrowVariant() == 1) {
             historyOfDeathAnimals = new HashMap<>();

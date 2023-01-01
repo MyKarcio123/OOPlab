@@ -74,7 +74,6 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
 
                     try {
-                        System.out.println("jazda");
                         Thread.sleep(dataParameters.getMoveDelay());
                     } catch (InterruptedException e) {
                         System.out.println("Koniec symulacji, bo została interrupted");

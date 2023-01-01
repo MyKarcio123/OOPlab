@@ -7,7 +7,6 @@ import static agh.ics.oop.RandomPosition.getBinaryDigit;
 import static java.lang.Math.min;
 
 public class Animal extends AbstractMapElement implements Comparable<Animal> {
-    private MapDirection orientation;
     private final List<Integer> genotype;
     private final Random rd = new Random();
     private final int id;
@@ -52,6 +51,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     }
 
     private void move() {
+        System.out.println(orientation + " " + orientation.toUnitVector());
         Vector2d newPosition = position.add(orientation.toUnitVector());
         if(dataParameters.getGrassGrowVariant()==2) {
             currentBiome = stateMapObserver.getBiomeFromMap(position);
