@@ -16,27 +16,27 @@ public class MapDirectionTest {
 
     @Test
     void toStringTest(){
-        assertEquals("Północ", n.toString());
-        assertEquals("Północny-Wchód", ne.toString());
-        assertEquals("Wschód", e.toString());
-        assertEquals("Południowy-Wschód", se.toString());
-        assertEquals("Południe", s.toString());
-        assertEquals("Południowy-Zachód", sw.toString());
-        assertEquals("Zachód", w.toString());
-        assertEquals("Północ-Zachód", nw.toString());
-        assertEquals("Brak kierunku", na.toString());
+        assertEquals("N", n.toString());
+        assertEquals("NE", ne.toString());
+        assertEquals("E", e.toString());
+        assertEquals("SE", se.toString());
+        assertEquals("S", s.toString());
+        assertEquals("SW", sw.toString());
+        assertEquals("W", w.toString());
+        assertEquals("NW", nw.toString());
+        assertEquals("N", na.toString());
     }
 
     @Test
     void toUnitVector(){
-        assertEquals(new Vector2d(0,1), n.toUnitVector());
-        assertEquals(new Vector2d(1,1), ne.toUnitVector());
+        assertEquals(new Vector2d(0,-1), n.toUnitVector());
+        assertEquals(new Vector2d(1,-1), ne.toUnitVector());
         assertEquals(new Vector2d(1,0), e.toUnitVector());
-        assertEquals(new Vector2d(1,-1), se.toUnitVector());
-        assertEquals(new Vector2d(0,-1), s.toUnitVector());
-        assertEquals(new Vector2d(-1,-1), sw.toUnitVector());
+        assertEquals(new Vector2d(1,1), se.toUnitVector());
+        assertEquals(new Vector2d(0,1), s.toUnitVector());
+        assertEquals(new Vector2d(-1,1), sw.toUnitVector());
         assertEquals(new Vector2d(-1,0), w.toUnitVector());
-        assertEquals(new Vector2d(-1,1), nw.toUnitVector());
+        assertEquals(new Vector2d(-1,-1), nw.toUnitVector());
         assertEquals(new Vector2d(0,0), na.toUnitVector());
     }
 

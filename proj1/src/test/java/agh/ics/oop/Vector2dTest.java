@@ -8,6 +8,8 @@ public class Vector2dTest {
     Vector2d vec3 = new Vector2d(-1, 1);
     Vector2d vec4 = new Vector2d(1, -1);
     Vector2d vec5 = new Vector2d(2, 2);
+    Vector2d vec6 = new Vector2d(1, -1);
+    Vector2d vec7 = new Vector2d(1, 1);
 
     @Test
     void toStringTest(){
@@ -102,5 +104,17 @@ public class Vector2dTest {
         assertEquals(1, vec3.getY());
         assertEquals(-1, vec4.getY());
         assertEquals(2, vec5.getY());
+    }
+
+    @Test
+    void equalsTest(){
+        assertTrue(vec7.equals(vec2));
+        assertTrue(vec2.equals(vec7));
+
+        assertTrue(vec6.equals(vec4));
+        assertTrue(vec4.equals(vec6));
+
+        assertFalse(vec1.equals(vec2));
+        assertFalse(vec2.equals(vec1));
     }
 }

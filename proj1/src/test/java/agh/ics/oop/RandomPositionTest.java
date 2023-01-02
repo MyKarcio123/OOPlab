@@ -29,6 +29,13 @@ public class RandomPositionTest {
     int randGene5 = RandomPosition.getRandomGene();
     int randGene6 = RandomPosition.getRandomGene();
 
+    @Test
+    void getRandomSeedTest(){
+        for (int i = 0; i <= 10; i++){
+            int randSeed = RandomPosition.getRandomSeed();
+            assertTrue(0 <= randSeed && randSeed <= 4000);
+        }
+    }
 
     @Test
     void getRandomPosition(){
