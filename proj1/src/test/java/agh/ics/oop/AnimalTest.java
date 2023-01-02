@@ -5,6 +5,10 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AnimalTest {
 
     @Test
+    void dayCycleTest(){
+
+    }
+    @Test
     void setPositionTest(){
 
     }
@@ -36,6 +40,11 @@ public class AnimalTest {
 
     @Test
     void canCopulateTest(){
+
+    }
+
+    @Test
+    void grassCounterTest(){
 
     }
 
@@ -81,6 +90,11 @@ public class AnimalTest {
 
     @Test
     void compareToTest(){
+
+    }
+
+    @Test
+    void equalsTest(){
 
     }
 }
