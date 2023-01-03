@@ -1,9 +1,7 @@
 package agh.ics.oop;
 
-import com.google.common.collect.Iterables;
 import com.google.common.collect.MultimapBuilder;
 import com.google.common.collect.SetMultimap;
-import com.google.common.collect.Sets.SetView;
 
 
 import java.util.*;
@@ -302,5 +300,18 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
     public BiomeType getBiomeFromMap(Vector2d pos){
         return biomes.getBiomeTypeAt(pos);
+    }
+
+    // Potrzebne do testów, bo inaczej nie potrafię
+    public HashMap<Vector2d, Integer> getDeathAnimals(){
+        return deathAnimals;
+    }
+
+    public Set<Vector2d> getPlacesOfCopulation(){
+        return placesOfCopulation;
+    }
+
+    public SetMultimap<Vector2d, Animal> getAnimalMap(){
+        return animalMap;
     }
 }

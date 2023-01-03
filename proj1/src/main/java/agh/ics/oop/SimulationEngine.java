@@ -35,6 +35,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     }
 
     public SimulationEngine(DataParameters currentConfig) {
+        dataParameters = currentConfig;
         if (dataParameters.getMapVariant() == 0) this.map = new EarthMap(this, currentConfig);
         else this.map = new HellMap(this, currentConfig);
         generateAnimals();
