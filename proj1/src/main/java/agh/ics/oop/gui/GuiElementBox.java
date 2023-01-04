@@ -3,6 +3,7 @@ package agh.ics.oop.gui;
 import agh.ics.oop.AbstractMapElement;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
@@ -15,13 +16,13 @@ public class GuiElementBox {
     private VBox vBox = new VBox();
     private boolean clicked = false;
     private EntityType entityType;
-
-    public GuiElementBox(AbstractMapElement element,String fileName,EntityType entityType) {
+    private double progression;
+    public GuiElementBox(AbstractMapElement element,String fileName,EntityType entityType,double progression) {
 
         this.image = new Image("file:src/main/resources/"+fileName+".png");
         this.clicked = element.isClicked();
         this.entityType = entityType;
-
+        this.progression = progression;
         if (!this.clicked || entityType==EntityType.PLANT) {
             makeNormalView(element);
 
@@ -54,9 +55,14 @@ public class GuiElementBox {
         imageView.setFitHeight(30);
         imageView.setFitWidth(30);
 
-
-        Label label = new Label(element.getDesc());
-        vBox.getChildren().addAll(imageView, label);
+        if(!Double.isNaN(progression)) {
+            System.out.println("PROGRESJA " + progression);
+            ProgressBar progressBar = new ProgressBar(progression);
+            progressBar.setMaxWidth(50);
+            vBox.getChildren().addAll(imageView, progressBar);
+        }else{
+            vBox.getChildren().addAll(imageView);
+        }
         vBox.setAlignment(Pos.CENTER);
     }
 }

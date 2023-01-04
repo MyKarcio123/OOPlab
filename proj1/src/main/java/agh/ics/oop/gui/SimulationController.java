@@ -134,7 +134,7 @@ public class SimulationController {
                 if(map.isOccupied(position)){
                     Set<Animal> animals = map.objectAt(position);
                     for (Animal animal : animals){
-                        GuiElementBox elementBox = new GuiElementBox(animal,animal.getOrientation().toString(),EntityType.ANIMAL);
+                        GuiElementBox elementBox = new GuiElementBox(animal,animal.getOrientation().toString(),EntityType.ANIMAL,animal.getProgression());
                         biome.getChildren().add(elementBox.getvBox());
                         GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                     }
@@ -150,7 +150,7 @@ public class SimulationController {
                             default -> fileName="plant_normal";
                         }
                     }
-                    GuiElementBox elementBox = new GuiElementBox(new Grass(position),fileName,EntityType.PLANT);
+                    GuiElementBox elementBox = new GuiElementBox(new Grass(position),fileName,EntityType.PLANT,Double.NaN);
                     biome.getChildren().add(elementBox.getvBox());
                     mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                     GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);

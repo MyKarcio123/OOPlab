@@ -212,4 +212,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     public int getActiveGen(){
         return activeGen;
     }
+    public double getProgression(){
+        return (double) energy / (double) dataParameters.getMinimumCopulateEnergy();
+    }
 }
