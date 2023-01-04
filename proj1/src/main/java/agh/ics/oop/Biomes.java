@@ -28,9 +28,9 @@ public class Biomes {
         assignBiomes();
     }
     private void assignBiomes(){
-        biomeType = new BiomeType[temperature.length][temperature.length];
+        biomeType = new BiomeType[temperature.length][temperature[0].length];
         for(int i=0;i<temperature.length;++i){
-            for(int j=0;j<humidity.length;++j){
+            for(int j=0;j<humidity[0].length;++j){
                 BiomeType type = biomeArray[(int) temperature[i][j]][(int) humidity[i][j]];
                 biomeType[i][j]=type;
                 addCoordsToList(type,new Vector2d(i,j));
@@ -67,7 +67,7 @@ public class Biomes {
         else{desertFields.add(coords);}
     }
     public BiomeType getBiomeTypeAt(Vector2d position) {
-        return biomeType[position.getX()][position.getY()];
+        return biomeType[position.getX()-1][position.getY()-1];
     }
     public List<Vector2d> getIcyFields() {
         return icyFields;

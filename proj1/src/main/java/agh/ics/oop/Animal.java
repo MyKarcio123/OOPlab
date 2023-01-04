@@ -60,7 +60,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
             lastCycleMove = false;
             return;
         }else if(currentBiome==BiomeType.ICY){
-            newPosition = position.add(orientation.toUnitVector());
+            newPosition = newPosition.add(orientation.toUnitVector());
         }
         Vector2d futurePosition = stateMapObserver.positionChanged(position, newPosition, id);
         if(futurePosition!=newPosition){
