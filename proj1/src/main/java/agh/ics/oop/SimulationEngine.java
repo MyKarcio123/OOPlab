@@ -25,6 +25,10 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     private List<Integer> aliveAnimalsHistory;
     private List<Integer> grassHistory;
     private List<Integer> deadAnimalsHistory;
+    private List<Integer> freePlacesHistory;
+    private List<List<Integer>> popularGenotypeHistory;
+    private List<Float> averageEnergyHistory;
+    private List<Float> averageLifetimeHistory;
 
     public SimulationEngine(SimulationApplication app, DataParameters currentConfig) {
         dataParameters = currentConfig;
@@ -32,6 +36,10 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
         aliveAnimalsHistory = app.getAliveAnimalsHistory();
         deadAnimalsHistory = app.getDeadAnimalsHistory();
         grassHistory = app.getGrassHistory();
+        freePlacesHistory = app.getFreePlacesHistory();
+        popularGenotypeHistory = app.getPopularGenotypeHistory();
+        averageEnergyHistory = app.getAverageEnergyHistory();
+        averageLifetimeHistory = app.getAverageLifetimeHistory();
         if (dataParameters.getMapVariant() == 0) this.map = new EarthMap(this, currentConfig);
         else this.map = new HellMap(this, currentConfig);
         this.app = app;
@@ -81,6 +89,10 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
                     aliveAnimalsHistory.add(map.getNumberOfAnimals());
                     deadAnimalsHistory.add(map.getAmountOfAnimalsDead());
                     grassHistory.add(map.getAmountOfGrass());
+                    freePlacesHistory.add(map.getFreePlaces());
+                    popularGenotypeHistory.add( map.getPopularGenotype());
+                    averageEnergyHistory.add(map.getAverageEnergy());
+                    averageLifetimeHistory.add(map.getAverageLifeTime());
                     if (statsApplication != null){
                         statsApplication.refreshStats();
                     }

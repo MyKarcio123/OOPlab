@@ -84,13 +84,13 @@ public class EarthMapTest {
         HashMap<Vector2d, Integer> deadAnimals = map1.getDeathAnimals();
 
         assertEquals(0, deadAnimals.size());
-        map1.dieEvent(animal1E.getPosition());
+        map1.dieEvent(animal1E.getPosition(),1);
 
         assertEquals(1, deadAnimals.size());
-        map1.dieEvent(animal3E.getPosition());
+        map1.dieEvent(animal3E.getPosition(),1);
 
         assertEquals(2, deadAnimals.size());
-        map1.dieEvent(animal2E.getPosition());
+        map1.dieEvent(animal2E.getPosition(),1);
 
         assertTrue(deadAnimals.get(animal1E.getPosition()) == 2 && deadAnimals.get(animal3E.getPosition()) == 1);
 
@@ -134,13 +134,13 @@ public class EarthMapTest {
         HashMap<Vector2d, Integer> deadAnimals = map1.getDeathAnimals();
 
         assertEquals(0, deadAnimals.size());
-        map1.dieEvent(animal1E.getPosition());
+        map1.dieEvent(animal1E.getPosition(),1);
 
         assertEquals(1, deadAnimals.size());
-        map1.dieEvent(animal3E.getPosition());
+        map1.dieEvent(animal3E.getPosition(),1);
 
         assertEquals(2, deadAnimals.size());
-        map1.dieEvent(animal2E.getPosition());
+        map1.dieEvent(animal2E.getPosition(), 1);
 
         assertTrue(deadAnimals.get(animal1E.getPosition()) == 2 && deadAnimals.get(animal3E.getPosition()) == 1);
     }

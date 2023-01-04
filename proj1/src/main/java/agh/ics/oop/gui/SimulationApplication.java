@@ -53,6 +53,27 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
     private List<Integer> aliveAnimalsHistory = new ArrayList<>();
     private List<Integer> grassHistory = new ArrayList<>();
     private List<Integer> deadAnimalsHistory = new ArrayList<>();
+    private List<Integer> freePlacesHistory = new ArrayList<>();
+    private List<List<Integer>> popularGenotypeHistory = new ArrayList<>();
+
+    public List<Integer> getFreePlacesHistory() {
+        return freePlacesHistory;
+    }
+
+    public List<List<Integer>> getPopularGenotypeHistory() {
+        return popularGenotypeHistory;
+    }
+
+    public List<Float> getAverageEnergyHistory() {
+        return averageEnergyHistory;
+    }
+
+    public List<Float> getAverageLifetimeHistory() {
+        return averageLifetimeHistory;
+    }
+
+    private List<Float> averageEnergyHistory = new ArrayList<>();
+    private List<Float> averageLifetimeHistory = new ArrayList<>();
 
     private boolean saveToCSV;
 
