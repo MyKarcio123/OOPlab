@@ -24,7 +24,7 @@ public class SimulationController {
 
     @FXML
     private AnchorPane mapWrapper;
-    private static GridPane mapVisualizer;
+    private GridPane mapVisualizer;
     private GridPane minimap;
     @FXML
     public Button startStopBT;

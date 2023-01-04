@@ -36,7 +36,6 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
     private GridPane gridPane;
     private SimulationController simulationController;
     private int simulationNumber;
-    private Thread thread;
     private SimulationEngine simulationEngine;
 
 
@@ -65,7 +64,6 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
 
             Thread thread = new Thread(simulationEngine);
             thread.start();
-            this.thread = thread;
 
 
 
