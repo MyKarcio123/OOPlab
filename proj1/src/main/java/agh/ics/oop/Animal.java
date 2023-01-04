@@ -203,4 +203,13 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     public MapDirection getOrientation() {
         return orientation;
     }
+
+    // Dodałem to, bo potrzebowałem do testów
+    public void subtractEnergy(int lostEnergy){
+        this.energy -= lostEnergy;
+    }
+
+    public int getActiveGen(){
+        return activeGen;
+    }
 }
