@@ -21,10 +21,10 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <AnchorPane fx:id="numericStats" prefHeight="200.0" prefWidth="200.0" />
+                  <AnchorPane fx:id="numericStats" prefHeight="550.0" prefWidth="197.0" />
                   <AnchorPane fx:id="plotStats" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
                      <GridPane.margin>
-                        <Insets bottom="10.0" left="50.0" right="10.0" top="10.0" />
+                        <Insets bottom="10.0" left="110.0" right="10.0" top="10.0" />
                      </GridPane.margin>
                   </AnchorPane>
                </children>

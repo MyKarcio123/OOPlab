@@ -22,6 +22,10 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     private boolean lastCycleMove = false;
     private BiomeType currentBiome = BiomeType.FOREST;
 
+    public List<Integer> getGenotype() {
+        return genotype;
+    }
+
     public Animal(AbstractWorldMap map, Vector2d position, List<Integer> genotype, int day, SimulationEngine engine) {
         this.stateMapObserver = map;
         this.dataParameters = map.getDataParameters();
@@ -96,8 +100,8 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
         energy -= 1;
         if(currentBiome==BiomeType.SNOWY) energy -=1;
         if (energy <= 0) {
-            stateMapObserver.dieEvent(position);
             dayOfDeath = stateEnigneObserver.dieEvent(id);
+            stateMapObserver.dieEvent(position, this.dayOfDeath - this.day);
         }
     }
 

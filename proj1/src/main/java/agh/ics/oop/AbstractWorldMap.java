@@ -19,8 +19,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     private final Set<Vector2d> placesOfCopulation;
     private final HashMap<Vector2d, Integer> deathAnimals;
     private HashMap<Vector2d, Integer> historyOfDeathAnimals = new HashMap<>();
+    private HashMap<List<Integer>, Integer> popularGenotypes = new HashMap<>();
     private final Vector2d mapUpperRight;
     private final Vector2d mapLowerLeft = new Vector2d(1, 1);
+    private int howManydied = 0;
+    private int sumOfDiedAge = 0;
 
     private final IMapStateEngineObserver observer;
     private final DataParameters dataParameters;
@@ -75,6 +78,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     }
 
 
+
+
     @Override
     public String toString() {
         return mapVisualizer.draw(this.getMapLowerLeft(), this.getMapUpperRight());
@@ -119,7 +124,9 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     //Jest to spowodwane tym, że w mapie zwierząt jest coś ala TreeSet którego pierwszym kryterium jest energia malejąco.
     //Z tego faktu wynika że nie muszę wiedzieć dokładnie które zwierzę umarło ale ile, bo będę od końca usuwał konieczną ilość zwierząt.
     @Override
-    public void dieEvent(Vector2d position) {
+    public void dieEvent(Vector2d position, int day) {
+        howManydied+=1;
+        sumOfDiedAge += day;
         if (deathAnimals.containsKey(position)) {
             deathAnimals.merge(position,1,Integer::sum);
         }else {
@@ -138,6 +145,45 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
     public Integer getAmountOfAnimalsDead(){
         return  historyOfDeathAnimals.values().stream().reduce(0, Integer::sum);
+    }
+
+    public Integer getFreePlaces(){
+        int width = mapUpperRight.getX() - mapLowerLeft.getX();
+        int height = mapUpperRight.getY() - mapLowerLeft.getY();
+        return width*height - animalMap.size() - grassMap.size();
+    }
+
+    public List<Integer> getPopularGenotype(){
+        popularGenotypes.clear();
+        for(Animal animal : animalMap.values()){
+            List<Integer> genotype = animal.getGenotype();
+            if (popularGenotypes.containsKey(genotype)) {
+                popularGenotypes.merge(genotype,1,Integer::sum);
+            }else {
+                popularGenotypes.put(genotype, 1);
+            }
+        }
+        Integer maxx = 0;
+        List<Integer> output = new ArrayList<>();
+        for (List<Integer> genotype : popularGenotypes.keySet()){
+            if (popularGenotypes.get(genotype)>maxx){
+                maxx = popularGenotypes.get(genotype);
+                output = genotype;
+            }
+        }
+        return output;
+    }
+
+    public Float getAverageEnergy(){
+        int sumOfEnergy = 0;
+        for (Animal animal : animalMap.values()){
+            sumOfEnergy += animal.getEnergy();
+        }
+        return sumOfEnergy/ (float) animalMap.size();
+    }
+
+    public Float getAverageLifeTime(){
+        return sumOfDiedAge/(float) howManydied;
     }
 
     @Override
