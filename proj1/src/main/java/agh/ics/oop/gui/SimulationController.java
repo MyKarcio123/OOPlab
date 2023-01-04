@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
@@ -135,7 +136,8 @@ public class SimulationController {
                         biome.getChildren().add(elementBox.getvBox());
                         GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                     }
-                    mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
+                    ScrollPane scrollPane = new ScrollPane(biome);
+                    mapVisualizer.add(scrollPane,i-xMin+1,j-yMin+1);
                 }
                 else if(map.isOccupiedByGrass(position)){
                     System.out.println("HEY");
