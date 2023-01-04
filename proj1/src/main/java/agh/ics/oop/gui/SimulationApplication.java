@@ -12,6 +12,7 @@ import javafx.stage.Stage;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class SimulationApplication implements IWindow/*, Runnable */ {
@@ -53,8 +54,11 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
     private List<Integer> grassHistory = new ArrayList<>();
     private List<Integer> deadAnimalsHistory = new ArrayList<>();
 
+    private boolean saveToCSV;
 
-    public void runApp(IWindow mainMenuApplication, Stage primaryStage, DataParameters currentConfig) throws IOException {
+
+    public void runApp(IWindow mainMenuApplication, Stage primaryStage, DataParameters currentConfig, boolean saveStats) throws IOException {
+        saveToCSV = saveStats;
         simulationNumber = mainMenuApplication.getSimulationCounterAndAdd();
         init(primaryStage, currentConfig);
         start(primaryStage);
@@ -88,6 +92,9 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
         }
     }
 
+    public boolean getSaveToCSV(){
+        return  saveToCSV;
+    }
     public void start(Stage primaryStage) {
         primaryStage.show();
         simulationController.prepareBackground();
@@ -103,25 +110,13 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
                 Stage stage = new Stage();
                 StatsApplication statsApplication = new StatsApplication();
                 simulationEngine.setStatsApplication(statsApplication);
-                statsApplication.runApp((IWindow) this, stage,this.map.getDataParameters());
+                statsApplication.runApp((IWindow) this, stage,this.map.getDataParameters(), false);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         });
         simulationController.getSaveToCSV().setOnAction(event -> {
-            try {
-                FileWriter fileWriter = new FileWriter("src/main/resources/stats" + simulationNumber+ ".csv", true);
-                CSVWriter writer = new CSVWriter(fileWriter);
-                writer.writeNext(dayHistory.toArray(new String[0]));
-                writer.writeNext(aliveAnimalsHistory.toArray(new String[0]));
-                writer.writeNext(deadAnimalsHistory.toArray(new String[0]));
-                writer.writeNext(grassHistory.toArray(new String[0]));
-                writer.close();
-
-            } catch (Exception e) {
-                e.printStackTrace();
-                System.exit(1);
-            }
+           saveStats();
 
         });
         primaryStage.setOnCloseRequest(event -> {
@@ -138,7 +133,22 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
             //thread.suspend();
     }
 
+    public void saveStats(){
+        try {
+            FileWriter fileWriter = new FileWriter("src/main/resources/stats" + simulationNumber+ ".csv", false);
+            CSVWriter writer = new CSVWriter(fileWriter);
+            for (int i =0 ; i<dayHistory.size();i++){
+                String[] output = new String[]{dayHistory.get(i).toString(), aliveAnimalsHistory.get(i).toString(), deadAnimalsHistory.get(i).toString(), grassHistory.get(i).toString()};
+                writer.writeNext(output);
+            }
+            writer.close();
+            fileWriter.close();
 
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
     public SimulationEngine getSimulationEngine(){return this.simulationEngine;}
 
     @Override

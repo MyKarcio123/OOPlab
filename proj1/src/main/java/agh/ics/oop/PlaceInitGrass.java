@@ -97,6 +97,8 @@ public class PlaceInitGrass {
                 }
                 placesOfGrass.add(position);
 
+
+
             }
         }
         return placesOfGrass;

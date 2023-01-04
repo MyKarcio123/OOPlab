@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
@@ -12,6 +13,7 @@ import javafx.stage.FileChooser;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+//import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.URI;
@@ -198,6 +200,9 @@ public class MainMenuController implements IMainMenuControllerObserver {
     @FXML
     RadioButton biomesVariant;
 
+    @FXML
+    CheckBox saveStillToCSV;
+
     private void loadToArray() {
         textFields.clear();
         radioButtonList.clear();
@@ -236,6 +241,8 @@ public class MainMenuController implements IMainMenuControllerObserver {
     public Button getStartButton(){
         return start;
     }
+
+    public CheckBox getSaveStillToCSV(){return saveStillToCSV;}
 
     public List<String> getCurrentConfig(){
         currentConfig = loadData();

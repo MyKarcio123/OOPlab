@@ -85,6 +85,10 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
                         statsApplication.refreshStats();
                     }
 
+                    if (app.getSaveToCSV()){
+                        app.saveStats();
+                    }
+
 
                     try {
                         Thread.sleep(dataParameters.getMoveDelay());

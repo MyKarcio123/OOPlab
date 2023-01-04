@@ -24,7 +24,7 @@ public class MainMenuApplication extends Application implements IWindow {
     private int simulationCounter = 0;
 
     @Override
-    public void runApp(IWindow mainMenuApplication, Stage primaryStage, DataParameters currentConfig) throws IOException {
+    public void runApp(IWindow mainMenuApplication, Stage primaryStage, DataParameters currentConfig, boolean saveStats) throws IOException {
 
     }
 
@@ -56,9 +56,10 @@ public class MainMenuApplication extends Application implements IWindow {
         menuController.loadSaves();
         menuController.getStartButton().setOnAction(event -> {
             try {
+                boolean saveStats = menuController.getSaveStillToCSV().isSelected();
                 Stage stage = new Stage();
                 IWindow simulationApplication = new SimulationApplication();
-                simulationApplication.runApp((IWindow) this, stage,new DataParameters(menuController.getCurrentConfig()));
+                simulationApplication.runApp((IWindow) this, stage,new DataParameters(menuController.getCurrentConfig()), saveStats);
 
                 /*Thread thread = new Thread(simulationApplication);
                 thread.start();
