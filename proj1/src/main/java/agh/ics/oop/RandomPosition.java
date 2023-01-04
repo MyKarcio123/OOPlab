@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Random;
 
 public class RandomPosition {
+    public static int getTypeOfBiome(){
+        Random random = new Random();
+        return random.nextInt(0,10);
+    }
     public static int getRandomSeed(){
         Random random = new Random();
         return random.nextInt(0,4000);

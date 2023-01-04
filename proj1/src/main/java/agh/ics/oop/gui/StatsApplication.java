@@ -1,6 +1,7 @@
 package agh.ics.oop.gui;
 
 import agh.ics.oop.*;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ public class StatsApplication implements IWindow {
         this.map = simulationApplication.getSimulationEngine().getMap();
         this.simulationEngine = simulationApplication.getSimulationEngine();
         init(primaryStage, currentConfig);
-        start(primaryStage);
+        start((SimulationApplication) simulationApplication, primaryStage);
     }
 
     public void init(Stage primaryStage,DataParameters currentConfig) throws IOException {
@@ -37,9 +38,9 @@ public class StatsApplication implements IWindow {
 
     }
 
-    public void start(Stage primaryStage) {
+    public void start(SimulationApplication simulationApplication, Stage primaryStage) {
         primaryStage.show();
-        statsController.prepareBackground(new ArrayList<>(Arrays.asList(6,15,10,9)));
+        statsController.prepareBackground(simulationApplication, new ArrayList<>(Arrays.asList(0,0,0,0)));
         primaryStage.setOnCloseRequest(event -> {
             getSimulationEngine().setStatsApplication(null);
         });
@@ -57,8 +58,11 @@ public class StatsApplication implements IWindow {
         return this.simulationEngine;
     }
 
-    public void refreshStats(ArrayList<Integer> stats) {
-        statsController.showNumericStats(stats);
-        statsController.showPlotStats(stats);
+    public void refreshStats() {
+        Platform.runLater(() ->{
+            statsController.showNumericStats();
+            statsController.showPlotStats();
+        });
+
     }
 }

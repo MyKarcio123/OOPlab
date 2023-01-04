@@ -1,24 +1,18 @@
 package agh.ics.oop.gui;
 
 import agh.ics.oop.*;
-import javafx.application.Application;
-import javafx.application.Platform;
+import com.opencsv.CSVWriter;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.geometry.HPos;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.TreeSet;
 
 public class SimulationApplication implements IWindow/*, Runnable */ {
 
@@ -37,6 +31,27 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
     private SimulationController simulationController;
     private int simulationNumber;
     private SimulationEngine simulationEngine;
+
+    public List<Integer> getDayHistory() {
+        return dayHistory;
+    }
+
+    public List<Integer> getAliveAnimalsHistory() {
+        return aliveAnimalsHistory;
+    }
+
+    public List<Integer> getGrassHistory() {
+        return grassHistory;
+    }
+
+    public List<Integer> getDeadAnimalsHistory() {
+        return deadAnimalsHistory;
+    }
+
+    private List<Integer> dayHistory = new ArrayList<>();
+    private List<Integer> aliveAnimalsHistory = new ArrayList<>();
+    private List<Integer> grassHistory = new ArrayList<>();
+    private List<Integer> deadAnimalsHistory = new ArrayList<>();
 
 
     public void runApp(IWindow mainMenuApplication, Stage primaryStage, DataParameters currentConfig) throws IOException {
@@ -87,11 +102,27 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
             try {
                 Stage stage = new Stage();
                 StatsApplication statsApplication = new StatsApplication();
-                /*simulationEngine.setStatsApplication(statsApplication);*/
+                simulationEngine.setStatsApplication(statsApplication);
                 statsApplication.runApp((IWindow) this, stage,this.map.getDataParameters());
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
+        });
+        simulationController.getSaveToCSV().setOnAction(event -> {
+            try {
+                FileWriter fileWriter = new FileWriter("src/main/resources/stats" + simulationNumber+ ".csv", true);
+                CSVWriter writer = new CSVWriter(fileWriter);
+                writer.writeNext(dayHistory.toArray(new String[0]));
+                writer.writeNext(aliveAnimalsHistory.toArray(new String[0]));
+                writer.writeNext(deadAnimalsHistory.toArray(new String[0]));
+                writer.writeNext(grassHistory.toArray(new String[0]));
+                writer.close();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.exit(1);
+            }
+
         });
         primaryStage.setOnCloseRequest(event -> {
             simulationEngine.setExit(true);

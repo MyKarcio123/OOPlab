@@ -33,6 +33,9 @@ public class SimulationController {
     public Button showStatsBT;
 
     @FXML
+    public Button saveToCSV;
+
+    @FXML
     public HBox buttonProperties;
     @FXML
     public Button minimapShow;
@@ -190,6 +193,8 @@ public class SimulationController {
     public Button getStartStopBT(){
         return startStopBT;}
     public Button getShowStatBT(){ return showStatsBT;}
+
+    public Button getSaveToCSV(){ return saveToCSV;}
 
 
 

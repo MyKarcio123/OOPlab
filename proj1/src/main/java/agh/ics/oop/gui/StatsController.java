@@ -29,10 +29,10 @@ public class StatsController {
     private AbstractWorldMap map;
     private int WIDTH_MAP;
     private int HEIGHT_MAP;
-    private List<Integer> dayHistory = new ArrayList<>();
-    private List<Integer> aliveAnimalsHistory = new ArrayList<>();
-    private List<Integer> grassHistory = new ArrayList<>();
-    private List<Integer> deadAnimalsHistory = new ArrayList<>();
+    private List<Integer> dayHistory ;
+    private List<Integer> aliveAnimalsHistory;
+    private List<Integer> grassHistory;
+    private List<Integer> deadAnimalsHistory;
 
     @FXML
     private AnchorPane numericStats;
@@ -45,46 +45,44 @@ public class StatsController {
     }
 
     @FXML
-    public void prepareBackground(ArrayList<Integer> stats){
-        showNumericStats(stats);
-        dayHistory.addAll(new ArrayList<>(Arrays.asList(1,2,3,4,5)));
-        aliveAnimalsHistory.addAll(new ArrayList<>(Arrays.asList(10,11,12,13,14)));
-        deadAnimalsHistory.addAll(new ArrayList<>(Arrays.asList(0,2,4,6,8)));
-        grassHistory.addAll(new ArrayList<>(Arrays.asList(9,9,9,9,9)));
-        showPlotStats(stats);
+    public void prepareBackground(SimulationApplication simulationApplication,ArrayList<Integer> stats){
+        dayHistory = simulationApplication.getDayHistory();
+        aliveAnimalsHistory = simulationApplication.getAliveAnimalsHistory();
+        deadAnimalsHistory = simulationApplication.getDeadAnimalsHistory();
+        grassHistory = simulationApplication.getGrassHistory();
+        showNumericStats();
+        showPlotStats();
     }
 
-    public void showNumericStats(ArrayList<Integer> stats) {
+    public void showNumericStats() {
+        numericStats.getChildren().clear();
         Text text0 = new Text();
-        text0.setText("Numer dnia:                         "+stats.get(0));
+        text0.setText("Numer dnia:                         "+dayHistory.get(dayHistory.size()-1));
         text0.setX(5);
         text0.setY(17);
         numericStats.getChildren().add(text0);
 
         Text text1 = new Text();
-        text1.setText("Liczba zwierzat zywych:        "+ stats.get(1));
+        text1.setText("Liczba zwierzat zywych:        "+ aliveAnimalsHistory.get(aliveAnimalsHistory.size()-1));
         text1.setY(34);
         text1.setX(5);
         numericStats.getChildren().add(text1);
 
         Text text2 = new Text();
-        text2.setText("Liczba zwierzat martwych:    "+stats.get(2));
+        text2.setText("Liczba zwierzat martwych:    "+deadAnimalsHistory.get(deadAnimalsHistory.size()-1));
         text2.setY(51);
         text2.setX(5);
         numericStats.getChildren().add(text2);
 
         Text text3 = new Text();
-        text3.setText("Ilosc trawy:                            "+stats.get(3));
+        text3.setText("Ilosc trawy:                            "+grassHistory.get(grassHistory.size()-1));
         text3.setY(68);
         text3.setX(5);
         numericStats.getChildren().add(text3);
     }
 
-    public void showPlotStats(ArrayList<Integer> stats){
-        dayHistory.add(stats.get(0));
-        aliveAnimalsHistory.add(stats.get(1));
-        deadAnimalsHistory.add(stats.get(2));
-        grassHistory.add(stats.get(3));
+    public void showPlotStats(){
+
 
         NumberAxis xAxis = new NumberAxis();
         NumberAxis yAxis = new NumberAxis();
@@ -116,6 +114,7 @@ public class StatsController {
         //Scene scene  = new Scene(lineChart,800,600);
         lineChart.getData().addAll(series1, series2, series3);
 
+        plotStats.getChildren().clear();
         plotStats.getChildren().add(lineChart);
 
 

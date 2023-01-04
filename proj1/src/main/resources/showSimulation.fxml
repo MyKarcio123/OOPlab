@@ -50,6 +50,7 @@
          <children>
             <Button fx:id="startStopBT" mnemonicParsing="false" text="Start/Wznów" />
             <Button fx:id="showStatsBT" mnemonicParsing="false" text="Pokaż Statystyki" />
+            <Button fx:id="saveToCSV" mnemonicParsing="false" text="Zapisz do .csv" />
             <Button fx:id="minimapShow" mnemonicParsing="false" onAction="#showMinimap" text="Pokaż minimapę terenu" visible="false" />
          </children>
          <opaqueInsets>

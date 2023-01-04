@@ -2,7 +2,9 @@ package agh.ics.oop;
 
 import java.util.*;
 
+import static agh.ics.oop.RandomPosition.getNumberOfGenesToChange;
 import static java.lang.Math.min;
+import static agh.ics.oop.RandomPosition.getTypeOfBiome;
 
 public class PlaceInitGrass {
     public static List<Vector2d> placeGrass (AbstractWorldMap map, int amount, int GRASS_GROW_VARIANT) {
@@ -71,7 +73,28 @@ public class PlaceInitGrass {
                 placesOfGrass.add(grassPosition);
                 grassPositions.remove(grassPosition);
             }
-        }
+        }else if(GRASS_GROW_VARIANT == 2){
+            //śnieg ma szanse 1/10
+            //bagno, łądka, pustnia mają po 2/10
+            //dżungyl ma szanse 3/10
+            for (int i = 0; i<amount;i++){
+                int type = getTypeOfBiome();
+                List<Vector2d> places;
+                switch (type){
+                    case 0 -> places = map.getBiomes().getSnowyFields();
+                    case 1,2 -> places = map.getBiomes().getBagnoFields();
+                    case 3,4 -> places = map.getBiomes().getForestFields();
+                    case 5,6 -> places = map.getBiomes().getDesertFields();
+                    default -> places = map.getBiomes().getJungleFields();
+                }
+                Vector2d position = places.get(getNumberOfGenesToChange(places.size()));
+                while(map.grassMap.containsKey(position)){
+                    position = places.get(getNumberOfGenesToChange(places.size()));
+                }
+                placesOfGrass.add(position);
+
+                }
+            }
         return placesOfGrass;
     }
 

@@ -21,9 +21,17 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     private DataParameters dataParameters;
     private boolean exit = false;
     private boolean stop = false;
+    private List<Integer> dayHistory ;
+    private List<Integer> aliveAnimalsHistory;
+    private List<Integer> grassHistory;
+    private List<Integer> deadAnimalsHistory;
 
     public SimulationEngine(SimulationApplication app, DataParameters currentConfig) {
         dataParameters = currentConfig;
+        dayHistory = app.getDayHistory();
+        aliveAnimalsHistory = app.getAliveAnimalsHistory();
+        deadAnimalsHistory = app.getDeadAnimalsHistory();
+        grassHistory = app.getGrassHistory();
         if (dataParameters.getMapVariant() == 0) this.map = new EarthMap(this, currentConfig);
         else this.map = new HellMap(this, currentConfig);
         this.app = app;
@@ -58,7 +66,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     public void run() {
         while (!exit) {
             while (true) {
-                if (!stop) {
+                if (!stop && !exit) {
                     clearDeathAnimals();
                     map.clearDeathAnimals();
 
@@ -66,11 +74,15 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
                     int howManyGrassToAdd = map.eatGrass();
 
                     map.copulateAnimals();
-                    map.plantGrass(howManyGrassToAdd);
+                    map.plantGrass(dataParameters.getNewGrassPerDay());
 
                     app.refreshMap();
+                    dayHistory.add(dayCounter);
+                    aliveAnimalsHistory.add(map.getNumberOfAnimals());
+                    deadAnimalsHistory.add(map.getAmountOfAnimalsDead());
+                    grassHistory.add(map.getAmountOfGrass());
                     if (statsApplication != null){
-                        statsApplication.refreshStats(new ArrayList<>(Arrays.asList(dayCounter,map.getNumberOfAnimals(),map.getAmountOfAnimalsDead(),map.getAmountOfGrass())));
+                        statsApplication.refreshStats();
                     }
 
 
@@ -85,6 +97,9 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
                     try {
                         System.out.println("zatrzymano nas");
                         Thread.sleep(50);
+                        if(exit){
+                            break;
+                        }
                     } catch (InterruptedException e) {
                         System.out.println("Koniec symulacji, bo została interrupted");
                     }

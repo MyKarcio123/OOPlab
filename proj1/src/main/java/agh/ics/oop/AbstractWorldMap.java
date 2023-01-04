@@ -24,6 +24,11 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
 
     private final IMapStateEngineObserver observer;
     private final DataParameters dataParameters;
+
+    public Biomes getBiomes() {
+        return biomes;
+    }
+
     protected Biomes biomes;
 
 
@@ -94,7 +99,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
             Integer amt = set.getValue();
             Integer histAmt = historyOfDeathAnimals.get(pos);
             if (histAmt == null) {
-                historyOfDeathAnimals.replace(pos, amt);
+                historyOfDeathAnimals.put(pos, amt);
             } else {
                 historyOfDeathAnimals.replace(pos, histAmt + amt);
             }
