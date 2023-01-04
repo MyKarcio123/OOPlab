@@ -92,7 +92,6 @@ public class PlaceInitGrass {
                     position = places.get(getNumberOfGenesToChange(places.size()));
                 }
                 placesOfGrass.add(position);
-
                 }
             }
         return placesOfGrass;

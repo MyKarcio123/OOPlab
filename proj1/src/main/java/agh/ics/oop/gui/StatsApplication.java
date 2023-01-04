@@ -17,7 +17,7 @@ public class StatsApplication implements IWindow {
     private SimulationEngine simulationEngine;
 
 
-    public void runApp(IWindow simulationApplication, Stage primaryStage, DataParameters currentConfig) throws IOException {
+    public void runApp(IWindow simulationApplication, Stage primaryStage, DataParameters currentConfig, boolean saveStats) throws IOException {
         this.map = simulationApplication.getSimulationEngine().getMap();
         this.simulationEngine = simulationApplication.getSimulationEngine();
         init(primaryStage, currentConfig);
