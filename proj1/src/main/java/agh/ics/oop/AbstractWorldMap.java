@@ -50,8 +50,8 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
                 }
             }
         }else if(dataParameters.getGrassGrowVariant() == 2){
-            NoiseData temperature = new NoiseData(101,101,0.1,0.09,8,1);
-            NoiseData rainfall = new NoiseData(101,101,0.3,0.2,8,1);
+            NoiseData temperature = new NoiseData(dataParameters.getWidth(),dataParameters.getHeight(),0.1,0.09,8,1);
+            NoiseData rainfall = new NoiseData(dataParameters.getWidth(),dataParameters.getHeight(),0.3,0.2,8,1);
             biomes = new Biomes(temperature,rainfall,0,4);
         }
         placesOfCopulation = new HashSet<>();

@@ -8,6 +8,6 @@ public class Grass extends AbstractMapElement{
 
     @Override
     public String getDesc(){
-        return "T";
+        return "T"+this.position.toString();
     }
 }

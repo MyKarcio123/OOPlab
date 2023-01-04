@@ -80,7 +80,7 @@ public class SimulationController {
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMax; j >= yMin; j--) {
                 AnchorPane biome = new AnchorPane();
-                String value = map.getBiomeFromMap(new Vector2d(i - xMin + 1, yMax - j + 1)).toString();
+                String value = map.getBiomeFromMap(new Vector2d(i - xMin +1,j)).toString();
                 biome.setStyle("-fx-background-color: " + value);
                 minimap.add(biome,i-xMin,j-yMin);
             }
@@ -129,7 +129,7 @@ public class SimulationController {
                 Vector2d position = new Vector2d(i,j);
                 AnchorPane biome = new AnchorPane();
                 String value = "#ffffff";
-                if(biomesMode) value = map.getBiomeFromMap(new Vector2d(i-xMin+1,yMax-j+1)).toString();
+                if(biomesMode) value = map.getBiomeFromMap(new Vector2d(i-xMin+1,j)).toString();
                 biome.setStyle("-fx-background-color: " + value);
                 if(map.isOccupied(position)){
                     Set<Animal> animals = map.objectAt(position);
@@ -144,7 +144,7 @@ public class SimulationController {
                     String fileName = "plant_normal";
                     if(map.getDataParameters().getGrassGrowVariant()==2){
                         switch(map.getBiomeFromMap(position)){
-                            case ICY -> fileName="plant_ice";
+                            case SNOWY -> fileName="plant_ice";
                             case DESERT -> fileName="cactus";
                             case JUNGLE -> fileName="plant_jungle";
                             default -> fileName="plant_normal";
