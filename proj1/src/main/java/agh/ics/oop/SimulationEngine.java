@@ -72,6 +72,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     }
 
     public void run() {
+        //synchronized wait notify
         while (!exit) {
             while (true) {
                 if (!stop && !exit) {
