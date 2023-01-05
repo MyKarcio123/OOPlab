@@ -56,7 +56,7 @@ public class GuiElementBox {
         imageView.setFitWidth(30);
 
         if(!Double.isNaN(progression)) {
-            System.out.println("PROGRESJA " + progression);
+            //System.out.println("PROGRESJA " + progression);
             ProgressBar progressBar = new ProgressBar(progression);
             progressBar.setMaxWidth(50);
             vBox.getChildren().addAll(imageView, progressBar);

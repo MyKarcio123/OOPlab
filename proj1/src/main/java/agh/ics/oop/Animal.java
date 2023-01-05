@@ -55,7 +55,7 @@ public class Animal extends AbstractMapElement implements Comparable<Animal> {
     }
 
     private void move() {
-        System.out.println(orientation + " " + orientation.toUnitVector());
+        //System.out.println(orientation + " " + orientation.toUnitVector());
         Vector2d newPosition = position.add(orientation.toUnitVector());
         if(dataParameters.getGrassGrowVariant()==2) {
             currentBiome = stateMapObserver.getBiomeFromMap(position);
