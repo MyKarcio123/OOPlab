@@ -5,6 +5,7 @@ import java.util.*;
 import static agh.ics.oop.RandomPosition.getNumberOfGenesToChange;
 import static java.lang.Math.min;
 import static agh.ics.oop.RandomPosition.getTypeOfBiome;
+import static java.lang.Math.sqrt;
 
 public class PlaceInitGrass {
     public static List<Vector2d> placeGrass(AbstractWorldMap map, int amount, int GRASS_GROW_VARIANT) {

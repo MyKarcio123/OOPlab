@@ -362,7 +362,6 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
         return biomes.getBiomeTypeAt(pos);
     }
 
-    // Potrzebne do testów, bo inaczej nie potrafię
     public HashMap<Vector2d, Integer> getDeathAnimals(){
         return deathAnimals;
     }
