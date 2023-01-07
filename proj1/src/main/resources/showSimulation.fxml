@@ -52,6 +52,11 @@
             <Button fx:id="showStatsBT" mnemonicParsing="false" text="Pokaż Statystyki" />
             <Button fx:id="saveToCSV" mnemonicParsing="false" text="Zapisz do .csv" />
             <Button fx:id="minimapShow" mnemonicParsing="false" onAction="#showMinimap" text="Pokaż minimapę terenu" visible="false" />
+            <AnchorPane fx:id="followAnimal" prefHeight="20.0" prefWidth="500.0">
+               <HBox.margin>
+                  <Insets top="5.0" />
+               </HBox.margin>
+            </AnchorPane>
          </children>
          <opaqueInsets>
             <Insets />

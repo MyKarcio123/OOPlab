@@ -1,6 +1,7 @@
 package agh.ics.oop.gui;
 
 import agh.ics.oop.AbstractMapElement;
+import agh.ics.oop.Animal;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
@@ -17,30 +18,23 @@ public class GuiElementBox {
     private boolean clicked = false;
     private EntityType entityType;
     private double progression;
-    public GuiElementBox(AbstractMapElement element,String fileName,EntityType entityType,double progression) {
+    private SimulationController observer;
+    public GuiElementBox(AbstractMapElement element,String fileName,EntityType entityType,double progression, SimulationController observer) {
 
         this.image = new Image("file:src/main/resources/"+fileName+".png");
         this.clicked = element.isClicked();
         this.entityType = entityType;
         this.progression = progression;
-        if (!this.clicked || entityType==EntityType.PLANT) {
-            makeNormalView(element);
-
-        } else {
-            vBox.getChildren().clear();
-            vBox.getChildren().add(new Text("sledza mnie"));
-        }
+        this.observer = observer;
+        makeNormalView(element);
         if(entityType==EntityType.ANIMAL) {
             vBox.setOnMouseClicked(event -> {
                 if (!this.clicked) {
-                    vBox.getChildren().clear();
-                    vBox.getChildren().add(new Text("sledza mnie"));
                     clicked = true;
-                    element.setClicked(true);
+                    observer.setAnimalToFollow((Animal)element, true);
                 } else {
-                    makeNormalView(element);
                     clicked = false;
-                    element.setClicked(false);
+                    observer.setAnimalToFollow((Animal)element, false);
                 }
             });
         }

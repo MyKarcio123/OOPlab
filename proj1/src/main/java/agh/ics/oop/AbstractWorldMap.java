@@ -25,6 +25,15 @@ public abstract class AbstractWorldMap implements IWorldMap, IAnimalStateMapObse
     private int howManydied = 0;
     private int sumOfDiedAge = 0;
 
+    private Animal animalToShow = null;
+    public Animal getAnimalToShow() {
+        return animalToShow;
+    }
+    @Override
+    public void setAnimalToShow(Animal animal) {
+        this.animalToShow = animal;
+    }
+
     private final IMapStateEngineObserver observer;
     private final DataParameters dataParameters;
 

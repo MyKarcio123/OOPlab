@@ -19,4 +19,8 @@ public abstract class AbstractMapElement {
     public void setClicked(boolean clicked) {
         this.clicked = clicked;
     }
+
+    public void setAnimalToFollow(boolean bool){
+
+    }
 }

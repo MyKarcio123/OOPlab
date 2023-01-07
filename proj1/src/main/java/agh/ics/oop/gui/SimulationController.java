@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -26,6 +27,10 @@ public class SimulationController {
     private AnchorPane mapWrapper;
     private GridPane mapVisualizer;
     private GridPane minimap;
+
+    @FXML
+    private AnchorPane followAnimal;
+
     @FXML
     public Button startStopBT;
 
@@ -123,6 +128,30 @@ public class SimulationController {
         }
     }
 
+    public void showFollowedAnimal(){
+        followAnimal.getChildren().clear();
+        if (map.getAnimalToShow() != null){
+            Vector2d position = map.getAnimalToShow().getPosition();
+            int energy = map.getAnimalToShow().getEnergy();
+            List<Integer> genotype = map.getAnimalToShow().getGenotype();
+
+            Text text3 = new Text();
+            text3.setText("Zwierz jest w: "+position+" Ma energii: "+ energy);
+            text3.setY(5);
+            text3.setX(5);
+
+            Text text1 = new Text();
+            text1.setText("Ma genotyp :"+genotype);
+            text1.setY(22);
+            text1.setX(5);
+
+
+            followAnimal.getChildren().add(text3);
+            followAnimal.getChildren().add(text1);
+        }
+
+    }
+
     public void addElements(GridPane mapVisualizer) {
         for (int i = xMin; i <= xMax; i++) {
             for (int j = yMax; j >= yMin; j--) {
@@ -134,7 +163,7 @@ public class SimulationController {
                 if(map.isOccupied(position)){
                     Set<Animal> animals = map.objectAt(position);
                     for (Animal animal : animals){
-                        GuiElementBox elementBox = new GuiElementBox(animal,animal.getOrientation().toString(),EntityType.ANIMAL,animal.getProgression());
+                        GuiElementBox elementBox = new GuiElementBox(animal,animal.getOrientation().toString(),EntityType.ANIMAL,animal.getProgression(), this);
                         biome.getChildren().add(elementBox.getvBox());
                         GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                     }
@@ -150,7 +179,7 @@ public class SimulationController {
                             default -> fileName="plant_normal";
                         }
                     }
-                    GuiElementBox elementBox = new GuiElementBox(new Grass(position),fileName,EntityType.PLANT,Double.NaN);
+                    GuiElementBox elementBox = new GuiElementBox(new Grass(position),fileName,EntityType.PLANT,Double.NaN, this);
                     biome.getChildren().add(elementBox.getvBox());
                     mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                     GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
@@ -163,6 +192,17 @@ public class SimulationController {
     }
 
 
+    public void setAnimalToFollow(Animal animal, boolean isBeingSet){
+        if (isBeingSet){
+            map.setAnimalToShow(animal);
+            showFollowedAnimal();
+        }
+        else{
+            map.setAnimalToShow(null);
+            showFollowedAnimal();
+        }
+
+    }
 
     @FXML
     public void prepareBackground(){
@@ -175,9 +215,8 @@ public class SimulationController {
         rowsFunction(mapVisualizer);
         addElements(mapVisualizer);
         mapWrapper.getChildren().add(mapVisualizer);
-
-
         mapVisualizer.setGridLinesVisible(true);
+        showFollowedAnimal();
     }
 
     public void refreshMap(){
