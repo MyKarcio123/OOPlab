@@ -133,21 +133,28 @@ public class SimulationController {
         if (map.getAnimalToShow() != null){
             Vector2d position = map.getAnimalToShow().getPosition();
             int energy = map.getAnimalToShow().getEnergy();
+            int activeGen = map.getAnimalToShow().getActiveGen();
             List<Integer> genotype = map.getAnimalToShow().getGenotype();
 
             Text text3 = new Text();
             text3.setText("Zwierz jest w: "+position+" Ma energii: "+ energy);
-            text3.setY(5);
+            text3.setY(17);
             text3.setX(5);
 
             Text text1 = new Text();
             text1.setText("Ma genotyp :"+genotype);
-            text1.setY(22);
+            text1.setY(34);
             text1.setX(5);
+
+            Text text2 = new Text();
+            text2.setText("Aktywny gen :"+activeGen);
+            text2.setY(51);
+            text2.setX(5);
 
 
             followAnimal.getChildren().add(text3);
             followAnimal.getChildren().add(text1);
+            followAnimal.getChildren().add(text2);
         }
 
     }

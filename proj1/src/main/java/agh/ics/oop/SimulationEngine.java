@@ -21,7 +21,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     private DataParameters dataParameters;
     private boolean exit = false;
     private boolean stop = false;
-    private List<Integer> dayHistory ;
+    private List<Integer> dayHistory;
     private List<Integer> aliveAnimalsHistory;
     private List<Integer> grassHistory;
     private List<Integer> deadAnimalsHistory;
@@ -46,7 +46,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
         generateAnimals();
     }
 
-    public void setStatsApplication(StatsApplication statsApplication){
+    public void setStatsApplication(StatsApplication statsApplication) {
         this.statsApplication = statsApplication;
     }
 
@@ -57,11 +57,11 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
         generateAnimals();
     }
 
-    public void setStop(boolean val){
+    public void setStop(boolean val) {
         this.stop = val;
     }
 
-    public boolean getStop(){
+    public boolean getStop() {
         return this.stop;
     }
 
@@ -72,56 +72,41 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
     }
 
     public void run() {
-        //synchronized wait notify
         while (!exit) {
-            while (true) {
-                if (!stop && !exit) {
-                    clearDeathAnimals();
-                    map.clearDeathAnimals();
+            clearDeathAnimals();
+            map.clearDeathAnimals();
 
-                    moveAnimals();
-                    int howManyGrassToAdd = map.eatGrass();
+            moveAnimals();
+            int howManyGrassToAdd = map.eatGrass();
 
-                    map.copulateAnimals();
-                    map.plantGrass(dataParameters.getNewGrassPerDay());
+            map.copulateAnimals();
+            map.plantGrass(dataParameters.getNewGrassPerDay());
 
-                    app.refreshMap();
-                    dayHistory.add(dayCounter);
-                    aliveAnimalsHistory.add(map.getNumberOfAnimals());
-                    deadAnimalsHistory.add(map.getAmountOfAnimalsDead());
-                    grassHistory.add(map.getAmountOfGrass());
-                    freePlacesHistory.add(map.getFreePlaces());
-                    popularGenotypeHistory.add( map.getPopularGenotype());
-                    averageEnergyHistory.add(map.getAverageEnergy());
-                    averageLifetimeHistory.add(map.getAverageLifeTime());
-                    if (statsApplication != null){
-                        statsApplication.refreshStats();
-                    }
-
-                    if (app.getSaveToCSV()){
-                        app.saveStats();
-                    }
-
-
-                    try {
-                        Thread.sleep(dataParameters.getMoveDelay());
-                    } catch (InterruptedException e) {
-                        System.out.println("Koniec symulacji, bo została interrupted");
-                    }
-
-                    dayCounter += 1;
-                }else{
-                    try {
-                        System.out.println("zatrzymano nas");
-                        Thread.sleep(50);
-                        if(exit){
-                            break;
-                        }
-                    } catch (InterruptedException e) {
-                        System.out.println("Koniec symulacji, bo została interrupted");
-                    }
-                }
+            app.refreshMap();
+            dayHistory.add(dayCounter);
+            aliveAnimalsHistory.add(map.getNumberOfAnimals());
+            deadAnimalsHistory.add(map.getAmountOfAnimalsDead());
+            grassHistory.add(map.getAmountOfGrass());
+            freePlacesHistory.add(map.getFreePlaces());
+            popularGenotypeHistory.add(map.getPopularGenotype());
+            averageEnergyHistory.add(map.getAverageEnergy());
+            averageLifetimeHistory.add(map.getAverageLifeTime());
+            if (statsApplication != null) {
+                statsApplication.refreshStats();
             }
+
+            if (app.getSaveToCSV()) {
+                app.saveStats();
+            }
+
+
+            try {
+                Thread.sleep(dataParameters.getMoveDelay());
+            } catch (InterruptedException e) {
+                System.out.println("Koniec symulacji, bo została interrupted");
+            }
+
+            dayCounter += 1;
         }
     }
 

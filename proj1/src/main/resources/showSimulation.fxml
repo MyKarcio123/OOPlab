@@ -47,23 +47,23 @@
         </content>
       </ScrollPane>
       <HBox fx:id="buttonProperties" prefWidth="1100.0" spacing="10.0">
-         <children>
-            <Button fx:id="startStopBT" mnemonicParsing="false" text="Start/Wznów" />
-            <Button fx:id="showStatsBT" mnemonicParsing="false" text="Pokaż Statystyki" />
-            <Button fx:id="saveToCSV" mnemonicParsing="false" text="Zapisz do .csv" />
-            <Button fx:id="minimapShow" mnemonicParsing="false" onAction="#showMinimap" text="Pokaż minimapę terenu" visible="false" />
-            <AnchorPane fx:id="followAnimal" prefHeight="20.0" prefWidth="500.0">
-               <HBox.margin>
-                  <Insets top="5.0" />
-               </HBox.margin>
-            </AnchorPane>
-         </children>
          <opaqueInsets>
             <Insets />
          </opaqueInsets>
          <VBox.margin>
             <Insets />
          </VBox.margin>
+         <children>
+            <AnchorPane prefHeight="50.0" prefWidth="450.0">
+               <children>
+                  <Button fx:id="showStatsBT" layoutX="100.0" layoutY="5.0" mnemonicParsing="false" text="Pokaż Statystyki" />
+                  <Button fx:id="minimapShow" layoutX="310.0" layoutY="5.0" mnemonicParsing="false" onAction="#showMinimap" text="Pokaż minimapę terenu" visible="false" />
+                  <Button fx:id="startStopBT" layoutX="5.0" layoutY="5.0" mnemonicParsing="false" text="Start/Wznów" />
+                  <Button fx:id="saveToCSV" layoutX="210.0" layoutY="5.0" mnemonicParsing="false" text="Zapisz do .csv" />
+               </children>
+            </AnchorPane>
+            <AnchorPane fx:id="followAnimal" prefHeight="20.0" prefWidth="440.0" />
+         </children>
       </HBox>
    </children>
 </VBox>
