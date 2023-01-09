@@ -124,19 +124,10 @@ public class SimulationApplication implements IWindow/*, Runnable */ {
         simulationController.getStartStopBT().setOnAction(event -> {
             if (!simulationEngine.getStop()) {
                 simulationEngine.setStop(true);
-                while (simulationEngine.getStop()) {
-                    synchronized (simEngThr) {
-                        try {
-                            simEngThr.wait(1);
-                        } catch (InterruptedException e) {
-                            System.out.println("ruszamy");
-                        }
-                    }
-                }
 
             } else {
                 simulationEngine.setStop(false);
-                //simEngThr.notify();
+                simulationEngine.resumeEngine();
             }
         });
         simulationController.getShowStatBT().setOnAction(event -> {

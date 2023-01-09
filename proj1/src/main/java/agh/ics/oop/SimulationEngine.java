@@ -73,6 +73,9 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
     public void run() {
         while (!exit) {
+            if(stop){
+                stopEnigne();
+            }
             clearDeathAnimals();
             map.clearDeathAnimals();
 
@@ -81,6 +84,7 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
 
             map.copulateAnimals();
             map.plantGrass(dataParameters.getNewGrassPerDay());
+
 
             app.refreshMap();
             dayHistory.add(dayCounter);
@@ -122,6 +126,20 @@ public class SimulationEngine implements Runnable, IAnimalStateEnigneObserver, I
             Animal newAnimal = new Animal(map, RandomPosition.getRandomPosition(map.getMapLowerLeft(), map.getMapUpperRight()), generateGenotype(), dayCounter, this);
             animals.add(newAnimal);
             map.place(newAnimal);
+        }
+    }
+    public void resumeEngine(){
+        synchronized (this) {
+            this.notify();
+        }
+    }
+    public void stopEnigne(){
+        synchronized (this){
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
