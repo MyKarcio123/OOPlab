@@ -13,10 +13,7 @@ import javafx.scene.layout.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 import static javafx.scene.layout.GridPane.setHgrow;
 import static javafx.scene.layout.GridPane.setVgrow;
@@ -168,12 +165,11 @@ public class SimulationController {
                 if(biomesMode) value = map.getBiomeFromMap(new Vector2d(i-xMin+1,j)).toString();
                 biome.setStyle("-fx-background-color: " + value);
                 if(map.isOccupied(position)){
-                    Set<Animal> animals = map.objectAt(position);
-                    for (Animal animal : animals){
-                        GuiElementBox elementBox = new GuiElementBox(animal,animal.getOrientation().toString(),EntityType.ANIMAL,animal.getProgression(), this);
-                        biome.getChildren().add(elementBox.getvBox());
-                        GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
-                    }
+                    NavigableSet<Animal> animals = map.objectAt(position);
+                    Animal animal = animals.first();
+                    GuiElementBox elementBox = new GuiElementBox(animal,animal.getOrientation().toString(),EntityType.ANIMAL,animal.getProgression(), this);
+                    biome.getChildren().add(elementBox.getvBox());
+                    GridPane.setHalignment(elementBox.getvBox(),HPos.CENTER);
                     mapVisualizer.add(biome,i-xMin+1,j-yMin+1);
                 }
                 else if(map.isOccupiedByGrass(position)){
