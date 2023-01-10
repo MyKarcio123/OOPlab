@@ -20,10 +20,10 @@ public class GrassTest {
 
     @Test
     void getDescTest(){
-        assertEquals("T", grass1.getDesc());
-        assertEquals("T", grass2.getDesc());
-        assertEquals("T", grass3.getDesc());
-        assertEquals("T", grass4.getDesc());
+        assertEquals("T(1,1)", grass1.getDesc());
+        assertEquals("T(-1,-1)", grass2.getDesc());
+        assertEquals("T(-1,1)", grass3.getDesc());
+        assertEquals("T(1,-1)", grass4.getDesc());
     }
 
     @Test
