@@ -191,15 +191,11 @@ public class AnimalTest {
         animal3H.dayCycle();
         animal4H.dayCycle();
         animal5H.dayCycle();
-        // Tutaj właściwie nie rozumiem, dlaczego raz na x testów, któregoś nie przechodzi,
-        // codziennie powinien się gdzieś losowo ruszyć (niekoniecznie obrócić)
-        // ====
         assertNotEquals(beforePos1H, animal1H.getPosition());
         assertNotEquals(beforePos2H, animal2H.getPosition());
         assertNotEquals(beforePos3H, animal3H.getPosition());
         assertNotEquals(beforePos4H, animal4H.getPosition());
         assertNotEquals(beforePos5H, animal5H.getPosition());
-        // ====
         assertNotEquals(beforeGen1H, animal1H.getActiveGen());
         assertNotEquals(beforeGen2H, animal2H.getActiveGen());
         assertNotEquals(beforeGen3H, animal3H.getActiveGen());
