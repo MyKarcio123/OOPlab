@@ -45,11 +45,13 @@ public class Vector2d {
     }
 
     @Override
-    public boolean equals(Object other) {
-        if (other instanceof Vector2d vector2dOther) {
-            return (x == vector2dOther.x && y == vector2dOther.y);
-        }
-        return false;
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Vector2d that = (Vector2d) o;
+        return x == that.x && y == that.y;
     }
 
     @Override
