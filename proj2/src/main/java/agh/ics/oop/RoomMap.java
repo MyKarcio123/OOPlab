@@ -28,6 +28,7 @@ public class RoomMap {
         for(int i=0;i<roomAmount;++i){
             boolean goodPosition = true;
             do{
+                goodPosition = true;
                 Vector2d possiblePlace = position.get(0);
                 for(Vector2d move : moves){
                     Vector2d placeToCheck = new Vector2d(possiblePlace.getX()+move.getX(),possiblePlace.getY()+move.getY());
