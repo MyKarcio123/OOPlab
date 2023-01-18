@@ -6,7 +6,7 @@ import agh.ics.oop.spells.AbstractSpell;
 import java.util.ArrayList;
 
 public class Rat extends AbstractEnemy{
-    //Szczur
+    //Szczuras
     //TODO szczur values trzeba wymyślić
     //zdrowie - mało
     //mana - mało

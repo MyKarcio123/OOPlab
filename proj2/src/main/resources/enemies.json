@@ -1,0 +1,9 @@
+{
+  "Rat" : {
+    "maxHealth": 1,
+  "maxMana": 10,
+  "weapon": 20.13,
+  "BooleanProperty": true,
+  "EmptyProperty": null
+  }
+}
