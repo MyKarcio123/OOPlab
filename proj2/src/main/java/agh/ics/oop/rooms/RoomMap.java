@@ -1,27 +1,29 @@
 package agh.ics.oop.rooms;
 
 import agh.ics.oop.Vector2d;
+import agh.ics.oop.graphAlgorithms.AStar;
 import agh.ics.oop.graphAlgorithms.DelonayTriangulation;
 import agh.ics.oop.graphAlgorithms.Edge;
 import agh.ics.oop.graphAlgorithms.MST;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class RoomMap {
     private final Map<Vector2d,Room> levelMap = new HashMap<>();
-    private final Map<Vector2d,Integer> numMap = new HashMap<>();
+    private Map<Vector2d,Integer> numMap = new HashMap<>();
     private final Vector2d lowerLeft = new Vector2d(0,0);
     private final List<Vector2d> position = new ArrayList<>();
     private final List<Vector2d> centers = new ArrayList<>();
     private final Vector2d upperRight;
     private float[][] mapGraph;
     private final int roomAmount;
-
+    private final int mapSize;
 
     // zakładam że funkcja zależności poziomu od ilości pomieszczeń powinna mieć przyrost maksymalnie liniowy
     public RoomMap(int level){
         roomAmount = (int)Math.ceil((3.1*level+2.5));
-        int mapSize = roomAmount*4;
+        mapSize = roomAmount*4;
         upperRight = new Vector2d(mapSize+2,mapSize+2);
         for(int i=2;i<mapSize-2;++i){
             for(int j=2;j<mapSize-2;++j){
@@ -33,15 +35,21 @@ public class RoomMap {
         DelonayTriangulation triangulation = new DelonayTriangulation();
         System.out.println(centers);
         List<Edge> edges = triangulation.DelonayTriangulation(centers);
-        makeGraph(edges);
-        MST.Kruskal(edges,roomAmount,centers);
-
+        List<Edge> newEdges = MST.Kruskal(edges,roomAmount,centers);
+        List<Edge> deletes = new ArrayList<>(edges.stream().filter(element -> !newEdges.contains(element)).toList());
+        Collections.shuffle(deletes);
+        int deleteSize = deletes.size();
+        deletes = deletes.subList(0,(int)(Math.ceil(deleteSize*0.3)));
+        newEdges.addAll(deletes);
+        makeGraph(newEdges);
+        numMap = AStar.AStar(newEdges,numMap,upperRight);
+        System.out.println(numMap);
     }
     private void GenerateRooms(){
         Vector2d[] moves = {new Vector2d(2,2),new Vector2d(-2,2),new Vector2d(-2,-2),new Vector2d(2,-2),
                 new Vector2d(2,0),new Vector2d(-2,0),new Vector2d(0,-2),new Vector2d(0,2)};
         for(int i=0;i<roomAmount;++i){
-            boolean goodPosition = true;
+            boolean goodPosition;
             do{
                 goodPosition = true;
                 Vector2d possiblePlace = position.get(0);
@@ -69,12 +77,13 @@ public class RoomMap {
         }
     }
     private void makeGraph(List<Edge> edges){
-        mapGraph = new float[roomAmount*4][roomAmount*4];
+        mapGraph = new float[mapSize][mapSize];
         for (Edge edge : edges){
             float dist = edge.u.distance(edge.v);
             mapGraph[edge.u.getX()][edge.u.getY()]=dist;
             mapGraph[edge.v.getX()][edge.v.getY()]=dist;
         }
+
     }
 
 }

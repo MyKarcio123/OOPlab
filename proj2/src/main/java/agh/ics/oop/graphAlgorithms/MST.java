@@ -10,7 +10,7 @@ class Subset {
     int parent, rank;
 };
 public class MST {
-    public static void Kruskal(List<Edge> edges,int roomAmount,List<Vector2d> rooms){
+    public static List<Edge> Kruskal(List<Edge> edges,int roomAmount,List<Vector2d> rooms){
         List<Edge> result = new ArrayList<>();
         edges.sort((o1, o2) -> (int) (o1.weight - o2.weight));
         Subset[] subsets = new Subset[rooms.size()];
@@ -22,6 +22,8 @@ public class MST {
         int i=0;
         int e=0;
         while(e<roomAmount-1){
+            //tu może być generowany jakiś błąd
+            if(i==edges.size()) break;
             Edge currentEdge = edges.get(i);
             ++i;
             int x = find(subsets,rooms.indexOf(currentEdge.u));
@@ -33,9 +35,9 @@ public class MST {
                 Union(subsets,x,y);
             }
         }
-        System.out.println(result);
+        return result;
     }
-    static int find(Subset[] subsets,int i)
+    private static int find(Subset[] subsets,int i)
     {
         // find root and make root as parent of i
         // (path compression)
@@ -48,7 +50,7 @@ public class MST {
 
     // A function that does union of two sets
     // of x and y (uses union by rank)
-    static void Union(Subset[] subsets, int x, int y)
+    private static void Union(Subset[] subsets, int x, int y)
     {
         int xroot = find(subsets, x);
         int yroot = find(subsets, y);
