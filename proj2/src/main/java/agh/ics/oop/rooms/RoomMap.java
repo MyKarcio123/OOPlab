@@ -2,6 +2,8 @@ package agh.ics.oop.rooms;
 
 import agh.ics.oop.Vector2d;
 import agh.ics.oop.graphAlgorithms.DelonayTriangulation;
+import agh.ics.oop.graphAlgorithms.Edge;
+import agh.ics.oop.graphAlgorithms.MST;
 
 import java.util.*;
 
@@ -12,6 +14,7 @@ public class RoomMap {
     private final List<Vector2d> position = new ArrayList<>();
     private final List<Vector2d> centers = new ArrayList<>();
     private final Vector2d upperRight;
+    private float[][] mapGraph;
     private final int roomAmount;
 
 
@@ -29,7 +32,10 @@ public class RoomMap {
         GenerateRooms();
         DelonayTriangulation triangulation = new DelonayTriangulation();
         System.out.println(centers);
-        System.out.println(triangulation.DelonayTriangulation(centers));
+        List<Edge> edges = triangulation.DelonayTriangulation(centers);
+        makeGraph(edges);
+        MST.Kruskal(edges,roomAmount,centers);
+
     }
     private void GenerateRooms(){
         Vector2d[] moves = {new Vector2d(2,2),new Vector2d(-2,2),new Vector2d(-2,-2),new Vector2d(2,-2),
@@ -62,8 +68,13 @@ public class RoomMap {
             }
         }
     }
-    private void makeGraph(){
-
+    private void makeGraph(List<Edge> edges){
+        mapGraph = new float[roomAmount*4][roomAmount*4];
+        for (Edge edge : edges){
+            float dist = edge.u.distance(edge.v);
+            mapGraph[edge.u.getX()][edge.u.getY()]=dist;
+            mapGraph[edge.v.getX()][edge.v.getY()]=dist;
+        }
     }
 
 }

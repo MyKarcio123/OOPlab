@@ -7,6 +7,7 @@ import java.util.Objects;
 public class Edge {
     public Vector2d u;
     public Vector2d v;
+    public float weight;
     public boolean isBad;
 
     public Edge(){}
@@ -14,6 +15,7 @@ public class Edge {
     public Edge(Vector2d u, Vector2d v){
         this.u = u;
         this.v = v;
+        this.weight=u.distance(v);
     }
 
     @Override
@@ -27,7 +29,7 @@ public class Edge {
 
     @Override
     public int hashCode() {
-        return Objects.hash(u,v);
+        return u.hashCode()+v.hashCode();
     }
 
     @Override
