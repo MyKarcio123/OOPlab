@@ -1,6 +1,7 @@
-package agh.ics.oop;
+package agh.ics.oop.items;
 
-public class AbstractWeapon extends AbstractItem{
+//broń
+abstract public class AbstractWeapon extends AbstractItem {
     private int attackValue;
 
     public int getAttackValue(){

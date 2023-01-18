@@ -1,8 +1,11 @@
-package agh.ics.oop;
+package agh.ics.oop.entities;
+
+import agh.ics.oop.items.AbstractWeapon;
+import agh.ics.oop.spells.AbstractSpell;
 
 import java.util.ArrayList;
 
-public class AbstractEnemy extends AbstractEntity {
+abstract public class AbstractEnemy extends AbstractEntity {
     private boolean firstAttack = true;
 
     public AbstractEnemy (float health, float mana, float maxHealth, float maxMana, AbstractWeapon weapon,
@@ -19,7 +22,7 @@ public class AbstractEnemy extends AbstractEntity {
             //TODO wybieranie ataku tego trwałego
         }
         else{
-            //TODO wybieranie najlepszego
+            //TODO wybieranie najlepszego ataku
         }
         target.receiveDamage(healthDamage, manaDamage);
     }

@@ -1,7 +1,7 @@
-package agh.ics.oop;
+package agh.ics.oop.rooms;
 
+import agh.ics.oop.Vector2d;
 import agh.ics.oop.graphAlgorithms.DelonayTriangulation;
-import com.sun.javafx.collections.MappingChange;
 
 import java.util.*;
 

@@ -1,6 +1,6 @@
-package agh.ics.oop;
+package agh.ics.oop.spells;
 
-public class AbstractSpell {
+abstract public class AbstractSpell {
     private int healthDamage;
     private int manaDamage;
 

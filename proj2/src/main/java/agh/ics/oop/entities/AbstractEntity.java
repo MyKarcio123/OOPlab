@@ -1,4 +1,8 @@
-package agh.ics.oop;
+package agh.ics.oop.entities;
+
+import agh.ics.oop.items.AbstractWeapon;
+import agh.ics.oop.Vector2d;
+import agh.ics.oop.spells.AbstractSpell;
 
 import java.util.ArrayList;
 
