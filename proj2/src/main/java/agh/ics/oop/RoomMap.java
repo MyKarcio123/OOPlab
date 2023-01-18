@@ -1,5 +1,8 @@
 package agh.ics.oop;
 
+import agh.ics.oop.graphAlgorithms.DelonayTriangulation;
+import com.sun.javafx.collections.MappingChange;
+
 import java.util.*;
 
 public class RoomMap {
@@ -7,13 +10,15 @@ public class RoomMap {
     private final Map<Vector2d,Integer> numMap = new HashMap<>();
     private final Vector2d lowerLeft = new Vector2d(0,0);
     private final List<Vector2d> position = new ArrayList<>();
+    private final List<Vector2d> centers = new ArrayList<>();
     private final Vector2d upperRight;
     private final int roomAmount;
+
 
     // zakładam że funkcja zależności poziomu od ilości pomieszczeń powinna mieć przyrost maksymalnie liniowy
     public RoomMap(int level){
         roomAmount = (int)Math.ceil((3.1*level+2.5));
-        int mapSize = roomAmount*6;
+        int mapSize = roomAmount*4;
         upperRight = new Vector2d(mapSize+2,mapSize+2);
         for(int i=2;i<mapSize-2;++i){
             for(int j=2;j<mapSize-2;++j){
@@ -22,9 +27,13 @@ public class RoomMap {
         }
         Collections.shuffle(position);
         GenerateRooms();
+        DelonayTriangulation triangulation = new DelonayTriangulation();
+        System.out.println(centers);
+        System.out.println(triangulation.DelonayTriangulation(centers));
     }
     private void GenerateRooms(){
-        Vector2d[] moves = {new Vector2d(2,2),new Vector2d(-2,2),new Vector2d(-2,-2),new Vector2d(2,-2)};
+        Vector2d[] moves = {new Vector2d(2,2),new Vector2d(-2,2),new Vector2d(-2,-2),new Vector2d(2,-2),
+                new Vector2d(2,0),new Vector2d(-2,0),new Vector2d(0,-2),new Vector2d(0,2)};
         for(int i=0;i<roomAmount;++i){
             boolean goodPosition = true;
             do{
@@ -46,11 +55,15 @@ public class RoomMap {
     }
     private void fillRoomInMap(Vector2d center){
         levelMap.put(center,new Room());
+        centers.add(center);
         for(int k=center.getX()-1;k<=center.getX()+1;++k){
             for(int l=center.getY()-1;l<=center.getY()+1;++l){
                 numMap.put(new Vector2d(k,l),1);
             }
         }
+    }
+    private void makeGraph(){
+
     }
 
 }

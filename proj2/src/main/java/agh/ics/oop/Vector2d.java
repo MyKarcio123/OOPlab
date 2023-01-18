@@ -3,17 +3,17 @@ package agh.ics.oop;
 import java.util.Objects;
 
 public class Vector2d {
-    private final int x;
-    private final int y;
+    private final float x;
+    private final float y;
 
-    public Vector2d(int x, int y) {
+    public Vector2d(float x, float y) {
         this.x = x;
         this.y = y;
     }
 
     @Override
     public String toString() {
-        return "(%d,%d)".formatted(x, y);
+        return "("+(int)x+","+(int)y+")";
     }
 
     public boolean precedes(Vector2d other) {
@@ -43,15 +43,19 @@ public class Vector2d {
     public Vector2d opposite() {
         return new Vector2d(-x, -y);
     }
+    public float distance(Vector2d v1){
+        return (float) Math.sqrt(Math.pow(this.x- v1.getX(),2) + Math.pow(this.y-v1.getY(),2));
+    }
+    public float sqrMagnitude(){
+        return (float) x*x+y*y;
+    }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        Vector2d that = (Vector2d) o;
-        return x == that.x && y == that.y;
+    public boolean equals(Object other) {
+        if (other instanceof Vector2d vector2dOther) {
+            return (x == vector2dOther.x && y == vector2dOther.y);
+        }
+        return false;
     }
 
     @Override
@@ -60,10 +64,16 @@ public class Vector2d {
     }
 
     public int getX() {
+        return (int)x;
+    }
+    public float getFX() {
         return x;
     }
 
     public int getY() {
+        return (int)y;
+    }
+    public float getFY() {
         return y;
     }
 }
