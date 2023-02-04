@@ -34,12 +34,9 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -47,7 +44,6 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
 <VBox minHeight="622.0" minWidth="699.0" prefHeight="622.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.ics.oop.gui.MainMenuController">
     <children>
@@ -71,134 +67,9 @@
                                     </columnConstraints>
                                     <rowConstraints>
                                         <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                        <RowConstraints minHeight="30.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                     </rowConstraints>
                                     <children>
-                                        <TextField fx:id="grassAmountField" promptText="Liczba roślin" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                        <Label text="Wymiary mapy wysokość x szerokość" GridPane.rowIndex="1" />
-                                        <Label text="Wariant mapy" GridPane.rowIndex="2" />
-                                        <Label text="Startowa liczba roślin" GridPane.rowIndex="3" />
-                                        <Label text="Energia zapewniania przez rośline" GridPane.rowIndex="4" />
-                                        <Label text="Liczba roślin rosnących każdego dnia" GridPane.rowIndex="5" />
-                                        <Label text="Wariant wzrostu" GridPane.rowIndex="6" />
-                                        <Label text="Startowa liczba zwierząt" GridPane.rowIndex="7" />
-                                        <Label text="Startowa energia zwierząt" GridPane.rowIndex="8" />
-                                        <Label text="Energia konieczna do najedzenia" GridPane.rowIndex="9" />
-                                        <Label text="Energia zużywana do kopulacji" GridPane.rowIndex="10" />
-                                        <Label text="Minimalna liczba mutacji potmoka" GridPane.rowIndex="11" />
-                                        <Label text="Maksymalna liczba mutacji potomka" GridPane.rowIndex="12" />
-                                        <Label text="Wariant mutacji" GridPane.rowIndex="13" />
-                                        <Label text="Długość gemonu zwierzaka" GridPane.rowIndex="14" />
-                                        <Label prefWidth="171.0" text="Wariant zachowania zwierzaków" GridPane.rowIndex="15" />
-                                        <TextField fx:id="energyFromGrassField" promptText="Energia od rośliny" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                        <TextField fx:id="grassPerDayField" promptText="Liczba wzrostu roślin" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                        <TextField fx:id="startingAnimalField" promptText="Startowa liczba zwierząt" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                        <TextField fx:id="startingEnergyField" promptText="Startowa energia zwierząt" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                        <TextField fx:id="energyNeededField" promptText="Energia koniecznia do najedzenia" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                                        <TextField fx:id="energyCopulationField" promptText="Energia zużywana do kopulacji" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-                                        <TextField fx:id="minMutationField" promptText="Minimalna lczba mutacji" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-                                        <TextField fx:id="maxMutationField" promptText="Maksymalna liczba mutacji" GridPane.columnIndex="1" GridPane.rowIndex="12" />
-                                        <TextField fx:id="genomeLengthField" promptText="Długość genomu" GridPane.columnIndex="1" GridPane.rowIndex="14" />
-                                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <TextField fx:id="heighField" prefHeight="28.0" prefWidth="105.0" promptText="Wysokość" />
-                                                <TextField fx:id="widthField" prefHeight="28.0" prefWidth="104.0" promptText="Szerokość" GridPane.columnIndex="1" />
-                                            </children>
-                                        </GridPane>
-                                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <RadioButton fx:id="earthVariant" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="kula ziemska" wrapText="true">
-                                                    <toggleGroup>
-                                                        <ToggleGroup fx:id="planetRadio" />
-                                                    </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="hellVariant" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="piekelny portal" toggleGroup="$planetRadio" wrapText="true" GridPane.columnIndex="1" />
-                                            </children>
-                                        </GridPane>
-                                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="13">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <RadioButton fx:id="randomVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="28.0" prefWidth="105.0" selected="true" text="pełna losowość" wrapText="true">
-                                                    <toggleGroup>
-                                                        <ToggleGroup fx:id="mutationRadio" />
-                                                    </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="correctionVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="28.0" prefWidth="104.0" text="lekka korekta" toggleGroup="$mutationRadio" wrapText="true" GridPane.columnIndex="1" />
-                                            </children>
-                                        </GridPane>
-                                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="6">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <RadioButton fx:id="goodVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="zalesione równiki" wrapText="true">
-                                                    <toggleGroup>
-                                                        <ToggleGroup fx:id="growthRadio" />
-                                                    </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="toxicVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="toksyczne trupy" toggleGroup="$growthRadio" wrapText="true" GridPane.columnIndex="1" />
-                                    <RadioButton fx:id="biomesVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="biomy" toggleGroup="$growthRadio" wrapText="true" GridPane.columnIndex="2" />
-                                            </children>
-                                        </GridPane>
-                                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="15">
-                                            <columnConstraints>
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                            </columnConstraints>
-                                            <rowConstraints>
-                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                            </rowConstraints>
-                                            <children>
-                                                <RadioButton fx:id="fullControlVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" selected="true" text="pełna predystynacja" wrapText="true">
-                                                    <toggleGroup>
-                                                        <ToggleGroup fx:id="reactionRadio" />
-                                                    </toggleGroup>
-                                                </RadioButton>
-                                                <RadioButton fx:id="bitOfRandomVariant" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="nieco szaleństwa" toggleGroup="$reactionRadio" wrapText="true" GridPane.columnIndex="1" />
-                                            </children>
-                                        </GridPane>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ustawienia symulacji" />
-                                        <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="366.0" GridPane.columnIndex="1" GridPane.rowIndex="16">
+                                        <HBox alignment="CENTER_LEFT" prefHeight="31.0" prefWidth="366.0" GridPane.columnIndex="1">
                                             <children>
                                                 <Button fx:id="saveToFile" mnemonicParsing="false" onAction="#onSaveFileButtonClick" prefHeight="25.0" prefWidth="105.0" text="Zapisz do pliku" wrapText="true">
                                                     <HBox.margin>
@@ -215,7 +86,7 @@
                                                 <Insets top="2.0" />
                                             </GridPane.margin>
                                         </HBox>
-                                        <HBox alignment="CENTER" prefHeight="33.0" prefWidth="115.0" GridPane.rowIndex="16">
+                                        <HBox alignment="CENTER" prefHeight="33.0" prefWidth="115.0">
                                             <children>
                                                 <TextField fx:id="configurationName" promptText="Nazwa Konfiguracji">
                                                     <HBox.margin>
@@ -228,7 +99,6 @@
                                                 <Insets top="2.0" />
                                             </GridPane.margin>
                                         </HBox>
-                              <CheckBox fx:id="saveStillToCSV" mnemonicParsing="false" text="Zapisuj ciągle do CSV" GridPane.columnIndex="1" />
                                     </children>
                                     <padding>
                                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
