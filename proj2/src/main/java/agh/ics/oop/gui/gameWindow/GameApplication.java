@@ -1,6 +1,7 @@
 package agh.ics.oop.gui.gameWindow;
 
 import agh.ics.oop.Game;
+import agh.ics.oop.rooms.RoomMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -24,5 +25,7 @@ public class GameApplication extends Application {
         primaryStage.setTitle("DungeonRPG");
         primaryStage.setScene(scene);
         primaryStage.show();
+        GameController gameController = fxmlLoader.getController();
+        gameController.makeMiniMap(new RoomMap(1));
     }
 }

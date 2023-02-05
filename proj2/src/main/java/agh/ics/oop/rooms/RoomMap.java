@@ -1,5 +1,6 @@
 package agh.ics.oop.rooms;
 
+import agh.ics.oop.RoomType;
 import agh.ics.oop.Vector2d;
 import agh.ics.oop.graphAlgorithms.AStar;
 import agh.ics.oop.graphAlgorithms.DelonayTriangulation;
@@ -11,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class RoomMap {
     private final Map<Vector2d,Room> levelMap = new HashMap<>();
-    private Map<Vector2d,Integer> numMap = new HashMap<>();
+    private Map<Vector2d, RoomType> numMap = new HashMap<>();
     private final Vector2d lowerLeft = new Vector2d(0,0);
     private final List<Vector2d> position = new ArrayList<>();
     private final List<Vector2d> centers = new ArrayList<>();
@@ -37,19 +38,18 @@ public class RoomMap {
         Collections.shuffle(position);
         GenerateRooms();
         DelonayTriangulation triangulation = new DelonayTriangulation();
-        System.out.println(centers);
         List<Edge> edges = triangulation.DelonayTriangulation(centers);
         List<Edge> newEdges = MST.Kruskal(edges,roomAmount,centers);
         List<Edge> deletes = new ArrayList<>(edges.stream().filter(element -> !newEdges.contains(element)).toList());
         Collections.shuffle(deletes);
         int deleteSize = deletes.size();
-        deletes = deletes.subList(0,(int)(Math.ceil(deleteSize*0.3)));
+        deletes = deletes.subList(0,(int)(Math.ceil(deleteSize*0.3))+1);
         newEdges.addAll(deletes);
         makeGraph(newEdges);
         numMap = AStar.AStar(newEdges,numMap,upperRight);
-        System.out.println(numMap);
     }
     private void GenerateRooms(){
+        int iter = 0;
         Vector2d[] moves = {new Vector2d(2,2),new Vector2d(-2,2),new Vector2d(-2,-2),new Vector2d(2,-2),
                 new Vector2d(2,0),new Vector2d(-2,0),new Vector2d(0,-2),new Vector2d(0,2)};
         for(int i=0;i<roomAmount;++i){
@@ -65,18 +65,30 @@ public class RoomMap {
                     }
                 }
                 if(goodPosition){
-                    fillRoomInMap(possiblePlace);
+                    fillRoomInMap(possiblePlace,iter);
+                    iter+=1;
                 }
                 position.remove(0);
             }while(!goodPosition);
         }
     }
-    private void fillRoomInMap(Vector2d center){
+    private void fillRoomInMap(Vector2d center,int iter){
+        RoomType currentType = RoomType.ROOM;
+        if(iter==0) currentType = RoomType.BOSS;
+        else if(iter==1) currentType = RoomType.SHOP;
         levelMap.put(center,new Room());
         centers.add(center);
         for(int k=center.getX()-1;k<=center.getX()+1;++k){
             for(int l=center.getY()-1;l<=center.getY()+1;++l){
-                numMap.put(new Vector2d(k,l),1);
+                if(k!=center.getX() && l!=center.getY()){
+                    numMap.put(new Vector2d(k,l),RoomType.UNWALKABLE);
+                }
+                else if(k==center.getX() && l== center.getY()){
+                    numMap.put(new Vector2d(k,l),RoomType.UNWALKABLE);
+                }
+                else {
+                    numMap.put(new Vector2d(k, l), currentType);
+                }
             }
         }
     }
@@ -89,5 +101,11 @@ public class RoomMap {
         }
 
     }
+    public void movePlayer(){
 
+    }
+    public RoomType haveRoom(Vector2d position){
+        if(!numMap.containsKey(position)) return RoomType.UNWALKABLE;
+        return numMap.get(position);
+    }
 }

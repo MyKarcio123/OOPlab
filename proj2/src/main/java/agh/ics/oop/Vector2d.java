@@ -39,7 +39,9 @@ public class Vector2d {
     public Vector2d lowerLeft(Vector2d other) {
         return new Vector2d(Math.min(x, other.x), Math.min(y, other.y));
     }
-
+    public Vector2d abs(){
+        return new Vector2d(Math.abs(this.x),Math.abs(this.y));
+    }
     public Vector2d opposite() {
         return new Vector2d(-x, -y);
     }
