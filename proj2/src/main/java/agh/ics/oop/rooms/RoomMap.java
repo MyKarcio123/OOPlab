@@ -20,6 +20,10 @@ public class RoomMap {
     private final int roomAmount;
     private final int mapSize;
 
+    public int getMapSize() {
+        return mapSize;
+    }
+
     // zakładam że funkcja zależności poziomu od ilości pomieszczeń powinna mieć przyrost maksymalnie liniowy
     public RoomMap(int level){
         roomAmount = (int)Math.ceil((3.1*level+2.5));
