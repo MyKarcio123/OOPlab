@@ -22,7 +22,10 @@ class pqElement implements Comparable<pqElement>{
 public class AStar {
     public static Map<Vector2d,RoomType> AStar(List<Edge> edgeList, Map<Vector2d, RoomType> numMap, Vector2d upperBound){
         System.out.println(edgeList);
+        Random rand = new Random();
         for(Edge edge : edgeList){
+            float wage = (float) rand.nextInt(0,11)/10;
+            System.out.println(wage);
             Map<Vector2d,Vector2d> visited = new HashMap<>();
             Vector2d to = edge.v;
             Vector2d from = edge.u;
@@ -38,7 +41,7 @@ public class AStar {
                     Vector2d check = current.add(move);
                     if(!(check.upperRight(upperBound).equals(upperBound) && check.lowerLeft(new Vector2d(0, 0)).equals(new Vector2d(0, 0)))) continue;
                     if(!visited.containsKey(check) && numMap.getOrDefault(check,RoomType.CORRIDOR)!=RoomType.UNWALKABLE){
-                        if(numMap.containsKey(check)) queue.add(new pqElement(check,(float)(value+(mannhatanDistance(check,to)*0.2))));
+                        if(numMap.containsKey(check)) queue.add(new pqElement(check,(float)(value+(mannhatanDistance(check,to)*wage))));
                         else queue.add(new pqElement(check,value+1+mannhatanDistance(check,to)));
                         visited.put(check,current);
                     }
