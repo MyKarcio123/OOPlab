@@ -5,6 +5,7 @@ public enum RoomType {
     CORRIDOR,
     SHOP,
     ROOM,
+    PLAYER,
     UNWALKABLE;
 
     @Override
@@ -14,6 +15,7 @@ public enum RoomType {
             case CORRIDOR -> "#808080";
             case SHOP -> "#FFD700";
             case ROOM -> "#000000";
+            case PLAYER -> "#0000FF";
             case UNWALKABLE -> "xd";
         };
     }

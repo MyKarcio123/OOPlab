@@ -20,6 +20,8 @@ public class RoomMap {
     private float[][] mapGraph;
     private final int roomAmount;
     private final int mapSize;
+    private Vector2d bossRoom;
+    private Vector2d playerPos;
 
     public int getMapSize() {
         return mapSize;
@@ -47,6 +49,27 @@ public class RoomMap {
         newEdges.addAll(deletes);
         makeGraph(newEdges);
         numMap = AStar.AStar(newEdges,numMap,upperRight);
+        putPlayer();
+
+    }
+    private void putPlayer(){
+        float distance = 0;
+        Vector2d localPlayer = new Vector2d(0,0);
+        for(Vector2d center : centers){
+            float newDistance = calculateDistance(center,bossRoom);
+            if(newDistance>distance){
+                distance = newDistance;
+                localPlayer = center;
+            }
+        }
+        Vector2d[] moves = {new Vector2d(2,0),new Vector2d(-2,0),new Vector2d(0,-2),new Vector2d(0,2)};
+        for(Vector2d move : moves){
+            if(numMap.getOrDefault(localPlayer.add(move),RoomType.UNWALKABLE)==RoomType.CORRIDOR){
+                playerPos=localPlayer.add(move);
+                numMap.replace(playerPos,RoomType.PLAYER);
+                break;
+            }
+        }
     }
     private void GenerateRooms(){
         int iter = 0;
@@ -74,7 +97,10 @@ public class RoomMap {
     }
     private void fillRoomInMap(Vector2d center,int iter){
         RoomType currentType = RoomType.ROOM;
-        if(iter==0) currentType = RoomType.BOSS;
+        if(iter==0) {
+            currentType = RoomType.BOSS;
+            bossRoom = center;
+        }
         else if(iter==1) currentType = RoomType.SHOP;
         levelMap.put(center,new Room());
         centers.add(center);
@@ -107,5 +133,8 @@ public class RoomMap {
     public RoomType haveRoom(Vector2d position){
         if(!numMap.containsKey(position)) return RoomType.UNWALKABLE;
         return numMap.get(position);
+    }
+    private float calculateDistance(Vector2d from, Vector2d to){
+        return (float)(Math.pow((from.getX()-to.getX()),2)+Math.pow((from.getY()-to.getY()),2));
     }
 }
