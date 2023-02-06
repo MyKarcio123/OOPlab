@@ -4,9 +4,10 @@ package agh.ics.oop.gui.choseCharacter;
 
 
 import agh.ics.oop.engine.GameEngine;
-import agh.ics.oop.entities.AbstractEntity;
-import agh.ics.oop.entities.Mag;
+import agh.ics.oop.entities.Archer;
+import agh.ics.oop.entities.Magus;
 import agh.ics.oop.entities.Player;
+import agh.ics.oop.entities.Warrior;
 import agh.ics.oop.gui.IWindow;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -67,12 +68,12 @@ public class ChoseCharacterApplication  implements IWindow {
             character= 3;
         });
         choseCharacterController.getStartButton().setOnAction(event -> {
-            Player chosenCharacter;
+            Player chosenCharacter = null;
             switch (character){
-                case 1 -> chosenCharacter = new Mag;
-                case 2 -> ;
-                case 3 -> ;
-                default -> ;
+                case 1 -> chosenCharacter = new Magus();
+                case 2 -> chosenCharacter = new Warrior();
+                case 3 -> chosenCharacter = new Archer();
+                default -> System.out.println("nie wybrano postaci");
             }
         });
 
