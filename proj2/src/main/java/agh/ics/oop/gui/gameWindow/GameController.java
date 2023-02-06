@@ -2,23 +2,11 @@ package agh.ics.oop.gui.gameWindow;
 
 import agh.ics.oop.RoomType;
 import agh.ics.oop.Vector2d;
-import agh.ics.oop.gui.IMainMenuControllerObserver;
-import agh.ics.oop.gui.MainMenuMethods;
-import agh.ics.oop.rooms.Room;
 import agh.ics.oop.rooms.RoomMap;
 import javafx.fxml.FXML;
 import javafx.geometry.HPos;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.stage.FileChooser;
-
-import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import static javafx.scene.layout.GridPane.setHgrow;
 import static javafx.scene.layout.GridPane.setVgrow;
