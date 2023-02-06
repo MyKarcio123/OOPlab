@@ -138,7 +138,7 @@ public class RoomMap {
         }
         RoomType newType = numMap.getOrDefault(playerPos.add(moveVector),RoomType.UNWALKABLE);
         if(newType!=RoomType.UNWALKABLE){
-            if(lastType == RoomType.ROOM || lastType == RoomType.SHOP || lastType == RoomType.BOSS){
+            if(lastType.isRoom()){
                 newType = numMap.getOrDefault(playerPos.add(moveVector).add(moveVector),RoomType.UNWALKABLE);
                 if(newType==RoomType.UNWALKABLE) return;
                 fillSquare(playerPos,lastType);
@@ -147,7 +147,7 @@ public class RoomMap {
                 numMap.replace(playerPos,lastType);
             }
             playerPos = playerPos.add(moveVector);
-            if(newType == RoomType.ROOM || newType == RoomType.SHOP || newType == RoomType.BOSS){
+            if(newType.isRoom()){
                 playerPos = playerPos.add(moveVector);
                 fillSquare(playerPos,RoomType.PLAYER);
             }else{

@@ -232,21 +232,20 @@ public class GameController {
         ImageView[] rightDoors = {Dfrw,Dsrw,Dtrw,Dfourthrw};
         boolean firstFlag = false;
         boolean secondFlag = false;
+        boolean doorFlag = false;
         String name = "file:src/main/resources/";
         String[] names = {"f","s","t","fourth"};
-        System.out.println(playerCoords + "  " + leftPos);
         Vector2d[] vector2ds = {startLeftCheck,startRightCheck};
         int iter=0;
         for(Vector2d vec : vector2ds) {
             Vector2d current = vec;
             for (int i = 3; i >= 0; --i) {
-                System.out.println(current + "  " + playerVector);
                 name = names[i] + "lw";
                 if (roomMap.getRoomTypeAt(current) != RoomType.CORRIDOR) {
                     name += ".png";
                     if(iter==0) {
                         leftWalls[i].setImage(new Image(name));
-                        if(roomMap.getRoomTypeAt(current) == RoomType.ROOM){
+                        if(roomMap.getRoomTypeAt(current)!=null && roomMap.getRoomTypeAt(current).isRoom()){
                             leftDoors[i].setOpacity(1);
                             leftDoors[i].setImage(new Image("Dl"+name));
                             activeDoors.add(leftDoors[i]);
@@ -254,7 +253,7 @@ public class GameController {
                     }
                     else {
                         rightWalls[i].setImage(new Image(name));
-                        if(roomMap.getRoomTypeAt(current) == RoomType.ROOM){
+                        if(roomMap.getRoomTypeAt(current) != null && roomMap.getRoomTypeAt(current).isRoom()){
                             rightDoors[i].setOpacity(1);
                             rightDoors[i].setImage(new Image("Dl"+name));
                             activeDoors.add(rightDoors[i]);
@@ -264,6 +263,7 @@ public class GameController {
                     continue;
                 }
                 if (roomMap.getRoomTypeAt(current.add(playerVector)) == RoomType.CORRIDOR) firstFlag = true;
+                if (roomMap.getRoomTypeAt(current.add(playerVector)) != null && roomMap.getRoomTypeAt(current.add(playerVector)).isRoom()) doorFlag = true;
                 Vector2d bodyVector = leftPos;
                 if(iter==1){
                     bodyVector=rightPos;
@@ -275,12 +275,25 @@ public class GameController {
                 else if (!firstFlag && !secondFlag) name += "Closed";
 
                 name += ".png";
-                if(iter==0) leftWalls[i].setImage(new Image(name));
-                else rightWalls[i].setImage(new Image(name));
+                String doorsName = "D" + names[i] + "lw.png";
+                if(iter==0) {leftWalls[i].setImage(new Image(name));
+                    if(doorFlag) {
+                        leftDoors[i].setOpacity(1);
+                        leftDoors[i].setImage(new Image(doorsName));
+                        activeDoors.add(leftDoors[i]);
+                    }
+                }
+                else {rightWalls[i].setImage(new Image(name));
+                    if(doorFlag) {
+                        rightDoors[i].setOpacity(1);
+                        rightDoors[i].setImage(new Image(doorsName));
+                        activeDoors.add(rightDoors[i]);
+                    }
+                }
                 current = current.substract(playerVector);
-                System.out.println(startLeftCheck + " H " + playerVector);
                 firstFlag = false;
                 secondFlag = false;
+                doorFlag = false;
             }
             iter++;
         }
@@ -289,7 +302,7 @@ public class GameController {
                 backwall.setOpacity(1);
                 name=names[i]+"bw.png";
                 backwall.setImage(new Image(name));
-                if(roomMap.getRoomTypeAt(playerCoords.add(playerVector))==RoomType.ROOM){
+                if(roomMap.getRoomTypeAt(playerCoords.add(playerVector)) != null && roomMap.getRoomTypeAt(playerCoords.add(playerVector)).isRoom()){
                     Dbackwall.setOpacity(1);
                     Dbackwall.setImage(new Image("D"+name));
                 }else{Dbackwall.setOpacity(0);}
