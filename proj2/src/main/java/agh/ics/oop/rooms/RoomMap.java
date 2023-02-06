@@ -1,14 +1,15 @@
 package agh.ics.oop.rooms;
 
+import agh.ics.oop.Direction;
 import agh.ics.oop.RoomType;
 import agh.ics.oop.Vector2d;
+import agh.ics.oop.entities.Player;
 import agh.ics.oop.graphAlgorithms.AStar;
 import agh.ics.oop.graphAlgorithms.DelonayTriangulation;
 import agh.ics.oop.graphAlgorithms.Edge;
 import agh.ics.oop.graphAlgorithms.MST;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class RoomMap {
     private final Map<Vector2d,Room> levelMap = new HashMap<>();
@@ -22,6 +23,8 @@ public class RoomMap {
     private final int mapSize;
     private Vector2d bossRoom;
     private Vector2d playerPos;
+    private RoomType lastType = RoomType.CORRIDOR;
+    private Player player;
 
     public int getMapSize() {
         return mapSize;
@@ -37,6 +40,9 @@ public class RoomMap {
                 position.add(new Vector2d(i,j));
             }
         }
+        prepareDungeon();
+    }
+    private void prepareDungeon(){
         Collections.shuffle(position);
         GenerateRooms();
         DelonayTriangulation triangulation = new DelonayTriangulation();
@@ -50,7 +56,6 @@ public class RoomMap {
         makeGraph(newEdges);
         numMap = AStar.AStar(newEdges,numMap,upperRight);
         putPlayer();
-
     }
     private void putPlayer(){
         float distance = 0;
@@ -67,9 +72,14 @@ public class RoomMap {
             if(numMap.getOrDefault(localPlayer.add(move),RoomType.UNWALKABLE)==RoomType.CORRIDOR){
                 playerPos=localPlayer.add(move);
                 numMap.replace(playerPos,RoomType.PLAYER);
+                player.setPosition(playerPos);
                 break;
             }
         }
+    }
+    private void updateVisibility(Vector2d center){
+        Vector2d[] moves = {new Vector2d(1,0),new Vector2d(-21,0),new Vector2d(0,-1),new Vector2d(0,1)};
+
     }
     private void GenerateRooms(){
         int iter = 0;
@@ -104,19 +114,7 @@ public class RoomMap {
         else if(iter==1) currentType = RoomType.SHOP;
         levelMap.put(center,new Room());
         centers.add(center);
-        for(int k=center.getX()-1;k<=center.getX()+1;++k){
-            for(int l=center.getY()-1;l<=center.getY()+1;++l){
-                if(k!=center.getX() && l!=center.getY()){
-                    numMap.put(new Vector2d(k,l),RoomType.UNWALKABLE);
-                }
-                else if(k==center.getX() && l== center.getY()){
-                    numMap.put(new Vector2d(k,l),RoomType.UNWALKABLE);
-                }
-                else {
-                    numMap.put(new Vector2d(k, l), currentType);
-                }
-            }
-        }
+        fillSquare(center,currentType);
     }
     private void makeGraph(List<Edge> edges){
         mapGraph = new float[mapSize][mapSize];
@@ -127,8 +125,47 @@ public class RoomMap {
         }
 
     }
-    public void movePlayer(){
+    public void movePlayer(Direction dir){
+        Direction currentDir = player.getDir();
+        Vector2d moveVector = dir.toUnitVector();
+        for(int i=0;i<currentDir.ordinal();++i){
+            moveVector=moveVector.rotRight();
+        }
+        RoomType newType = numMap.getOrDefault(playerPos.add(moveVector),RoomType.UNWALKABLE);
+        if(newType!=RoomType.UNWALKABLE){
+            if(lastType == RoomType.ROOM){
+                fillSquare(playerPos,lastType);
+            }else{
+                numMap.replace(playerPos,lastType);
+            }
+            playerPos = playerPos.add(moveVector);
+            if(newType == RoomType.ROOM){
+                playerPos = playerPos.add(moveVector);
+                fillSquare(playerPos,newType);
+            }else{
+                numMap.replace(playerPos,newType);
+            }
+            lastType=newType;
+        }
 
+    }
+    private void fillSquare(Vector2d center, RoomType type){
+        for(int k=center.getX()-1;k<=center.getX()+1;++k){
+            for(int l=center.getY()-1;l<=center.getY()+1;++l){
+                if(k!=center.getX() && l!=center.getY()){
+                    if(numMap.containsKey(new Vector2d(k,l))){numMap.replace(new Vector2d(k,l),RoomType.UNWALKABLE);}
+                    else numMap.put(new Vector2d(k,l),RoomType.UNWALKABLE);
+                }
+                else if(k==center.getX() && l== center.getY()){
+                    if(numMap.containsKey(new Vector2d(k,l))){numMap.replace(new Vector2d(k,l),RoomType.UNWALKABLE);}
+                    else numMap.put(new Vector2d(k,l),RoomType.UNWALKABLE);
+                }
+                else {
+                    if(numMap.containsKey(new Vector2d(k,l))){numMap.replace(new Vector2d(k, l), type);}
+                    else numMap.put(new Vector2d(k, l), type);
+                }
+            }
+        }
     }
     public RoomType haveRoom(Vector2d position){
         if(!numMap.containsKey(position)) return RoomType.UNWALKABLE;
