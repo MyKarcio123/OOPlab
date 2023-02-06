@@ -42,9 +42,6 @@ public class Vector2d {
     public Vector2d abs(){
         return new Vector2d(Math.abs(this.x),Math.abs(this.y));
     }
-    public Vector2d rotRight(){
-        return new Vector2d(this.y * -1,this.x );
-    }
     public Vector2d opposite() {
         return new Vector2d(-x, -y);
     }

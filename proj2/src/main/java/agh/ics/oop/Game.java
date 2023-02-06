@@ -12,7 +12,7 @@ public class Game {
     public int getMapSize(){
         return currentMap.getMapSize();
     }
-    public void movePlayer(Direction dir){
-        currentMap.movePlayer(dir);
+    public void movePlayer(){
+        currentMap.movePlayer();
     }
 }
