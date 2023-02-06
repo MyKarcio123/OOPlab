@@ -10,14 +10,17 @@ abstract public class AbstractEntity {
     private Vector2d position;
     private float health;
     private float mana;
-    private final float maxHealth;
-    private final float maxMana;
+    private  float maxHealth;
+    private  float maxMana;
     protected AbstractWeapon weapon;
     private ArrayList<AbstractSpell> spellList;
     private int weaponAttackStat;
     private int spellAttackStat;
     private int speedStat;
     private int damageStat;
+    public AbstractEntity(float health){
+        this.health = health;
+    }
 
     public AbstractEntity(float health, float mana, float maxHealth, float maxMana, AbstractWeapon weapon,
                          ArrayList<AbstractSpell> spellList, int weaponAttack, int spellAttack, int speed) {

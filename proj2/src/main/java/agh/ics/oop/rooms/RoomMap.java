@@ -8,6 +8,7 @@ import agh.ics.oop.graphAlgorithms.AStar;
 import agh.ics.oop.graphAlgorithms.DelonayTriangulation;
 import agh.ics.oop.graphAlgorithms.Edge;
 import agh.ics.oop.graphAlgorithms.MST;
+import agh.ics.oop.gui.gameWindow.GameController;
 
 import java.util.*;
 
@@ -25,13 +26,17 @@ public class RoomMap {
     private Vector2d playerPos;
     private RoomType lastType = RoomType.CORRIDOR;
     private Player player;
+    //ZROBIĆ OBSERVERA
+    private GameController controller;
 
     public int getMapSize() {
         return mapSize;
     }
 
     // zakładam że funkcja zależności poziomu od ilości pomieszczeń powinna mieć przyrost maksymalnie liniowy
-    public RoomMap(int level){
+    public RoomMap(int level, Player player, GameController controller){
+        this.player = player;
+        this.controller = controller;
         roomAmount = (int)Math.ceil((3.1*level+2.5));
         mapSize = roomAmount*4;
         upperRight = new Vector2d(mapSize+2,mapSize+2);
@@ -133,21 +138,24 @@ public class RoomMap {
         }
         RoomType newType = numMap.getOrDefault(playerPos.add(moveVector),RoomType.UNWALKABLE);
         if(newType!=RoomType.UNWALKABLE){
-            if(lastType == RoomType.ROOM){
+            if(lastType == RoomType.ROOM || lastType == RoomType.SHOP || lastType == RoomType.BOSS){
+                newType = numMap.getOrDefault(playerPos.add(moveVector).add(moveVector),RoomType.UNWALKABLE);
+                if(newType==RoomType.UNWALKABLE) return;
                 fillSquare(playerPos,lastType);
+                playerPos = playerPos.add(moveVector);
             }else{
                 numMap.replace(playerPos,lastType);
             }
             playerPos = playerPos.add(moveVector);
-            if(newType == RoomType.ROOM){
+            if(newType == RoomType.ROOM || newType == RoomType.SHOP || newType == RoomType.BOSS){
                 playerPos = playerPos.add(moveVector);
-                fillSquare(playerPos,newType);
+                fillSquare(playerPos,RoomType.PLAYER);
             }else{
-                numMap.replace(playerPos,newType);
+                numMap.replace(playerPos,RoomType.PLAYER);
             }
             lastType=newType;
         }
-
+        player.setPosition(playerPos);
     }
     private void fillSquare(Vector2d center, RoomType type){
         for(int k=center.getX()-1;k<=center.getX()+1;++k){
@@ -173,5 +181,8 @@ public class RoomMap {
     }
     private float calculateDistance(Vector2d from, Vector2d to){
         return (float)(Math.pow((from.getX()-to.getX()),2)+Math.pow((from.getY()-to.getY()),2));
+    }
+    public RoomType getRoomTypeAt(Vector2d pos){
+        return numMap.getOrDefault(pos,null);
     }
 }

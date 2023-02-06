@@ -4,8 +4,18 @@ public enum Direction {
     NORTH,
     EAST,
     SOUTH,
-    WEST,
-    NONE;
+    WEST;
+
+    private static final Direction[] vals = values();
+
+    public Direction next() {
+        return vals[(this.ordinal() + 1) % vals.length];
+    }
+    public Direction previous() {
+        int value = this.ordinal() - 1 < 0 ? 3 : this.ordinal() - 1;
+        return vals[value];
+    }
+
 
     @Override
     public String toString() {

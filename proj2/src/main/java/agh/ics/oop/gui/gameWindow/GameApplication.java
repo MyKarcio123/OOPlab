@@ -1,6 +1,7 @@
 package agh.ics.oop.gui.gameWindow;
 
 import agh.ics.oop.Game;
+import agh.ics.oop.entities.Player;
 import agh.ics.oop.rooms.RoomMap;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,7 @@ public class GameApplication extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
         GameController gameController = fxmlLoader.getController();
-        gameController.makeMiniMap(new RoomMap(1));
+        Player player = new Player(1);
+        gameController.makeMiniMap(player,new RoomMap(1,player,gameController));
     }
 }
