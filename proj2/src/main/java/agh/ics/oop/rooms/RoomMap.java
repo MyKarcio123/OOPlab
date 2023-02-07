@@ -80,7 +80,7 @@ public class RoomMap {
                 playerPos=localPlayer.add(move);
                 numMap.replace(playerPos,RoomType.PLAYER);
                 player.setPosition(playerPos);
-                break;
+                return;
             }
         }
         for(Vector2d move : moves){
