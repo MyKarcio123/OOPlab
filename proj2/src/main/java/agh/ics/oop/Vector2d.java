@@ -1,6 +1,7 @@
 package agh.ics.oop;
 
 import java.util.Objects;
+import java.util.Vector;
 
 public class Vector2d {
     private final float x;
@@ -45,9 +46,13 @@ public class Vector2d {
     public Vector2d rotRight(){
         return new Vector2d(this.y * -1,this.x );
     }
+    public Vector2d multiplyByScalar(int scalar){
+        return new Vector2d(this.x*scalar,this.y*scalar);
+    }
     public Vector2d opposite() {
         return new Vector2d(-x, -y);
     }
+    public Vector2d yOpposite() {return new Vector2d(x,-y);}
     public float distance(Vector2d v1){
         return (float) Math.sqrt(Math.pow(this.x- v1.getX(),2) + Math.pow(this.y-v1.getY(),2));
     }
