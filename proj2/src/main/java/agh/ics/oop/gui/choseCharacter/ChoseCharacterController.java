@@ -5,9 +5,12 @@ import javafx.scene.control.Button;
 
 public class ChoseCharacterController {
     @FXML
-    private Button choseMag;
+    private Button choseMag;git
+    @FXML
     private Button choseWoj;
+    @FXML
     private Button choseLucznik;
+    @FXML
     private Button start;
 
     public Button getMagButton(){
