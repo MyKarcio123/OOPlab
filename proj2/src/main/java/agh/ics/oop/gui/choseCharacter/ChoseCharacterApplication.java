@@ -4,21 +4,23 @@ package agh.ics.oop.gui.choseCharacter;
 
 
 import agh.ics.oop.engine.GameEngine;
-import agh.ics.oop.entities.AbstractEntity;
-import agh.ics.oop.entities.Mag;
+import agh.ics.oop.entities.Archer;
+import agh.ics.oop.entities.Magus;
 import agh.ics.oop.entities.Player;
+import agh.ics.oop.entities.Warrior;
 import agh.ics.oop.gui.IWindow;
+import agh.ics.oop.gui.gameWindow.GameApplication;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class ChoseCharacterApplication  implements IWindow {
+public class ChoseCharacterApplication implements IWindow {
 
     private int gameNumber;
     private ChoseCharacterController choseCharacterController;
-    private int character=0;
+    private int character = 0;
 
     public void runApp(IWindow mainMenuApplication, Stage primaryStage) throws IOException {
         gameNumber = mainMenuApplication.getSimulationCounterAndAdd();
@@ -57,22 +59,29 @@ public class ChoseCharacterApplication  implements IWindow {
     public void start(Stage primaryStage) {
         primaryStage.show();
         choseCharacterController.prepareBackground();
-        choseCharacterController.getMagButton().setOnAction(event ->{
-            character= 1;
+        choseCharacterController.getMagButton().setOnAction(event -> {
+            character = 1;
         });
         choseCharacterController.getWojButton().setOnAction(event -> {
-            character=2;
+            character = 2;
         });
         choseCharacterController.getLucznikButton().setOnAction(event -> {
-            character= 3;
+            character = 3;
         });
         choseCharacterController.getStartButton().setOnAction(event -> {
-            Player chosenCharacter;
-            switch (character){
-                case 1 -> chosenCharacter = new Mag;
-                case 2 -> ;
-                case 3 -> ;
-                default -> ;
+            try {
+                Player chosenCharacter = null;
+                switch (character) {
+                    case 1 -> chosenCharacter = new Magus();
+                    case 2 -> chosenCharacter = new Warrior();
+                    case 3 -> chosenCharacter = new Archer();
+                    default -> System.out.println("nie wybrano postaci");
+                }
+                Stage stage = new Stage();
+                GameApplication gameApplication = new GameApplication();
+                gameApplication.runApp(stage, chosenCharacter);
+            } catch (IOException e) {
+                System.out.println("cos nie ten teges");
             }
         });
 

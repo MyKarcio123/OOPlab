@@ -40,7 +40,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox minHeight="622.0" minWidth="699.0" prefHeight="622.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.ics.oop.gui.startWindow.MainMenuController">
+<VBox minHeight="622.0" minWidth="699.0" prefHeight="622.0" prefWidth="699.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="agh.ics.oop.gui.choseCharacter.ChoseCharacterController">
     <children>
         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="480.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
          <children>
