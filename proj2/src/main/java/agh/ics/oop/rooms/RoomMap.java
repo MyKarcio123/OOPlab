@@ -65,10 +65,12 @@ public class RoomMap {
     private void putPlayer(){
         float distance = 0;
         Vector2d localPlayer = new Vector2d(0,0);
+        Vector2d secondOne = new Vector2d(0,0);
         for(Vector2d center : centers){
             float newDistance = calculateDistance(center,bossRoom);
             if(newDistance>distance){
                 distance = newDistance;
+                secondOne = localPlayer;
                 localPlayer = center;
             }
         }
@@ -81,6 +83,15 @@ public class RoomMap {
                 break;
             }
         }
+        for(Vector2d move : moves){
+            if(numMap.getOrDefault(secondOne.add(move),RoomType.UNWALKABLE)==RoomType.CORRIDOR){
+                playerPos=secondOne.add(move);
+                numMap.replace(playerPos,RoomType.PLAYER);
+                player.setPosition(playerPos);
+                break;
+            }
+        }
+
     }
     private void updateVisibility(Vector2d center){
         Vector2d[] moves = {new Vector2d(1,0),new Vector2d(-21,0),new Vector2d(0,-1),new Vector2d(0,1)};
